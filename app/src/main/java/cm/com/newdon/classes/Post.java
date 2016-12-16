@@ -1,7 +1,7 @@
 package cm.com.newdon.classes;
 
 /**
- * Created by costa on 16/12/16.
+ * Class represents one donation post
  */
 public class Post {
 }
