@@ -1,4 +1,4 @@
-package cm.com.newdon;
+package cm.com.newdon.common;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;

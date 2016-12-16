@@ -9,9 +9,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import cm.com.newdon.common.RestClient;
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void test(View view) {
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setBasicAuth("egenesis", "rhk@Wf54");
 
         RequestParams params = new RequestParams();
         params.put("email", "john_doe1@mail.com");
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(new String(response));
                             token = object.getString("token");
+                            System.out.println(token);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -63,6 +65,47 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }
+
+
+    public void test1(View view) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.setBasicAuth("egenesis", "rhk@Wf54");
+
+        RequestParams params = new RequestParams();
+        params.put("foundationId", 1);
+        params.put("amount", 10);
+
+
+        client.addHeader("token", token);
+
+
+        client.post("http://donation.s2.ideas-implemented.com/api/foundations/donate", params,
+                new AsyncHttpResponseHandler() {
+
+                    @Override
+                    public void onStart() {
+                        // called before request is started
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                        // called when response HTTP status is "200 OK"
+                        Toast.makeText(getApplicationContext(), new String(response), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                        System.out.println(errorResponse.toString());
+                    }
+
+                    @Override
+                    public void onRetry(int retryNo) {
+                        // called when request is retried
+                    }
+                });
+
+    }
+
 
     public void found(View view) {
 
@@ -83,6 +126,6 @@ public class MainActivity extends AppCompatActivity {
         RequestParams params = new RequestParams();
         params.put("token", token);
 
-        RestClient.get("foundations/get",params, handler);
+        RestClient.get("foundations/get", params, handler);
     }
 }

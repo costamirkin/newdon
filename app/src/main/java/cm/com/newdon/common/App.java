@@ -1,4 +1,4 @@
-package cm.com.newdon;
+package cm.com.newdon.common;
 
 import android.app.Application;
 
