@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottomBarHome"
+        android:icon="@android:drawable/ic_dialog_info"
+        android:title="" />
+    <item
+        android:id="@+id/bottomBarSearch"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="" />
+    <item
+        android:id="@+id/bottomBarDonate"
+        android:icon="@android:drawable/ic_dialog_info"
+        android:title="" />
+    <item
+        android:id="@+id/bottomBarNotification"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:title="" />
+    <item
+        android:id="@+id/bottomBarProfile"
+        android:icon="@android:drawable/ic_dialog_info"
+        android:title="" />
+</menu>

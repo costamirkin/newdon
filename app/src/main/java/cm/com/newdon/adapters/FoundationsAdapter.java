@@ -8,11 +8,11 @@ import android.widget.BaseAdapter;
 /**
  * Created by costa on 16/12/16.
  */
-public class FoundationsAdapters extends BaseAdapter {
+public class FoundationsAdapter extends BaseAdapter {
 
     private Context context;
 
-    public FoundationsAdapters(Context context) {
+    public FoundationsAdapter(Context context) {
         this.context = context;
     }
 

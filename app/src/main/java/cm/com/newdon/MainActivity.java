@@ -1,5 +1,6 @@
 package cm.com.newdon;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -127,5 +128,9 @@ public class MainActivity extends AppCompatActivity {
         params.put("token", token);
 
         RestClient.get("foundations/get", params, handler);
+    }
+
+    public void home(View view) {
+        startActivity(new Intent(this, BottomBarActivity.class));
     }
 }
