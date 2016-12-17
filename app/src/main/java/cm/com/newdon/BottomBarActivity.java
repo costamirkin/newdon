@@ -5,10 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarBadge;
 import com.roughike.bottombar.OnMenuTabSelectedListener;
+
+import cm.com.newdon.adapters.FoundationsAdapter;
+import cm.com.newdon.adapters.PostsAdapter;
 
 public class BottomBarActivity extends AppCompatActivity {
 
@@ -19,15 +23,42 @@ public class BottomBarActivity extends AppCompatActivity {
     private LinearLayout lNotification;
     private LinearLayout lProfile;
     private LinearLayout layouts[];
+    private PostsAdapter postsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottombar);
-
         setLayouts();
 
-//      Bottom bar
+        setupBottomBar(savedInstanceState);
+
+        postsAdapter = new PostsAdapter(getApplicationContext());
+        ListView postsLV = (ListView) lHome.findViewById(R.id.lvPosts);
+        postsLV.setAdapter(postsAdapter);
+
+    }
+
+    private void setLayouts(){
+        lHome = (LinearLayout) findViewById(R.id.homeLayout);
+        lSearch = (LinearLayout) findViewById(R.id.searchLayout);
+        lNotification = (LinearLayout) findViewById(R.id.notificationLayout);
+        lProfile = (LinearLayout) findViewById(R.id.profileLayout);
+        layouts = new LinearLayout[4];
+        layouts[0]=lHome;
+        layouts[1]=lSearch;
+        layouts[2]=lNotification;
+        layouts[3]=lProfile;
+    }
+
+    private void changeLayout(int layoutIndex){
+        for (int i = 0; i < layouts.length; i++) {
+            layouts[i].setVisibility(View.INVISIBLE);
+        }
+        layouts[layoutIndex].setVisibility(View.VISIBLE);
+    }
+
+    private void setupBottomBar(Bundle savedInstanceState){
         bottomBar = BottomBar.attach(this, savedInstanceState);
         bottomBar.setItemsFromMenu(R.menu.bottom_bar_menu, new OnMenuTabSelectedListener() {
             @Override
@@ -61,25 +92,5 @@ public class BottomBarActivity extends AppCompatActivity {
         // Control the badge's visibility
         unseenNotification.show();
         //unreadMessages.hide();
-
-    }
-
-    private void setLayouts(){
-        lHome = (LinearLayout) findViewById(R.id.homeLayout);
-        lSearch = (LinearLayout) findViewById(R.id.searchLayout);
-        lNotification = (LinearLayout) findViewById(R.id.notificationLayout);
-        lProfile = (LinearLayout) findViewById(R.id.profileLayout);
-        layouts = new LinearLayout[4];
-        layouts[0]=lHome;
-        layouts[1]=lSearch;
-        layouts[2]=lNotification;
-        layouts[3]=lProfile;
-    }
-
-    private void changeLayout(int layoutIndex){
-        for (int i = 0; i < layouts.length; i++) {
-            layouts[i].setVisibility(View.INVISIBLE);
-        }
-        layouts[layoutIndex].setVisibility(View.VISIBLE);
     }
 }
