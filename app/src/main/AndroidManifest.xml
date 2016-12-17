@@ -40,7 +40,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".SignAcitvity" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".BottomBarActivity" />
         <activity android:name=".Splash" />
         <activity android:name=".FoundationGrid" />
         <activity android:name=".DonateActivity"></activity>
