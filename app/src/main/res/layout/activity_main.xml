@@ -19,9 +19,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test"
+        android:text="login"
         android:id="@+id/button"
-        android:onClick="test"
+        android:onClick="login"
         android:layout_below="@+id/view"
         android:layout_alignLeft="@+id/view"
         android:layout_alignStart="@+id/view" />
@@ -29,7 +29,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FOUND"
+        android:text="test1"
         android:onClick="test1"
         android:id="@+id/button2"
         android:layout_below="@+id/button"
@@ -38,10 +38,19 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Home"
+        android:text="FOUND"
         android:id="@+id/button3"
-        android:onClick="home"
+        android:onClick="found"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/button2"
         android:layout_alignStart="@+id/button2" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView"
+        android:layout_below="@+id/button3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

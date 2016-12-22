@@ -14,11 +14,13 @@ public class RestClient  {
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.setBasicAuth("egenesis", "rhk@Wf54");
+        client.addHeader("Authorization", "Basic " + CommonData.getInstance().getToken());
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.setBasicAuth("egenesis", "rhk@Wf54");
+        client.addHeader("Authorization", "Basic " + CommonData.getInstance().getToken());
         client.post(getAbsoluteUrl(url), params, responseHandler);
     }
 
