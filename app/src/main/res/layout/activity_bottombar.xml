@@ -3,69 +3,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".BottomBarActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/homeLayout">
+        android:id="@+id/fragmentContainer">
+    </FrameLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Altru Home"/>
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/homeLayout">-->
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:id="@+id/imageView"
-            android:layout_gravity="center_horizontal" />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Altru Home"/>-->
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/lvPosts"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="15dp"-->
+            <!--android:id="@+id/imageView"-->
+            <!--android:layout_gravity="center_horizontal" />-->
 
-    <LinearLayout
-        android:orientation="vertical"
+        <!--<ListView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/lvPosts"-->
+            <!--android:layout_gravity="center_horizontal" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/searchLayout"-->
+        <!--android:visibility="invisible">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="SEARCH"/>-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/notificationLayout"-->
+        <!--android:visibility="invisible">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Notification"/>-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/profileLayout"-->
+        <!--android:visibility="invisible">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Profile"/>-->
+    <!--</LinearLayout>-->
+
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/searchLayout"
-        android:visibility="invisible">
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:background="#999999"
+        app:bb_tabXmlResource="@xml/bottom_bar"
+        app:bb_inActiveTabColor="#FFFFFF"
+        app:bb_activeTabColor="@color/colorAccent"
+        />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SEARCH"/>
-    </LinearLayout>
+        <!--app:bb_behavior="shifting"-->
+        <!--app:bb_inActiveTabAlpha="0.3"-->
+        <!--app:bb_titleTypeFace="fonts/GreatVibes-Regular.otf"-->
+        <!--app:bb_titleTextAppearance="@style/CustomTitleTextAppearance"-->
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/notificationLayout"
-        android:visibility="invisible">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Notification"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/profileLayout"
-        android:visibility="invisible">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Profile"/>
-    </LinearLayout>
 
     </RelativeLayout>

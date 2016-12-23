@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/bottomBarHome"
+        icon="@android:drawable/ic_dialog_info" />
+    <tab
+        id="@+id/bottomBarSearch"
+        icon="@android:drawable/ic_dialog_info" />
+    <tab
+        id="@+id/bottomBarDonate"
+        icon="@android:drawable/ic_dialog_info" />
+    <tab
+        id="@+id/bottomBarNotification"
+        icon="@android:drawable/ic_dialog_info" />
+    <tab
+        id="@+id/bottomBarProfile"
+        icon="@android:drawable/ic_dialog_info" />
+</tabs>

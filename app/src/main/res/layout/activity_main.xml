@@ -45,6 +45,13 @@
         android:layout_alignLeft="@+id/button2"
         android:layout_alignStart="@+id/button2" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HOME"
+        android:id="@+id/home"
+        android:onClick="home"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
