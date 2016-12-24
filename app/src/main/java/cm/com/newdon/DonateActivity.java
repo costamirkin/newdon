@@ -66,6 +66,7 @@ need to transfer foundation, comment and image
 //        save image!!!!
 
         CommonData.getInstance().setTempPost(tempPost);
+        CommonData.getInstance().getTempPost().setUri(selectedImage);
 
         Intent intent = new Intent(getApplicationContext(), MakeDonActivity.class);
         startActivity(intent);

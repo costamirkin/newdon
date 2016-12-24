@@ -12,6 +12,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
@@ -54,6 +57,11 @@ public class MakeDonActivity extends AppCompatActivity {
         params.put("foundationId", foundation.getId());
         params.put("amount", getAmount());
         params.put("comment", post.getMessage());
+        try {
+            params.put("image", new File(post.getUri().toString()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
 //        image???
 //        params.put("image",post.getImageUrl());

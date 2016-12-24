@@ -1,5 +1,7 @@
 package cm.com.newdon.classes;
 
+import android.net.Uri;
+
 import java.sql.Date;
 
 /**
@@ -14,6 +16,15 @@ public class Post {
     private String imageUrl;
     private User user;
     private Foundation foundation;
+    private Uri uri;
+
+    public Uri getUri() {
+        return uri;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
+    }
 
     public int getId() {
         return id;
