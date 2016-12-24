@@ -1,8 +1,6 @@
 package cm.com.newdon.classes;
 
-import com.facebook.FacebookRequestError;
-
-import java.net.URL;
+import android.graphics.Bitmap;
 
 /**
  * Class represents foundation
@@ -15,23 +13,111 @@ public class Foundation {
     private String description;
     private String nubmer;
     private int yearFounded;
-    private String adress;
+    private String address;
 
 //    ???
     private String logoUrl;
+    private Bitmap logo;
 
     private int donatorCount;
     private FoundCategory category;
 
-    public Foundation(int id, String title, FoundCategory category, String adress, String logoUrl) {
+    public Foundation(int id, String title, FoundCategory category, String address, String logoUrl) {
         this.id = id;
         this.title = title;
         this.category = category;
-        this.adress = adress;
+        this.address = address;
         this.logoUrl = logoUrl;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getNubmer() {
+        return nubmer;
+    }
+
+    public void setNubmer(String nubmer) {
+        this.nubmer = nubmer;
+    }
+
+    public int getYearFounded() {
+        return yearFounded;
+    }
+
+    public void setYearFounded(int yearFounded) {
+        this.yearFounded = yearFounded;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
+    public int getDonatorCount() {
+        return donatorCount;
+    }
+
+    public void setDonatorCount(int donatorCount) {
+        this.donatorCount = donatorCount;
+    }
+
+    public FoundCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(FoundCategory category) {
+        this.category = category;
+    }
+
+    public Bitmap getLogo() {
+        return logo;
+    }
+
+    public void setLogo(Bitmap logo) {
+        this.logo = logo;
+    }
+
+    @Override
+    public String toString() {
+        return "Foundation{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", category=" + category +
+                ", logoUrl='" + logoUrl + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }
