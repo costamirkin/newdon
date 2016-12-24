@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:text="FOUND"
         android:id="@+id/button3"
-        android:onClick="found"
+        android:onClick="getAllFoundations"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/button2"
         android:layout_alignStart="@+id/button2" />
@@ -50,7 +50,11 @@
         android:layout_height="wrap_content"
         android:text="HOME"
         android:id="@+id/home"
-        android:onClick="home"/>
+        android:onClick="home"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_alignStart="@+id/button3"
+        android:layout_marginTop="39dp" />
 
     <TextView
         android:layout_width="match_parent"

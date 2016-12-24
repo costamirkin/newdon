@@ -38,6 +38,8 @@ public class BottomBarActivity extends AppCompatActivity {
 
         setupBottomBar();
 
+
+
 //        postsAdapter = new PostsAdapter(getApplicationContext());
 //        ListView postsLV = (ListView) lHome.findViewById(R.id.lvPosts);
 //        postsLV.setAdapter(postsAdapter);

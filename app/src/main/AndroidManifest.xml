@@ -43,7 +43,8 @@
         <activity android:name=".BottomBarActivity" />
         <activity android:name=".Splash" />
         <activity android:name=".FoundationGrid" />
-        <activity android:name=".DonateActivity"></activity>
+        <activity android:name=".DonateActivity" />
+        <activity android:name=".MakeDonActivity"></activity>
     </application>
 
 </manifest>
