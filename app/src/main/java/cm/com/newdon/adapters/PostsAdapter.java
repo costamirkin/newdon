@@ -42,6 +42,8 @@ public class PostsAdapter extends BaseAdapter {
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.post, parent, false);
 
+
+
         return ll;
     }
 }

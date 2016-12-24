@@ -7,12 +7,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="85.3dp"
+        android:layout_height="62.7dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="#5d9bff"
-        android:id="@+id/relativeLayout"></RelativeLayout>
+        android:id="@+id/relativeLayout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/page_indicator"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
     <ImageView
         android:layout_width="120dp"

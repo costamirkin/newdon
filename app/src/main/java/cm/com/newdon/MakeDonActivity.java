@@ -1,5 +1,6 @@
 package cm.com.newdon;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +46,7 @@ public class MakeDonActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Toast.makeText(getApplicationContext(),"YOU made a DON!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(), BottomBarActivity.class));
             }
 
             @Override
@@ -63,8 +65,7 @@ public class MakeDonActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-//        image???
-//        params.put("image",post.getImageUrl());
+//        params.put("postId", 1111111);
 
         RestClient.post("foundations/donate", params, handler);
 
