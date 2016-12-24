@@ -24,6 +24,11 @@ public class RestClient  {
         client.post(getAbsoluteUrl(url), params, responseHandler);
     }
 
+    public static void login(RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.setBasicAuth("egenesis", "rhk@Wf54");
+        client.post(getAbsoluteUrl("account/login"), params, responseHandler);
+    }
+
     private static String getAbsoluteUrl(String relativeUrl) {
         return BASE_URL + relativeUrl;
     }

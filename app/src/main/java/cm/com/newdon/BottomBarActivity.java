@@ -7,13 +7,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cm.com.newdon.adapters.PostsAdapter;
+import cm.com.newdon.classes.Foundation;
+import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.ImageLoader;
+import cm.com.newdon.common.JsonHandler;
+import cm.com.newdon.common.RestClient;
 import cm.com.newdon.fragments.HomeFragment;
 import cm.com.newdon.fragments.SearchFragment;
+import cz.msebera.android.httpclient.Header;
 
 public class BottomBarActivity extends AppCompatActivity {
 
@@ -37,6 +51,7 @@ public class BottomBarActivity extends AppCompatActivity {
 //        setLayouts();
 
         setupBottomBar();
+        getAllFoundations();
 
 
 
@@ -45,6 +60,42 @@ public class BottomBarActivity extends AppCompatActivity {
 //        postsLV.setAdapter(postsAdapter);
 
     }
+
+    public void getAllFoundations() {
+        CommonData.getInstance().getFoundations().clear();
+
+        AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                System.out.println(new String(responseBody));
+                try {
+                    JSONObject object = new JSONObject(new String(responseBody));
+                    JSONArray array = object.getJSONArray("items");
+                    for (int i = 0; i < array.length(); i++) {
+                        Foundation foundation = JsonHandler.parseFoundationFromJson(array.getJSONObject(i));
+                        new ImageLoader(foundation.getLogoUrl(),foundation.getId()).execute();
+                        CommonData.getInstance().getFoundations()
+                                .add(foundation);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(getApplicationContext(), new String(responseBody), Toast.LENGTH_LONG).show();
+            }
+        };
+
+        RequestParams params = new RequestParams();
+        //params.put("userId", 158);
+
+        RestClient.get("foundations/find", params, handler);
+
+        Toast.makeText(getApplicationContext(), new String("All foundations downloaded"),Toast.LENGTH_SHORT).show();
+    }
+
+
 
 //    private void setLayouts(){
 //        lHome = (LinearLayout) findViewById(R.id.homeLayout);

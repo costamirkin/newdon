@@ -58,7 +58,7 @@ public class MakeDonActivity extends AppCompatActivity {
         params.put("amount", getAmount());
         params.put("comment", post.getMessage());
         try {
-            params.put("image", new File(post.getUri().toString()));
+            params.put("image", new File(post.getUri()   ));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

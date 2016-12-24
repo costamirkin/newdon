@@ -1,6 +1,7 @@
 package cm.com.newdon;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -49,6 +50,20 @@ public class DonateActivity extends AppCompatActivity{
 //        logo!!!
     }
 
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
+
 /*go to the next step - make a Don
 need to transfer foundation, comment and image
 */
@@ -66,7 +81,7 @@ need to transfer foundation, comment and image
 //        save image!!!!
 
         CommonData.getInstance().setTempPost(tempPost);
-        CommonData.getInstance().getTempPost().setUri(selectedImage);
+        CommonData.getInstance().getTempPost().setUri(getRealPathFromURI(selectedImage));
 
         Intent intent = new Intent(getApplicationContext(), MakeDonActivity.class);
         startActivity(intent);

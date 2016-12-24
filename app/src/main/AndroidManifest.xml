@@ -14,11 +14,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
             android:theme="@style/Theme.Design.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
 
         </activity>
@@ -48,7 +43,15 @@
         </activity>
 
         <activity android:name=".BottomBarActivity" />
-        <activity android:name=".Splash" />
+        <activity android:name=".Splash" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+
         <activity android:name=".FoundationGrid" />
         <activity android:name=".DonateActivity" />
         <activity android:name=".MakeDonActivity"></activity>
