@@ -5,6 +5,8 @@ import org.json.JSONObject;
 
 import cm.com.newdon.classes.FoundCategory;
 import cm.com.newdon.classes.Foundation;
+import cm.com.newdon.classes.Post;
+import cm.com.newdon.classes.User;
 
 /**
  * Created by Marina on 23.12.2016.
@@ -31,5 +33,36 @@ public class JsonHandler {
 //        System.out.println(foundation.getCategory().getName());
 
         return foundation;
+    }
+
+    public static Post parsePostFromJson(JSONObject item) throws JSONException {
+        Post post = new Post();
+        int id = item.getInt("id");
+        String message = item.getString("message");
+        String imageUrl = item.getString("image");
+
+        JSONObject foundationObj = item.getJSONObject("foundation");
+        Foundation foundation = parseFoundationFromJson(foundationObj);
+
+        JSONObject userObj = item.getJSONObject("user");
+        User user = parseUserFromJson(userObj);
+
+        post.setFoundation(foundation);
+        post.setUser(user);
+
+        post.setId(id);
+        post.setMessage(message);
+        post.setImageUrl(imageUrl);
+
+        return post;
+    }
+
+    public static User parseUserFromJson(JSONObject item) throws JSONException {
+        User user = new User();
+        int id = item.getInt("id");
+        String username = item.getString("username");
+        user.setId(id);
+        user.setUserName(username);
+        return user;
     }
 }

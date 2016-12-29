@@ -10,11 +10,9 @@ import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Post;
 
 /**
- * Class stores common data, like arrays of foundations,...
+ * Class stores common data, like list of foundations,...
  */
 public class CommonData {
-
-    private List<Foundation> foundations;
 
     private static CommonData ourInstance = new CommonData();
 
@@ -24,10 +22,17 @@ public class CommonData {
 
     private CommonData() {
         foundations = new ArrayList<>();
+        posts = new ArrayList<>();
     }
 
+    private List<Foundation> foundations;
     public List<Foundation> getFoundations() {
         return foundations;
+    }
+
+    private List<Post> posts;
+    public List<Post> getPosts() {
+        return posts;
     }
 
     public Foundation findFoundById(int id){
@@ -49,6 +54,16 @@ public class CommonData {
         this.token = token;
     }
 
+    private int currentUserId = 0;
+
+    public int getCurrentUserId() {
+        return currentUserId;
+    }
+
+    public void setCurrentUserId(int currentUserId) {
+        this.currentUserId = currentUserId;
+    }
+
     private Post tempPost = null;
 
     public Post getTempPost() {
@@ -58,4 +73,6 @@ public class CommonData {
     public void setTempPost(Post tempPost) {
         this.tempPost = tempPost;
     }
+
+    public boolean isFirstStart = true;
 }

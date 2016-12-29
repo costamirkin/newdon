@@ -5,25 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="cm.com.newdon.FoundationGrid"
+    android:background="@color/lightgrey"
     android:weightSum="100">
     
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="85.3dp"
+        android:layout_height="@dimen/header_hight"
         android:background="@color/lightBlue">
-    </LinearLayout>
-    
-    <EditText
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/page_indicator"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:id="@+id/etSearchFound"
-        android:hint="Search" />
+        android:layout_height="84dp"
+        android:background="#d9d9d9">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_centerVertical="true"
+            android:background="@drawable/rectangle_46"
+            >
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/etSearchFound"
+                android:layout_marginLeft="40dp"
+                android:background="@color/white"
+                android:hint="Search"
+                android:textColorHint="@color/grey"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"/>
+
+            <ImageView
+                android:id="@+id/searchBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/shape_23" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <GridView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="90"
+        android:layout_height="wrap_content"
         android:id="@+id/gvFounds"
         android:numColumns="2"/>
 

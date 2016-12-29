@@ -9,6 +9,7 @@ import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import cm.com.newdon.R;
@@ -46,24 +47,24 @@ public class FoundationsAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.foundation, parent, false);
+        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.foundation, parent, false);
         Foundation foundation = CommonData.getInstance().getFoundations().get(position);
 
-        ImageView imLogo = (ImageView) ll.findViewById(R.id.imFoundLogo);
+        ImageView imLogo = (ImageView) layout.findViewById(R.id.imFoundLogo);
         imLogo.setImageBitmap(foundation.getLogo());
 
-        TextView tvTitle = (TextView) ll.findViewById(R.id.tvFoundTitle);
+        TextView tvTitle = (TextView) layout.findViewById(R.id.tvFoundTitle);
         tvTitle.setText(foundation.getTitle());
         tvTitle.setTextColor(Color.parseColor(foundation.getCategory().getColor()));
 
-        TextView tvAdress = (TextView) ll.findViewById(R.id.tvFoundAdress);
+        TextView tvAdress = (TextView) layout.findViewById(R.id.tvFoundAdress);
         tvAdress.setText(foundation.getAddress());
 
 
-        TextView tvCategory = (TextView) ll.findViewById(R.id.txFoundCategoryName);
+        TextView tvCategory = (TextView) layout.findViewById(R.id.txFoundCategoryName);
         tvCategory.setText(foundation.getCategory().getName());
         tvCategory.setTextColor(Color.parseColor(foundation.getCategory().getColor()));
 
-        return ll;
+        return layout;
     }
 }

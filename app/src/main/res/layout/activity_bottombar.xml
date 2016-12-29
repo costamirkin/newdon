@@ -80,14 +80,22 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_alignParentBottom="true"
-        android:background="#999999"
+        android:background="@color/grey"
         app:bb_tabXmlResource="@xml/bottom_bar"
         app:bb_inActiveTabColor="#FFFFFF"
-        app:bb_activeTabColor="@color/colorAccent"
+        app:bb_activeTabColor="@color/lightBlue"
         />
 
-        <!--app:bb_behavior="shifting"-->
-        <!--app:bb_inActiveTabAlpha="0.3"-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/coin"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@id/bottomBar"
+        android:layout_alignBottom="@id/bottomBar"
+        />
+
+    <!--app:bb_inActiveTabAlpha="0.3"-->
         <!--app:bb_titleTypeFace="fonts/GreatVibes-Regular.otf"-->
         <!--app:bb_titleTextAppearance="@style/CustomTitleTextAppearance"-->
 

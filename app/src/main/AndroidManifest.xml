@@ -15,7 +15,6 @@
         <activity android:name=".MainActivity"
             android:theme="@style/Theme.Design.NoActionBar">
 
-
         </activity>
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -42,7 +41,10 @@
             android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
 
-        <activity android:name=".BottomBarActivity" />
+        <activity android:name=".BottomBarActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+
         <activity android:name=".Splash" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -52,9 +54,15 @@
         </activity>
 
 
-        <activity android:name=".FoundationGrid" />
-        <activity android:name=".DonateActivity" />
-        <activity android:name=".MakeDonActivity"></activity>
+        <activity android:name=".FoundationGrid"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+        <activity android:name=".DonateActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+        <activity android:name=".MakeDonActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

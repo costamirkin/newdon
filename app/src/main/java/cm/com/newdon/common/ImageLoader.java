@@ -13,13 +13,17 @@ import java.net.URL;
  */
 public class ImageLoader extends AsyncTask<Void, Void, Bitmap>{
 
-
     private String url;
     private int foundationId;
+    private DownloadOption option;
+    public enum DownloadOption{
+        FOUNDATION, POST
+    }
 
-    public ImageLoader(String url, int foundationId) {
+    public ImageLoader(String url, int foundationId, DownloadOption option) {
         this.url = url;
         this.foundationId=foundationId;
+        this.option = option;
     }
 
     @Override
@@ -42,7 +46,11 @@ public class ImageLoader extends AsyncTask<Void, Void, Bitmap>{
     @Override
     protected void onPostExecute(Bitmap result) {
         super.onPostExecute(result);
-        CommonData.getInstance().findFoundById(foundationId).setLogo(result);
+        switch (option){
+            case FOUNDATION:
+                CommonData.getInstance().findFoundById(foundationId).setLogo(result);
+                break;
+        }
     }
 }
 

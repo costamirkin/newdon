@@ -59,10 +59,12 @@ public class MakeDonActivity extends AppCompatActivity {
         params.put("foundationId", foundation.getId());
         params.put("amount", getAmount());
         params.put("comment", post.getMessage());
-        try {
-            params.put("image", new File(post.getUri()   ));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        if(post.getUri()!=null) {
+            try {
+                params.put("image", new File(post.getUri()));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
 //        params.put("postId", 1111111);

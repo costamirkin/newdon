@@ -26,6 +26,8 @@ import cm.com.newdon.common.ImageLoader;
 import cm.com.newdon.common.JsonHandler;
 import cm.com.newdon.common.RestClient;
 import cm.com.newdon.fragments.HomeFragment;
+import cm.com.newdon.fragments.NotificationFragment;
+import cm.com.newdon.fragments.ProfileFragment;
 import cm.com.newdon.fragments.SearchFragment;
 import cz.msebera.android.httpclient.Header;
 
@@ -38,27 +40,47 @@ public class BottomBarActivity extends AppCompatActivity {
 //    private LinearLayout lNotification;
 //    private LinearLayout lProfile;
 //    private LinearLayout layouts[];
-    private PostsAdapter postsAdapter;
 
     HomeFragment homeFragment = new HomeFragment();
     SearchFragment seachFragment = new SearchFragment();
+    ProfileFragment profileFragment = new ProfileFragment();
+    NotificationFragment notificationFragment = new NotificationFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottombar);
 
-//        setLayouts();
-
         setupBottomBar();
-        getAllFoundations();
 
+        if (CommonData.getInstance().isFirstStart) {
+            getAllFoundations();
+            getUserId();
+            CommonData.getInstance().isFirstStart = false;
+        }
+    }
 
+    private void getUserId(){
+        AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                System.out.println(new String(responseBody));
+                try {
+                    JSONObject object = new JSONObject(new String(responseBody));
+                    int userId = object.getInt("id");
+                    CommonData.getInstance().setCurrentUserId(userId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(getApplicationContext(), new String(responseBody), Toast.LENGTH_LONG).show();
+            }
+        };
 
-//        postsAdapter = new PostsAdapter(getApplicationContext());
-//        ListView postsLV = (ListView) lHome.findViewById(R.id.lvPosts);
-//        postsLV.setAdapter(postsAdapter);
-
+        RequestParams params = new RequestParams();
+        RestClient.get("account/me", params, handler);
     }
 
     public void getAllFoundations() {
@@ -73,7 +95,8 @@ public class BottomBarActivity extends AppCompatActivity {
                     JSONArray array = object.getJSONArray("items");
                     for (int i = 0; i < array.length(); i++) {
                         Foundation foundation = JsonHandler.parseFoundationFromJson(array.getJSONObject(i));
-                        new ImageLoader(foundation.getLogoUrl(),foundation.getId()).execute();
+                        new ImageLoader(foundation.getLogoUrl(),foundation.getId(),
+                                ImageLoader.DownloadOption.FOUNDATION).execute();
                         CommonData.getInstance().getFoundations()
                                 .add(foundation);
                     }
@@ -88,14 +111,11 @@ public class BottomBarActivity extends AppCompatActivity {
         };
 
         RequestParams params = new RequestParams();
-        //params.put("userId", 158);
 
         RestClient.get("foundations/find", params, handler);
 
         Toast.makeText(getApplicationContext(), new String("All foundations downloaded"),Toast.LENGTH_SHORT).show();
     }
-
-
 
 //    private void setLayouts(){
 //        lHome = (LinearLayout) findViewById(R.id.homeLayout);
@@ -127,16 +147,15 @@ public class BottomBarActivity extends AppCompatActivity {
                         break;
                     case R.id.bottomBarSearch:
                         commitFragment(seachFragment);
-//                        changeLayout(1);
                         break;
                     case R.id.bottomBarDonate:
                         startActivity(new Intent(BottomBarActivity.this, FoundationGrid.class));
                         break;
                     case R.id.bottomBarNotification:
-//                        changeLayout(2);
+                        commitFragment(notificationFragment);
                         break;
                     case R.id.bottomBarProfile:
-//                        changeLayout(3);
+                        commitFragment(profileFragment);
                         break;
                 }
             }

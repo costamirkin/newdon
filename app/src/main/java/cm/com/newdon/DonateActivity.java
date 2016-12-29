@@ -70,7 +70,7 @@ need to transfer foundation, comment and image
     public void next(View view) {
         Post tempPost = new Post();
         tempPost.setFoundation(foundation);
-        tempPost.setMessage(((EditText)findViewById(R.id.etComment)).getText().toString());
+        tempPost.setMessage(((EditText) findViewById(R.id.etComment)).getText().toString());
 
 
         if(foundation.getLogo()!=null) {
@@ -81,7 +81,9 @@ need to transfer foundation, comment and image
 //        save image!!!!
 
         CommonData.getInstance().setTempPost(tempPost);
-        CommonData.getInstance().getTempPost().setUri(getRealPathFromURI(selectedImage));
+        if (selectedImage!=null) {
+            CommonData.getInstance().getTempPost().setUri(getRealPathFromURI(selectedImage));
+        }
 
         Intent intent = new Intent(getApplicationContext(), MakeDonActivity.class);
         startActivity(intent);

@@ -89,4 +89,18 @@ public class Post {
     public void setFoundation(Foundation foundation) {
         this.foundation = foundation;
     }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", message='" + message + '\'' +
+                ", createdAt=" + createdAt +
+                ", likeCount=" + likeCount +
+                ", commentsCoun=" + commentsCoun +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", user=" + user +
+                ", foundation=" + foundation +
+                '}';
+    }
 }
