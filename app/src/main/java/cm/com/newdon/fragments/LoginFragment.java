@@ -46,7 +46,7 @@ public class LoginFragment extends Fragment {
                 params.put("email", emailEt.getText().toString());
                 params.put("password", pswdEt.getText().toString());
 
-                RestClient.login(params, new AsyncHttpResponseHandler() {
+                RestClient.loginSignup("login", params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         Toast.makeText(getActivity().getApplicationContext(),

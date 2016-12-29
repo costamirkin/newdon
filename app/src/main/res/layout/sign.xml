@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:hint="User Name"
+        android:id="@+id/userName"
+        android:layout_alignParentTop="true" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/userName"
+        android:layout_marginTop="5dp"
+        android:id="@+id/view1"
+        android:background="@color/colorPrimary"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:layout_below="@+id/view1"
+        android:hint="Full Name"
+        android:id="@+id/fullName" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/fullName"
+        android:layout_marginTop="5dp"
+        android:id="@+id/view2"
+        android:background="@color/colorPrimary"/>
+   <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:hint="Email"
+        android:id="@+id/email"
+       android:layout_below="@+id/view2" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/email"
+        android:layout_marginTop="5dp"
+        android:id="@+id/view3"
+        android:background="@color/colorPrimary"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:hint="Create password"
+        android:id="@+id/password"
+        android:layout_below="@+id/view3" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/password"
+        android:layout_marginTop="5dp"
+        android:id="@+id/view4"
+        android:background="@color/colorPrimary"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:hint="Confirm password"
+        android:id="@+id/password2"
+        android:layout_below="@+id/view4" />
+     <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        android:layout_below="@+id/password2"
+        android:id="@+id/loginBtn"/>
+
+</RelativeLayout>

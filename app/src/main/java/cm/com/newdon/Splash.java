@@ -46,7 +46,7 @@ public class Splash extends AppCompatActivity {
             params.put("email", email);
             params.put("password", password);
 
-            RestClient.login(params, new AsyncHttpResponseHandler() {
+            RestClient.loginSignup("login",params, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     Toast.makeText(getApplicationContext(),
