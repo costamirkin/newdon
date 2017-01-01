@@ -1,14 +1,21 @@
 package cm.com.newdon.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.io.File;
 
 import cm.com.newdon.R;
 import cm.com.newdon.classes.Post;
@@ -71,6 +78,15 @@ public class PostsAdapter extends BaseAdapter {
             }catch (Exception e){
                 e.printStackTrace();
             }
+            if (post.getLocalImagePath() != null) {
+                ImageView imageView = (ImageView) layout.findViewById(R.id.ivUser);
+                File imgFile = new File(CommonData.getInstance().getPosts().get(position).getLocalImagePath());
+                if (imgFile.exists()) {
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    imageView.setImageBitmap(myBitmap);
+                }
+            }
+
         }
         return layout;
     }

@@ -55,4 +55,12 @@ public class ImageLoaderToStorage extends AsyncTask {
         }
         return null;
     }
+
+    @Override
+    protected void onPostExecute(Object o) {
+        super.onPostExecute(o);
+        if (CommonData.getInstance().imageLoadedIf != null) {
+            CommonData.getInstance().imageLoadedIf.imageLoaded(postId);
+        }
+    }
 }

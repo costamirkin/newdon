@@ -53,6 +53,17 @@ public class CommonData {
         return null;
     }
 
+    public int findPostIndexById(int id){
+        for (int i = 0; i < posts.size(); i++) {
+            if (posts.get(i).getId()==id){
+                return i;
+            }
+
+        }
+
+        return -1;
+    }
+
     private String token = "";
 
     public String getToken() {
@@ -84,4 +95,6 @@ public class CommonData {
     }
 
     public boolean isFirstStart = true;
+
+    public ImageLoadedIf imageLoadedIf = null;
 }
