@@ -1,7 +1,5 @@
 package cm.com.newdon.classes;
 
-import android.net.Uri;
-
 import java.sql.Date;
 
 /**
@@ -12,8 +10,9 @@ public class Post {
     private String message;
     private Date createdAt;
     private int likeCount;
-    private int commentsCoun;
+    private int commentsCount;
     private String imageUrl;
+    private String localImagePath;
     private User user;
     private Foundation foundation;
     private String uri;
@@ -58,12 +57,12 @@ public class Post {
         this.likeCount = likeCount;
     }
 
-    public int getCommentsCoun() {
-        return commentsCoun;
+    public int getCommentsCount() {
+        return commentsCount;
     }
 
-    public void setCommentsCoun(int commentsCoun) {
-        this.commentsCoun = commentsCoun;
+    public void setCommentsCount(int commentsCount) {
+        this.commentsCount = commentsCount;
     }
 
     public String getImageUrl() {
@@ -72,6 +71,14 @@ public class Post {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getLocalImagePath() {
+        return localImagePath;
+    }
+
+    public void setLocalImagePath(String localImagePath) {
+        this.localImagePath = localImagePath;
     }
 
     public User getUser() {
@@ -97,7 +104,7 @@ public class Post {
                 ", message='" + message + '\'' +
                 ", createdAt=" + createdAt +
                 ", likeCount=" + likeCount +
-                ", commentsCoun=" + commentsCoun +
+                ", commentsCount=" + commentsCount +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", user=" + user +
                 ", foundation=" + foundation +

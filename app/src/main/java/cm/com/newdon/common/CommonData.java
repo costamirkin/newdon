@@ -44,6 +44,15 @@ public class CommonData {
         return null;
     }
 
+    public Post findPostById(int id){
+        for (Post post: posts) {
+            if (post.getId()==id){
+                return post;
+            }
+        }
+        return null;
+    }
+
     private String token = "";
 
     public String getToken() {

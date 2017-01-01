@@ -3,6 +3,7 @@ package cm.com.newdon;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class MakeDonActivity extends AppCompatActivity {
 
+    private EditText etAmount;
     private Post post;
     private Foundation foundation;
 
@@ -37,6 +39,18 @@ public class MakeDonActivity extends AppCompatActivity {
 
         TextView tvFound = (TextView) findViewById(R.id.tvFoundTitle);
         tvFound.setText(foundation.getTitle());
+
+        etAmount = (EditText) findViewById(R.id.etAmount);
+        etAmount.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                //You can identify which key pressed buy checking keyCode value with KeyEvent.KEYCODE_
+                if(keyCode == KeyEvent.KEYCODE_DEL) {
+                    setAmount(0);
+                }
+                return false;
+            }
+        });
     }
 
     public void makeDone(View view) {
@@ -74,8 +88,32 @@ public class MakeDonActivity extends AppCompatActivity {
     }
 
     private int getAmount(){
-        EditText etAmount = (EditText) findViewById(R.id.etAmount);
         String text = etAmount.getText().toString();
         return Integer.valueOf(text.subSequence(1, text.length()).toString());
+    }
+
+    private void setAmount(int amount){
+        String text = "₪"+amount;
+        etAmount.setText(text);
+    }
+
+    public void clearAmount(View view) {
+        setAmount(0);
+    }
+
+    public void coin5(View view) {
+        setAmount(5);
+    }
+
+    public void coin10(View view) {
+        setAmount(10);
+    }
+
+    public void coin18(View view) {
+        setAmount(18);
+    }
+
+    public void coin50(View view) {
+        setAmount(50);
     }
 }

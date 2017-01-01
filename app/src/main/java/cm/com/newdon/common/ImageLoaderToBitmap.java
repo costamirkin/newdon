@@ -9,19 +9,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by costa on 24/12/16.
+ * downloads pics from URL to Bitmap
  */
-public class ImageLoader extends AsyncTask<Void, Void, Bitmap>{
+public class ImageLoaderToBitmap extends AsyncTask<Void, Void, Bitmap>{
 
-    private String url;
+    private String stringUrl;
     private int foundationId;
     private DownloadOption option;
     public enum DownloadOption{
         FOUNDATION, POST
     }
 
-    public ImageLoader(String url, int foundationId, DownloadOption option) {
-        this.url = url;
+    public ImageLoaderToBitmap(String stringUrl, int foundationId, DownloadOption option) {
+        this.stringUrl = stringUrl;
         this.foundationId=foundationId;
         this.option = option;
     }
@@ -29,8 +29,8 @@ public class ImageLoader extends AsyncTask<Void, Void, Bitmap>{
     @Override
     protected Bitmap doInBackground(Void... params) {
         try {
-            URL urlConnection = new URL(url);
-            HttpURLConnection connection = (HttpURLConnection) urlConnection
+            URL url= new URL(stringUrl);
+            HttpURLConnection connection = (HttpURLConnection) url
                     .openConnection();
             connection.setDoInput(true);
             connection.connect();

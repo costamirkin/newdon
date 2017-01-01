@@ -24,8 +24,8 @@
     </RelativeLayout>
 
     <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
         android:id="@+id/imFound"
         android:layout_below="@+id/relativeLayout"
         android:layout_alignLeft="@+id/relativeLayout"
@@ -34,22 +34,23 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Title"
+        android:textColor="@color/white"
+        android:textSize="15.6dp"
         android:id="@+id/tvFoundTitle"
         android:layout_below="@+id/relativeLayout"
         android:layout_toRightOf="@+id/imFound"
         android:layout_marginLeft="20dp" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="367dp"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:id="@+id/etComment"
         android:hint="Type what you feel"
         android:layout_below="@+id/imFound"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp" />
+        android:background="@drawable/rectangle_49"
+        android:layout_marginTop="5dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
