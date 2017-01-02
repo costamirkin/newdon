@@ -1,12 +1,135 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="cm.com.newdon.fragments.ProfileFragment">
+    android:layout_height="match_parent">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Profile" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_gravity="center"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/vector_smart_object"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"/>
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:text="User name:"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/tv1"/>
+                <EditText
+                    android:layout_width="200dp"
+                    android:id="@+id/nameEt"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="50dp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:text="Real name:"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/tv2"/>
+                <EditText
+                    android:layout_width="200dp"
+                    android:id="@+id/nameRealEt"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="50dp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:text="Email:"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/tv3"/>
+                <EditText
+                    android:layout_width="200dp"
+                    android:id="@+id/emailEt"
+                    android:inputType="textEmailAddress"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="50dp" />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="left"
+                android:text="Privacy:"/>
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:text="Keep my account private"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/tv4"/>
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/toggle_me"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/saveButton"
+                android:text="save"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="left"
+                android:text="Change password (at least 6 characters)"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="textPassword"
+                android:id="@+id/currPswd"
+                android:hint="Type your current password"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="textPassword"
+                android:id="@+id/newPswd"
+                android:hint="New password"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="textPassword"
+                android:id="@+id/newPswd1"
+                android:hint="Confirm new password"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/passwordButton"
+                android:text="Change password"/>
 
-</FrameLayout>
+            <!-- For scroll -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#00000000"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

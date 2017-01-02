@@ -91,6 +91,10 @@ public class DataLoader {
                             new ImageLoaderToStorage(post.getImageUrl(),context,post.getId()).execute();
                         }
                         CommonData.getInstance().getPosts().add(post);
+                        if (CommonData.getInstance().imageLoadedIf != null) {
+                            CommonData.getInstance().imageLoadedIf.postsLoaded();
+                        }
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

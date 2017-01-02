@@ -1,11 +1,8 @@
 package cm.com.newdon.common;
 
-import android.graphics.Color;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import cm.com.newdon.classes.FoundCategory;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Post;
 
@@ -96,5 +93,5 @@ public class CommonData {
 
     public boolean isFirstStart = true;
 
-    public ImageLoadedIf imageLoadedIf = null;
+    public DataLoadedIf imageLoadedIf = null;
 }

@@ -2,7 +2,6 @@ package cm.com.newdon.fragments;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,17 +13,14 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import java.io.File;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.PostsAdapter;
 import cm.com.newdon.common.CommonData;
-import cm.com.newdon.common.ImageLoadedIf;
+import cm.com.newdon.common.DataLoadedIf;
 
 
-public class HomeFragment extends Fragment implements ImageLoadedIf {
+public class HomeFragment extends Fragment implements DataLoadedIf {
     ListView lv;
 
     @Override
@@ -60,6 +56,11 @@ public class HomeFragment extends Fragment implements ImageLoadedIf {
 
         }
 
+    }
+
+    @Override
+    public void postsLoaded() {
+        lv.invalidateViews();
     }
 
 

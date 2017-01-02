@@ -10,6 +10,7 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:hint="Email"
+        android:text="john_doe1@mail.com"
         android:id="@+id/email"
         android:layout_alignParentTop="true" />
     <View
@@ -24,6 +25,8 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
+        android:text="123123"
+
         android:hint="Password"
         android:id="@+id/password"
         android:layout_below="@+id/view1" />
