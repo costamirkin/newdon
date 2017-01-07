@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         client.setBasicAuth("egenesis", "rhk@Wf54");
 
         RequestParams params = new RequestParams();
-        params.put("email", "john_doe1@mail.com");
+        params.put("email", "costa@programmner.net");
         params.put("password", "123123");
 
         client.post("http://donation.s2.ideas-implemented.com/api/account/login", params,

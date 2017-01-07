@@ -11,7 +11,7 @@ public class Foundation {
     private int id;
     private String title;
     private String description;
-    private String nubmer;
+    private String number;
     private int yearFounded;
     private String address;
 
@@ -21,6 +21,9 @@ public class Foundation {
 
     private int donatorCount;
     private FoundCategory category;
+
+    public int[] defaultPicsId = new int[5];
+    public String[] defaultPicsUrl = new String[5];
 
     public Foundation(int id, String title, FoundCategory category, String address, String logoUrl) {
         this.id = id;
@@ -54,12 +57,12 @@ public class Foundation {
         this.description = description;
     }
 
-    public String getNubmer() {
-        return nubmer;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNubmer(String nubmer) {
-        this.nubmer = nubmer;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public int getYearFounded() {

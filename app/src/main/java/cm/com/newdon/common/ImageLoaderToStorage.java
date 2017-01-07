@@ -15,12 +15,14 @@ public class ImageLoaderToStorage extends AsyncTask {
 
     private String stringUrl;
     private Context context;
-    private int postId;
+    private int imageId;
+    private ImageLoaderToBitmap.DownloadOption option;
 
-    public ImageLoaderToStorage(String stringUrl, Context context, int postId) {
+    public ImageLoaderToStorage(String stringUrl, Context context, int imageId, ImageLoaderToBitmap.DownloadOption option) {
         this.stringUrl = stringUrl;
         this.context = context;
-        this.postId = postId;
+        this.imageId = imageId;
+        this.option = option;
     }
 
     //    ????
@@ -33,15 +35,26 @@ public class ImageLoaderToStorage extends AsyncTask {
         URL url = new URL (stringUrl);
         input = url.openStream();
             String storagePath = context.getApplicationInfo().dataDir;
-            OutputStream output = new FileOutputStream(storagePath + "/" + postId+ ".jpg");
+            switch (option){
+                case POST:
+                    storagePath = storagePath + "/" + "post"+ imageId + ".jpg";
+                    break;
+                case DEFAULT_IMAGE:
+                    storagePath = storagePath + "/" + "default"+ imageId + ".jpg";
+                    break;
+            }
+            OutputStream output = new FileOutputStream(storagePath);
             try {
                 byte[] buffer = new byte[aReasonableSize];
                 int bytesRead = 0;
                 while ((bytesRead = input.read(buffer, 0, buffer.length)) >= 0) {
                     output.write(buffer, 0, bytesRead);
                 }
-                CommonData.getInstance().findPostById(postId)
-                        .setLocalImagePath(storagePath + "/" + postId+ ".jpg");
+                switch (option){
+                    case POST:
+                        CommonData.getInstance().findPostById(imageId).setLocalImagePath(storagePath);
+                        break;
+                }
             } finally {
                 output.close();
             }
@@ -60,7 +73,7 @@ public class ImageLoaderToStorage extends AsyncTask {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         if (CommonData.getInstance().imageLoadedIf != null) {
-            CommonData.getInstance().imageLoadedIf.imageLoaded(postId);
+            CommonData.getInstance().imageLoadedIf.imageLoaded(imageId);
         }
     }
 }

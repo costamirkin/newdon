@@ -17,7 +17,7 @@ public class ImageLoaderToBitmap extends AsyncTask<Void, Void, Bitmap>{
     private int foundationId;
     private DownloadOption option;
     public enum DownloadOption{
-        FOUNDATION, POST
+        FOUNDATION, POST, DEFAULT_IMAGE
     }
 
     public ImageLoaderToBitmap(String stringUrl, int foundationId, DownloadOption option) {

@@ -1,5 +1,6 @@
 package cm.com.newdon.common;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,10 +19,10 @@ public class JsonHandler {
         String title = item.getString("title");
         String description = item.getString("description");
         String nubmer = item.getString("number");
-//                        int yearFounded = item.getInt("yearFounded");
+
         String address = item.getString("address");
         String logoUrl = item.getString("logo");
-//        int donatorCount = item.getInt("donatorCount");
+        int donatorCount = item.getInt("donatorCount");
 
         JSONObject categotyObj = item.getJSONObject("category");
         String categoryName = categotyObj.getString("name");
