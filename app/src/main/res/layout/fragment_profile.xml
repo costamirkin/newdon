@@ -86,6 +86,7 @@
                 <ToggleButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/privacyToggle"
                     android:background="@drawable/toggle_me"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>

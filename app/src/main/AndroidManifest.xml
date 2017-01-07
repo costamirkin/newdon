@@ -12,9 +12,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.Design.NoActionBar" />
+
+        <activity android:name=".MainActivity"
+            android:theme="@style/Theme.Design.NoActionBar">
+        </activity>
+      
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -32,12 +33,42 @@ public class LoginFragment extends Fragment {
     private Button   button;
     private EditText emailEt;
     private EditText pswdEt;
-    @Override
+    private TextView forgotPswTv;
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.login,container,false);
-        button  = (Button) v.findViewById(R.id.loginBtn);
-        emailEt = (EditText) v.findViewById(R.id.email);
-        pswdEt = (EditText) v.findViewById(R.id.password);
+        View v      = inflater.inflate(R.layout.login,container,false);
+        button      = (Button) v.findViewById(R.id.loginBtn);
+        emailEt     = (EditText) v.findViewById(R.id.email);
+        pswdEt      = (EditText) v.findViewById(R.id.password);
+        forgotPswTv = (TextView) v.findViewById(R.id.fpTv);
+
+        forgotPswTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RequestParams params = new RequestParams();
+                params.put("email", emailEt.getText().toString());
+                System.out.println("asdfgasdfa");
+
+                RestClient.loginSignup("forgot", params, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        Toast.makeText(getActivity().getApplicationContext(),
+                                "New password was send to your mail", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        Toast.makeText(getActivity().getApplicationContext(),
+                                "Wrong email, enter email again", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+
+            }
+        });
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
