@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         client.setBasicAuth("egenesis", "rhk@Wf54");
 
         RequestParams params = new RequestParams();
-        params.put("email", "john_doe1@mail.com");
+        params.put("email", "costa@programmer.net");
         params.put("password", "123123");
 
         client.post("http://donation.s2.ideas-implemented.com/api/account/login", params,
@@ -107,7 +108,8 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                        System.out.println(errorResponse.toString());
+                        String str = new String(errorResponse);
+                       Log.e("donate", str);
                     }
 
                     @Override

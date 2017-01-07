@@ -33,14 +33,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:clickable="true"
         android:layout_centerHorizontal="true"
         android:text="Forgot password?"
+        android:textSize="20dp"
+        android:onClick="forgotPsw"
         android:layout_below="@+id/password"
         android:id="@+id/fpTv"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/fpTv"
         android:id="@+id/loginBtn"/>
 

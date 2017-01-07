@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
     @Override
     public void imageLoaded(int postId) {
         int position = CommonData.getInstance().findPostIndexById(postId);
-        Log.e("Posts", "" + position + " " + lv.getLastVisiblePosition());
 
         if (position >= lv.getFirstVisiblePosition() &&
                 position < lv.getLastVisiblePosition() ) {

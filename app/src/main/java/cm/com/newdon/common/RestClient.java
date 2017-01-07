@@ -32,6 +32,10 @@ public class RestClient  {
         else if (cmd.equals("signup")) {
             url = "account/register";
         }
+        else if (cmd.equals("forgot")) {
+            url = "account/reset-password";
+        }
+
         client.setBasicAuth("egenesis", "rhk@Wf54");
         client.post(getAbsoluteUrl(url), params, responseHandler);
     }
