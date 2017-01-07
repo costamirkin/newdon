@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cm.com.newdon.classes.Foundation;
+import cm.com.newdon.classes.Lottery;
 import cm.com.newdon.classes.Post;
 
 /**
@@ -32,6 +33,11 @@ public class CommonData {
         return posts;
     }
 
+    private List<Lottery> lotteryList;
+    public List<Lottery> getLotteryList() {
+        return lotteryList;
+    }
+
     public Foundation findFoundById(int id){
         for (Foundation foundation: foundations) {
             if (foundation.getId()==id){
@@ -55,9 +61,7 @@ public class CommonData {
             if (posts.get(i).getId()==id){
                 return i;
             }
-
         }
-
         return -1;
     }
 

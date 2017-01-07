@@ -16,14 +16,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.DataLoadedIf;
+import cm.com.newdon.common.DataLoader;
 import cm.com.newdon.common.GalleryHelper;
 
-public class DonateActivity extends AppCompatActivity{
+public class DonateActivity extends AppCompatActivity implements DataLoadedIf{
 
     private static final int REQUESTCAMERA = 0;
     private static final int REQUESTGALLERY = 1;
@@ -34,20 +38,45 @@ public class DonateActivity extends AppCompatActivity{
 
     private Foundation foundation;
 
+    ImageView imageMain;
+    ImageView defaultImage1;
+    ImageView defaultImage2;
+    ImageView defaultImage3;
+    ImageView defaultImage4;
+    ImageView defaultImage5;
+    ImageView[] defaultImages;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donate);
 
+        CommonData.getInstance().imageLoadedIf =  this;
+
         Intent intent = getIntent();
         int position = intent.getIntExtra("position", 0);
         foundation = CommonData.getInstance().getFoundations().get(position);
+
+        DataLoader.getFoundationData(foundation.getId(), getApplicationContext());
 
         TextView tvTitle = (TextView) findViewById(R.id.tvFoundTitle);
         tvTitle.setText(foundation.getTitle());
         tvTitle.setTextColor(Color.parseColor(foundation.getCategory().getColor()));
 
-//        logo!!!
+        ImageView imFoundLogo = (ImageView) findViewById(R.id.imFound);
+        imFoundLogo.setImageBitmap(foundation.getLogo());
+
+        initImages();
+    }
+
+    private void initImages() {
+        imageMain = (ImageView) findViewById(R.id.imPost);
+        defaultImage1 = (ImageView) findViewById(R.id.image1);
+        defaultImage2 = (ImageView) findViewById(R.id.image2);
+        defaultImage3 = (ImageView) findViewById(R.id.image3);
+        defaultImage4 = (ImageView) findViewById(R.id.image4);
+        defaultImage5 = (ImageView) findViewById(R.id.image5);
+        defaultImages = new ImageView[]{defaultImage1, defaultImage2, defaultImage3, defaultImage4, defaultImage5};
     }
 
     private String getRealPathFromURI(Uri contentURI) {
@@ -174,7 +203,30 @@ need to transfer foundation, comment and image
         }
     }
 
-        //    private void cropImage() {
+    @Override
+    public void imageLoaded(int postId) {
+
+    }
+
+    @Override
+    public void postsLoaded() {
+        Picasso.with(getApplicationContext())
+                .load(foundation.defaultPicsUrl[0]).into(imageMain);
+
+//        5 default pics
+        for (int i = 0; i < 5; i++) {
+            Picasso.with(getApplicationContext())
+                    .load(foundation.defaultPicsUrl[i]).into(defaultImages[i]);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        CommonData.getInstance().imageLoadedIf = null;
+    }
+
+    //    private void cropImage() {
 //        try {
 //        }
 //        catch (ActivityNotFoundException cant) {

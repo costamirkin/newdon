@@ -12,15 +12,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".MainActivity"
             android:theme="@style/Theme.Design.NoActionBar">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-
         </activity>
+      
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -42,32 +38,30 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".SignAcitvity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-        </activity>
+        <activity
+            android:name=".SignAcitvity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".BottomBarActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".BottomBarActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
-        <activity android:name=".Splash" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
-
-
-        <activity android:name=".FoundationGrid"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-        </activity>
-        <activity android:name=".DonateActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-        </activity>
-        <activity android:name=".MakeDonActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-        </activity>
+        <activity
+            android:name=".FoundationGrid"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".DonateActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".MakeDonActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".LotteryActivity" />
+        <activity android:name=".LotteryListActivity"></activity>
     </application>
 
 </manifest>

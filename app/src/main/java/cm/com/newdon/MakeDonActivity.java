@@ -89,7 +89,9 @@ public class MakeDonActivity extends AppCompatActivity {
 
     private int getAmount(){
         String text = etAmount.getText().toString();
-        return Integer.valueOf(text.subSequence(1, text.length()).toString());
+        int amount = Integer.valueOf(text.subSequence(1, text.length()).toString());
+        System.out.println("!!!!!!!PAY " + amount);
+        return amount;
     }
 
     private void setAmount(int amount){

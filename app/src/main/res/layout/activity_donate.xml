@@ -7,86 +7,222 @@
     tools:context="cm.com.newdon.DonateActivity">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/header_hight"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@color/lightBlue"
-        android:id="@+id/relativeLayout">
+        android:layout_alignParentTop="true"
+        android:background="@color/lightBlue">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/page_indicator2"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:src="@drawable/page_indicator2" />
     </RelativeLayout>
 
-    <ImageView
-        android:layout_width="39dp"
-        android:layout_height="39dp"
-        android:id="@+id/imFound"
-        android:layout_below="@+id/relativeLayout"
-        android:layout_alignLeft="@+id/relativeLayout"
-        android:layout_alignStart="@+id/relativeLayout" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Title"
-        android:textColor="@color/white"
-        android:textSize="15.6dp"
-        android:id="@+id/tvFoundTitle"
-        android:layout_below="@+id/relativeLayout"
-        android:layout_toRightOf="@+id/imFound"
-        android:layout_marginLeft="20dp" />
-
-    <EditText
-        android:layout_width="367dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/etComment"
-        android:hint="Type what you feel"
-        android:layout_below="@+id/imFound"
-        android:background="@drawable/rectangle_49"
-        android:layout_marginTop="5dp" />
-
-    <RelativeLayout
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:id="@+id/relativeLayout3"
-        android:onClick="attachImage"
-        android:layout_below="@+id/etComment"
-        android:layout_alignLeft="@+id/etComment"
-        android:layout_alignStart="@+id/etComment">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/header_hight"
+        android:paddingBottom="@dimen/header_hight">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Attach image"
-            android:textSize="28sp"
-            android:textColor="@color/lightBlue"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/etComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="65dp"
+                android:layout_marginRight="65dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rectangle_49"
+                android:hint="Type what you feel"
+                android:textColorHint="@color/grey"
+                android:textColor="@color/black" />
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_below="@+id/etComment"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp">
+
+
+                <ImageView
+                    android:id="@+id/imPost"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/imFound"
+                    android:layout_width="39dp"
+                    android:layout_height="39dp" />
+
+                <TextView
+                    android:id="@+id/tvFoundTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:shadowColor="@color/black"
+                    android:text="Title"
+                    android:textColor="@color/white"
+                    android:textSize="15.6dp" />
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignLeft="@+id/frameLayout"
+                android:layout_below="@+id/frameLayout" />
+
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/frameLayout"
+                android:layout_toRightOf="@+id/image1" />
+
+            <ImageView
+                android:id="@+id/image3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/frameLayout"
+                android:layout_toRightOf="@+id/image2" />
+
+            <ImageView
+                android:id="@+id/image4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/frameLayout"
+                android:layout_toRightOf="@+id/image3" />
+
+            <ImageView
+                android:id="@+id/image5"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/frameLayout"
+                android:layout_toRightOf="@+id/image4" />
+
+            <Button
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_alignEnd="@+id/etComment"
+                android:layout_alignRight="@+id/etComment"
+                android:layout_below="@+id/frameLayout"
+                android:background="@drawable/rectangle_34"
+                android:onClick="attachImage"
+                android:text="Attach image"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image1"
+                android:layout_toLeftOf="@+id/image2"
+                android:layout_toStartOf="@+id/image2"
+                android:text="Share your Don:"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+            <RelativeLayout
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:id="@+id/facebook"
+                android:layout_below="@+id/tvShare"
+                android:background="@drawable/rectangle_49">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/facebook_logo" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:id="@+id/twitter"
+                android:layout_below="@+id/tvShare"
+                android:layout_toRightOf="@+id/facebook"
+                android:background="@drawable/rectangle_49">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/twitter_logo" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:id="@+id/tumblr"
+                android:layout_below="@+id/tvShare"
+                android:layout_toRightOf="@+id/twitter"
+                android:background="@drawable/rectangle_49">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/tumblr_logo" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:layout_below="@+id/tvShare"
+                android:layout_toRightOf="@+id/tumblr"
+                android:background="@drawable/rectangle_49">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/pinterest_logo" />
+            </RelativeLayout>
+
+            <!-- For scroll -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#00000000"/>
+        </RelativeLayout>
+    </ScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="97.3dp"
+        android:layout_alignParentBottom="true"
         android:background="@color/grey"
-        android:onClick="next"
-        android:layout_alignParentBottom="true">
+        android:onClick="next">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next"
-            android:textSize="28sp"
-            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:text="Next"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
     </RelativeLayout>
 
 </RelativeLayout>
