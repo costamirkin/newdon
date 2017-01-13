@@ -1,6 +1,5 @@
 package cm.com.newdon;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,15 +15,16 @@ import android.support.v7.widget.PopupMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 import cm.com.newdon.classes.Foundation;
@@ -38,9 +39,10 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
     private static final int REQUESTCAMERA = 0;
     private static final int REQUESTGALLERY = 1;
     private static final int PIC_CROP = 2;
-    private Uri picUri;
+    private Uri pUri;
     private Bitmap currentBitmap;
     private Foundation foundation;
+    Intent intent;
 
     ImageView imageMain;
     ImageView defaultImage1;
@@ -57,7 +59,10 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
 
         CommonData.getInstance().imageLoadedIf = this;
 
-        Intent intent = getIntent();
+        //to hide keyboard
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        intent = getIntent();
         int position = intent.getIntExtra("position", 0);
         foundation = CommonData.getInstance().getFoundations().get(position);
 
@@ -145,16 +150,15 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
         tempPost.setFoundation(foundation);
         tempPost.setMessage(((EditText) findViewById(R.id.etComment)).getText().toString());
 
-
         if (foundation.getLogo() != null) {
             ImageView imLogo = (ImageView) findViewById(R.id.imFound);
             imLogo.setImageBitmap(foundation.getLogo());
         }
 
-//        save image!!!!
-
         CommonData.getInstance().setTempPost(tempPost);
 
+// TODO: 13.01.2017
+// save image!!!!
         if (currentBitmap != null) {
             Uri uri = getImageUri(getApplicationContext(), currentBitmap);
             if (uri != null) {
@@ -162,7 +166,7 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
             }
         }
 
-        Intent intent = new Intent(getApplicationContext(), MakeDonActivity.class);
+        intent = new Intent(getApplicationContext(), MakeDonActivity.class);
         startActivity(intent);
     }
 
@@ -191,15 +195,33 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
 
     public void capture(MenuItem item) {
         //open camera
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getPackageManager()) != null) {
+        intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File photo;
+        try {
+            // place where to store camera taken picture
+            photo = this.createTemporaryFile("picture", ".jpg");
+            photo.delete();
+            pUri = Uri.fromFile(photo);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, pUri);
+            //start camera intent
             startActivityForResult(intent, REQUESTCAMERA);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    private File createTemporaryFile(String part, String ext) throws Exception {
+        File tempDir = Environment.getExternalStorageDirectory();
+        tempDir = new File(tempDir.getAbsolutePath() + "/.temp/");
+        if (!tempDir.exists()) {
+            tempDir.mkdirs();
+        }
+        return File.createTempFile(part, ext, tempDir);
     }
 
     public void gallery(MenuItem item) {
         //open gallery
-        Intent intent = GalleryHelper.openGallery();
+        intent = GalleryHelper.openGallery();
         startActivityForResult(intent, REQUESTGALLERY);
     }
 
@@ -208,14 +230,19 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUESTCAMERA) {
-                picUri = data.getData();
-                cropImage();
-////            камера возвращает данные в ключе data
-//                bitmap = (Bitmap) data.getExtras().get("data");
+                if (pUri != null) {
+                    CommonData.getInstance().setTempPicUri(pUri);
+                    intent = new Intent(this, CropActivity.class);
+                    startActivityForResult(intent, PIC_CROP);
+                }
             } else if (requestCode == REQUESTGALLERY) {
-                picUri = data.getData();
-                cropImage();
+                pUri = data.getData();
 
+                if (pUri != null) {
+                    CommonData.getInstance().setTempPicUri(pUri);
+                    intent = new Intent(this, CropActivity.class);
+                    startActivityForResult(intent,PIC_CROP);
+                }
 //                    if there is a problem with rotated image
 //                    try {
 //                        currentBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
@@ -224,19 +251,14 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
 //                        e.printStackTrace();
 //                    }
             } else if (requestCode == PIC_CROP) {
-
-//               здесь почему-то null, надо по-другому Ури получать...
-//                picUri = data.getData();
-
-                Bundle extras = data.getExtras();
-                Bitmap thePic = extras.getParcelable("data");
-
-                if (thePic != null) {
-                    imageMain.setImageBitmap(thePic);
+                Uri uriCroppedImage = CommonData.getInstance().getTempPicUri();
+                imageMain.setImageURI(uriCroppedImage);
+                try {
+                    currentBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriCroppedImage);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                currentBitmap = thePic;
             }
-
         }
     }
 
@@ -267,30 +289,6 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
         for (int i = 0; i < 5; i++) {
             Picasso.with(getApplicationContext())
                     .load(foundation.defaultPicsUrl[i]).into(defaultImages[i]);
-        }
-    }
-
-    private void cropImage() {
-        try {
-            //Вызываем стандартное действие захвата изображения:
-            Intent cropIntent = new Intent("com.android.camera.action.CROP");
-            //Указываем тип изображения и Uri
-            cropIntent.setDataAndType(picUri, "image/*");
-            //Настраиваем характеристики захвата:
-            cropIntent.putExtra("crop", "true");
-            cropIntent.putExtra("aspectX", 1);
-            cropIntent.putExtra("aspectY", 1);
-            //Указываем размер в X and Y
-            cropIntent.putExtra("outputX", 256);
-            cropIntent.putExtra("outputY", 256);
-            //Извлекаем данные
-            cropIntent.putExtra("return-data", true);
-            //Запускаем Activity и возвращаемся в метод onActivityResult
-            startActivityForResult(cropIntent, PIC_CROP);
-        } catch (ActivityNotFoundException cant) {
-            //error message
-            String errorMessage = "Problem with the camera";
-            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         }
     }
 }

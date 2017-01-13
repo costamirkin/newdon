@@ -91,7 +91,7 @@ public class PostsAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
             if (post.getLocalImagePath() != null) {
-                ImageView imageView = (ImageView) layout.findViewById(R.id.ivUser);
+                ImageView imageView = (ImageView) layout.findViewById(R.id.ivPost);
                 File imgFile = new File(post.getLocalImagePath());
                 if (imgFile.exists()) {
                     Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
