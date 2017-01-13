@@ -28,25 +28,11 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="38"></View>
-
         <ImageView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="30"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:onClick="startDonate"
             android:src="@drawable/coin" />
-
-    </LinearLayout>
-
 </RelativeLayout>

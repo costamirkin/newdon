@@ -211,6 +211,10 @@ public class DataLoader {
                         CommonData.getInstance().getFeaturedLotteries()
                                 .add(lottery);
                     }
+                    if (CommonData.getInstance().imageLoadedIf != null) {
+                        CommonData.getInstance().imageLoadedIf.dataLoaded();
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

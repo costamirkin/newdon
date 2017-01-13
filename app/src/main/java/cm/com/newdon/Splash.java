@@ -65,8 +65,15 @@ public class Splash extends AppCompatActivity {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    Toast.makeText(getApplicationContext(),
-                            "Login failed: " + new String(responseBody), Toast.LENGTH_LONG).show();
+                    if (responseBody == null) {
+                        Toast.makeText(getApplicationContext(),
+                                "Login failed: No internet connection", Toast.LENGTH_LONG).show();
+
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(),
+                                "Login failed: " + new String(responseBody), Toast.LENGTH_LONG).show();
+                    }
 
                     new Handler().postDelayed(new MyRunnable(SignAcitvity.class), SPLASH_TIME_OUT);
                 }
