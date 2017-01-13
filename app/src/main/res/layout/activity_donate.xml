@@ -23,13 +23,12 @@
             android:src="@drawable/page_indicator2" />
     </RelativeLayout>
 
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingTop="@dimen/header_hight"
-        android:paddingBottom="@dimen/header_hight">
+        android:paddingBottom="@dimen/header_hight"
+        android:paddingTop="@dimen/header_hight">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -45,8 +44,8 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/rectangle_49"
                 android:hint="Type what you feel"
-                android:textColorHint="@color/grey"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey" />
 
             <FrameLayout
                 android:id="@+id/frameLayout"
@@ -54,7 +53,8 @@
                 android:layout_height="250dp"
                 android:layout_below="@+id/etComment"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="2dp">
 
 
                 <ImageView
@@ -72,9 +72,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="40dp"
-                    android:shadowColor="@color/black"
-                    android:text="Title"
                     android:textColor="@color/white"
+                    android:shadowColor="@color/black"
+                    android:shadowDx="-2"
+                    android:shadowDy="2"
+                    android:shadowRadius="0.01"
+                    android:text="Title"
                     android:textSize="15.6dp" />
 
             </FrameLayout>
@@ -91,28 +94,32 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_below="@+id/frameLayout"
-                android:layout_toRightOf="@+id/image1" />
+                android:layout_toRightOf="@+id/image1"
+                android:layout_marginLeft="2dp"/>
 
             <ImageView
                 android:id="@+id/image3"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_below="@+id/frameLayout"
-                android:layout_toRightOf="@+id/image2" />
+                android:layout_toRightOf="@+id/image2"
+                android:layout_marginLeft="2dp"/>
 
             <ImageView
                 android:id="@+id/image4"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_below="@+id/frameLayout"
-                android:layout_toRightOf="@+id/image3" />
+                android:layout_toRightOf="@+id/image3"
+                android:layout_marginLeft="2dp"/>
 
             <ImageView
                 android:id="@+id/image5"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_below="@+id/frameLayout"
-                android:layout_toRightOf="@+id/image4" />
+                android:layout_toRightOf="@+id/image4"
+                android:layout_marginLeft="2dp"/>
 
             <Button
                 android:layout_width="90dp"
@@ -135,82 +142,113 @@
                 android:layout_toLeftOf="@+id/image2"
                 android:layout_toStartOf="@+id/image2"
                 android:text="Share your Don:"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
 
-            <RelativeLayout
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:id="@+id/facebook"
+            <LinearLayout
                 android:layout_below="@+id/tvShare"
-                android:background="@drawable/rectangle_49">
+                android:id="@+id/shareLayout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingTop="5dp"
+                android:weightSum="100">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="13"
+                    android:layout_height="match_parent">
+                </View>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="14"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/facebook_logo" />
-            </RelativeLayout>
+                    android:background="@drawable/rectangle_50_copy_2">
 
-            <RelativeLayout
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:id="@+id/twitter"
-                android:layout_below="@+id/tvShare"
-                android:layout_toRightOf="@+id/facebook"
-                android:background="@drawable/rectangle_49">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/facebook_logo" />
+                </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="6"
+                    android:layout_height="match_parent">
+                </View>
+
+                <RelativeLayout
+                    android:id="@+id/twitter"
+                    android:layout_width="0dp"
+                    android:layout_weight="14"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/twitter_logo" />
-            </RelativeLayout>
+                    android:background="@drawable/rectangle_50_copy_2">
 
-            <RelativeLayout
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:id="@+id/tumblr"
-                android:layout_below="@+id/tvShare"
-                android:layout_toRightOf="@+id/twitter"
-                android:background="@drawable/rectangle_49">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/twitter_logo" />
+                </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="6"
+                    android:layout_height="match_parent">
+                </View>
+
+                <RelativeLayout
+                    android:id="@+id/tumblr"
+                    android:layout_width="0dp"
+                    android:layout_weight="14"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/tumblr_logo" />
-            </RelativeLayout>
+                    android:background="@drawable/rectangle_50_copy_2">
 
-            <RelativeLayout
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_below="@+id/tvShare"
-                android:layout_toRightOf="@+id/tumblr"
-                android:background="@drawable/rectangle_49">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/tumblr_logo" />
+                </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="6"
+                    android:layout_height="match_parent">
+                </View>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="14"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/pinterest_logo" />
-            </RelativeLayout>
+                    android:background="@drawable/rectangle_50_copy_2">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/pinterest_logo" />
+                </RelativeLayout>
+            </LinearLayout>
 
             <!-- For scroll -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="#00000000"/>
+                android:layout_below="@id/shareLayout"
+                android:background="#00000000" />
         </RelativeLayout>
     </ScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="97.3dp"
+        android:layout_height="@dimen/button_hight"
         android:layout_alignParentBottom="true"
         android:background="@color/grey"
         android:onClick="next">

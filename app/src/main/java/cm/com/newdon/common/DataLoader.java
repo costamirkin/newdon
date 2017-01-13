@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cm.com.newdon.classes.Foundation;
+import cm.com.newdon.classes.Lottery;
 import cm.com.newdon.classes.Post;
 import cz.msebera.android.httpclient.Header;
 
@@ -55,7 +56,6 @@ public class DataLoader {
                     JSONArray array = object.getJSONArray("items");
                     System.out.println(array.length());
                     for (int i = 0; i < array.length(); i++) {
-                        System.out.println(i);
                         Foundation foundation = JsonHandler.parseFoundationFromJson(array.getJSONObject(i));
                         new ImageLoaderToBitmap(foundation.getLogoUrl(),foundation.getId(),
                                 ImageLoaderToBitmap.DownloadOption.FOUNDATION).execute();
@@ -95,7 +95,7 @@ public class DataLoader {
                         }
                         CommonData.getInstance().getPosts().add(post);
                         if (CommonData.getInstance().imageLoadedIf != null) {
-                            CommonData.getInstance().imageLoadedIf.postsLoaded();
+                            CommonData.getInstance().imageLoadedIf.dataLoaded();
                         }
                     }
                 } catch (JSONException e) {
@@ -115,7 +115,7 @@ public class DataLoader {
         RestClient.get("users/posts", params, handler);
     }
 
-    public static void getFoundationData(final int foundationId,final Context context) {
+    public static void getFoundationData(final int foundationId) {
         AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -130,11 +130,9 @@ public class DataLoader {
                         CommonData.getInstance().findFoundById(foundationId).defaultPicsId[i]=imageId;
                         String imageUrl = array.getJSONObject(i).getString("url");
                         CommonData.getInstance().findFoundById(foundationId).defaultPicsUrl[i]= imageUrl;
-//                        new ImageLoaderToStorage(imageUrl,context,imageId,
-//                                ImageLoaderToBitmap.DownloadOption.DEFAULT_IMAGE).execute();
                     }
                     if (CommonData.getInstance().imageLoadedIf != null) {
-                        CommonData.getInstance().imageLoadedIf.postsLoaded();
+                        CommonData.getInstance().imageLoadedIf.dataLoaded();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -151,5 +149,80 @@ public class DataLoader {
         params.put("id",foundationId);
 
         RestClient.get("foundations/get", params, handler);
+    }
+
+    public static void getLotteryList() {
+        CommonData.getInstance().getLotteryList().clear();
+
+        AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                System.out.println(new String(responseBody));
+                try {
+                    JSONObject object = new JSONObject(new String(responseBody));
+                    JSONArray array = object.getJSONArray("items");
+                    System.out.println(array.length());
+                    for (int i = 0; i < array.length(); i++) {
+                        System.out.println(i);
+                        Lottery lottery = JsonHandler.parseLotteryFromJson(array.getJSONObject(i));
+//                        new ImageLoaderToBitmap(foundation.getLogoUrl(),foundation.getId(),
+//                                ImageLoaderToBitmap.DownloadOption.FOUNDATION).execute();
+                        CommonData.getInstance().getLotteryList()
+                                .add(lottery);
+                    }
+
+//                    to renew listview
+                    if (CommonData.getInstance().imageLoadedIf != null) {
+                        CommonData.getInstance().imageLoadedIf.dataLoaded();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
+                System.out.println(new String(responseBody));
+            }
+        };
+        RequestParams params = new RequestParams();
+        RestClient.get("lottery/list", params, handler);
+    }
+
+    public static void getFeaturedLotteries() {
+        CommonData.getInstance().getFeaturedLotteries().clear();
+        CommonData.getInstance().getLotteryList().clear();
+
+        AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                System.out.println(new String(responseBody));
+                try {
+                    JSONArray array = new JSONArray(new String(responseBody));
+                    System.out.println(array.length());
+                    for (int i = 0; i < array.length(); i++) {
+                        System.out.println(i);
+                        Lottery lottery = JsonHandler.parseLotteryFromJson(array.getJSONObject(i));
+//                        new ImageLoaderToBitmap(foundation.getLogoUrl(),foundation.getId(),
+//                                ImageLoaderToBitmap.DownloadOption.FOUNDATION).execute();
+                        CommonData.getInstance().getLotteryList()
+                                .add(lottery);
+                        CommonData.getInstance().getFeaturedLotteries()
+                                .add(lottery);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
+                System.out.println(new String(responseBody));
+            }
+        };
+        RequestParams params = new RequestParams();
+        RestClient.get("lottery/featured", params, handler);
     }
 }

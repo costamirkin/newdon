@@ -61,6 +61,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/gvFounds"
+        android:verticalSpacing="1dp"
+        android:horizontalSpacing="1dp"
+        android:background="@color/lightgrey"
         android:numColumns="2"/>
 
 </LinearLayout>

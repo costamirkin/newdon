@@ -7,8 +7,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import cm.com.newdon.classes.Lottery;
 import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.DataLoader;
 
 public class LotteryActivity extends AppCompatActivity {
 
@@ -22,26 +25,33 @@ public class LotteryActivity extends AppCompatActivity {
         Lottery lottery = CommonData.getInstance().getLotteryList().get(position);
 
         ImageView imLotteryLogo = (ImageView) findViewById(R.id.imLotteryLogo);
-        // TODO: 06.01.2017
+        Picasso.with(this).load(lottery.getLogoUrl()).into(imLotteryLogo);
 
         TextView tvLotteryTitle = (TextView) findViewById(R.id.tvLotteryTitle);
         tvLotteryTitle.setText(lottery.getTitle());
 
+        TextView tvLotteryPromo = (TextView) findViewById(R.id.tvLotteryPromo);
+        tvLotteryPromo.setText(lottery.getPromoText());
+
         TextView tvLotteryDate = (TextView) findViewById(R.id.tvLotteryDate);
+        if (lottery.getStatus().equals("finished")){
+            tvLotteryDate.setText("Lottery closed");
+        }
 //        tvLotteryDate.setText(lottery.get());
         // TODO: 06.01.2017
 
         TextView tvParticipants = (TextView) findViewById(R.id.tvParticipants);
         tvParticipants.setText(lottery.getParticipantCount()+" Participants");
 
-        TextView tvStatus = (TextView) findViewById(R.id.tvStatus);
-        tvStatus.setText(lottery.getStatus());
+//        TextView tvStatus = (TextView) findViewById(R.id.tvStatus);
+//        tvStatus.setText(lottery.getStatus());
         
         ImageView imLottery = (ImageView) findViewById(R.id.imLottery);
-        // TODO: 06.01.2017  
+        Picasso.with(this).load(lottery.getImageUrl()).into(imLottery);
     }
 
     public void lotteryHistory(View view) {
-        startActivity(new Intent(this,LotteryListActivity.class));
+        DataLoader.getLotteryList();
+        startActivity(new Intent(this, LotteryListActivity.class));
     }
 }
