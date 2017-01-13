@@ -8,8 +8,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import cm.com.newdon.adapters.LotteryListAdapter;
+import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.DataLoadedIf;
 
-public class LotteryListActivity extends AppCompatActivity {
+public class LotteryListActivity extends AppCompatActivity implements DataLoadedIf{
 
     ListView listView;
 
@@ -17,6 +19,8 @@ public class LotteryListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lottery_list);
+        CommonData.getInstance().imageLoadedIf =  this;
+
         listView = (ListView) findViewById(R.id.lvLotteryHistory);
         LotteryListAdapter adapter = new LotteryListAdapter(this);
         listView.setAdapter(adapter);
@@ -28,5 +32,21 @@ public class LotteryListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void imageLoaded(int postId) {
+
+    }
+
+    @Override
+    public void dataLoaded() {
+        listView.invalidateViews();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        CommonData.getInstance().imageLoadedIf = null;
     }
 }

@@ -1,103 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".BottomBarActivity">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragmentContainer">
-    </FrameLayout>
+        android:layout_height="match_parent">
 
-    <!--<LinearLayout-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/homeLayout">-->
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
 
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Altru Home"/>-->
-
-        <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="15dp"-->
-            <!--android:id="@+id/imageView"-->
-            <!--android:layout_gravity="center_horizontal" />-->
-
-        <!--<ListView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/lvPosts"-->
-            <!--android:layout_gravity="center_horizontal" />-->
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/searchLayout"-->
-        <!--android:visibility="invisible">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="SEARCH"/>-->
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/notificationLayout"-->
-        <!--android:visibility="invisible">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Notification"/>-->
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/profileLayout"-->
-        <!--android:visibility="invisible">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Profile"/>-->
-    <!--</LinearLayout>-->
-
-    <com.roughike.bottombar.BottomBar
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/grey"
-        app:bb_tabXmlResource="@xml/bottom_bar"
-        app:bb_inActiveTabColor="#FFFFFF"
-        app:bb_activeTabColor="@color/lightBlue"
-        />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/coin"
-        android:layout_centerHorizontal="true"
-        android:layout_alignTop="@id/bottomBar"
-        android:layout_alignBottom="@id/bottomBar"
-        />
-
-    <!--app:bb_inActiveTabAlpha="0.3"-->
-        <!--app:bb_titleTypeFace="fonts/GreatVibes-Regular.otf"-->
-        <!--app:bb_titleTextAppearance="@style/CustomTitleTextAppearance"-->
-
+        <com.roughike.bottombar.BottomBar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/grey"
+            app:bb_activeTabColor="@color/lightBlue"
+            app:bb_inActiveTabColor="#FFFFFF"
+            app:bb_tabXmlResource="@xml/bottom_bar" />
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="38"></View>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:onClick="startDonate"
+            android:src="@drawable/coin" />
+
+    </LinearLayout>
+
+</RelativeLayout>

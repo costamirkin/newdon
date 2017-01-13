@@ -5,5 +5,5 @@ package cm.com.newdon.common;
  */
 public interface DataLoadedIf {
     void imageLoaded(int postId);
-    void postsLoaded();
+    void dataLoaded();
 }

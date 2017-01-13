@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import cm.com.newdon.R;
 import cm.com.newdon.classes.Lottery;
 import cm.com.newdon.common.CommonData;
@@ -44,12 +46,12 @@ public class LotteryListAdapter extends BaseAdapter{
 
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.foundation, parent, false);
+        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.lottery_item_for_lv, parent, false);
 
         Lottery lottery = CommonData.getInstance().getLotteryList().get(position);
 
         ImageView imLotteryLogo = (ImageView) layout.findViewById(R.id.imLotteryLogo);
-        // TODO: 06.01.2017
+        Picasso.with(context).load(lottery.getLogoUrl()).into(imLotteryLogo);
 
         TextView tvLotteryTitle = (TextView) layout.findViewById(R.id.tvLotteryTitle);
         tvLotteryTitle.setText(lottery.getTitle());

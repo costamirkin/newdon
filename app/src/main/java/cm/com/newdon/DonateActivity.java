@@ -1,9 +1,12 @@
 package cm.com.newdon;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -15,9 +18,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import cm.com.newdon.classes.Foundation;
@@ -27,15 +33,13 @@ import cm.com.newdon.common.DataLoadedIf;
 import cm.com.newdon.common.DataLoader;
 import cm.com.newdon.common.GalleryHelper;
 
-public class DonateActivity extends AppCompatActivity implements DataLoadedIf{
+public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
 
     private static final int REQUESTCAMERA = 0;
     private static final int REQUESTGALLERY = 1;
     private static final int PIC_CROP = 2;
-    private Bitmap bitmap;
+    private Uri picUri;
     private Bitmap currentBitmap;
-    private Uri selectedImage;
-
     private Foundation foundation;
 
     ImageView imageMain;
@@ -51,13 +55,13 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donate);
 
-        CommonData.getInstance().imageLoadedIf =  this;
+        CommonData.getInstance().imageLoadedIf = this;
 
         Intent intent = getIntent();
         int position = intent.getIntExtra("position", 0);
         foundation = CommonData.getInstance().getFoundations().get(position);
 
-        DataLoader.getFoundationData(foundation.getId(), getApplicationContext());
+        DataLoader.getFoundationData(foundation.getId());
 
         TextView tvTitle = (TextView) findViewById(R.id.tvFoundTitle);
         tvTitle.setText(foundation.getTitle());
@@ -69,6 +73,12 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf{
         initImages();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        CommonData.getInstance().imageLoadedIf = null;
+    }
+
     private void initImages() {
         imageMain = (ImageView) findViewById(R.id.imPost);
         defaultImage1 = (ImageView) findViewById(R.id.image1);
@@ -77,6 +87,31 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf{
         defaultImage4 = (ImageView) findViewById(R.id.image4);
         defaultImage5 = (ImageView) findViewById(R.id.image5);
         defaultImages = new ImageView[]{defaultImage1, defaultImage2, defaultImage3, defaultImage4, defaultImage5};
+
+        for (int i = 0; i < defaultImages.length; i++) {
+            final int finalI = i;
+            defaultImages[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Picasso.with(getApplicationContext())
+                            .load(foundation.defaultPicsUrl[finalI]).into(new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            imageMain.setImageBitmap(bitmap);
+                            currentBitmap = bitmap;
+                        }
+
+                        @Override
+                        public void onBitmapFailed(Drawable errorDrawable) {
+                        }
+
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+                        }
+                    });
+                }
+            });
+        }
     }
 
     private String getRealPathFromURI(Uri contentURI) {
@@ -90,19 +125,28 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf{
             result = cursor.getString(idx);
             cursor.close();
         }
+        System.out.println("VAR2!!!!!!!!!!!!!!!!" + result);
         return result;
     }
 
-/*go to the next step - make a Don
-need to transfer foundation, comment and image
-*/
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        System.out.println("VAR1!!!!!!!!!!!!!!!!" + path);
+        return Uri.parse(path);
+    }
+
+    /*go to the next step - make a Don
+    need to transfer foundation, comment and image
+    */
     public void next(View view) {
         Post tempPost = new Post();
         tempPost.setFoundation(foundation);
         tempPost.setMessage(((EditText) findViewById(R.id.etComment)).getText().toString());
 
 
-        if(foundation.getLogo()!=null) {
+        if (foundation.getLogo() != null) {
             ImageView imLogo = (ImageView) findViewById(R.id.imFound);
             imLogo.setImageBitmap(foundation.getLogo());
         }
@@ -110,8 +154,12 @@ need to transfer foundation, comment and image
 //        save image!!!!
 
         CommonData.getInstance().setTempPost(tempPost);
-        if (selectedImage!=null) {
-            CommonData.getInstance().getTempPost().setUri(getRealPathFromURI(selectedImage));
+
+        if (currentBitmap != null) {
+            Uri uri = getImageUri(getApplicationContext(), currentBitmap);
+            if (uri != null) {
+                CommonData.getInstance().getTempPost().setUri(getRealPathFromURI(uri));
+            }
         }
 
         Intent intent = new Intent(getApplicationContext(), MakeDonActivity.class);
@@ -158,60 +206,62 @@ need to transfer foundation, comment and image
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        bitmap = null;
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUESTCAMERA) {
-//Получаем ссылку на захваченное изображение:
-//                pUri = data.getData();
-//                cropImage();
-//            камера возвращает данные в ключе data
-                bitmap = (Bitmap) data.getExtras().get("data");
+                picUri = data.getData();
+                cropImage();
+////            камера возвращает данные в ключе data
+//                bitmap = (Bitmap) data.getExtras().get("data");
             } else if (requestCode == REQUESTGALLERY) {
-                selectedImage = data.getData();
-                try {
-                    currentBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
-                    bitmap = GalleryHelper.getRotatedImage(getApplicationContext(), currentBitmap, selectedImage);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                picUri = data.getData();
+                cropImage();
 
+//                    if there is a problem with rotated image
+//                    try {
+//                        currentBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+//                        bitmap = GalleryHelper.getRotatedImage(getApplicationContext(), currentBitmap, selectedImageUri);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
             } else if (requestCode == PIC_CROP) {
-            /*
-            Получаем данные
-            типобезопасный контейнер направленный на производительность чтения
-            и записи данных и его цель - хранить и предоставлять некую информацию
-            по типу ключ-значение, где ключ это строка, а значения - данные
-            наследующие интерфейс Parcelable или класс Parcel, которые в свою
-            очередь предоставляют возможность для упаковки/распаковки данных
-            при межпотоковом взаимодействии, что положительно сказывается на производительности.
-            Если по-русски, то в объект типа Bundle можно запихать любой примитивный
-            тип, а так же String и другие, созданные вами пользовательские
-            типы наследующие класс Parcel или интерфейс Parcelable. А потом
-            достать их по ключу в другом потоке которому вы передали объект
-            Bundle. В итоге получается что Bundle это эдакий HashMap "заточенный"
-            для работы с IPC(Inter-Process Communication).
-             */
+
+//               здесь почему-то null, надо по-другому Ури получать...
+//                picUri = data.getData();
+
                 Bundle extras = data.getExtras();
-//            /*
-//            Получаем изображение
-//            Bitmap – это объект, который хранит в себе изображение.
-//            Та же канва, с которой мы обычно работаем, это обертка,
-//            которая принимает команды от нас и рисует их на Bitmap, который мы видим в результате.
-//             */
-                bitmap = extras.getParcelable("data");
+                Bitmap thePic = extras.getParcelable("data");
+
+                if (thePic != null) {
+                    imageMain.setImageBitmap(thePic);
+                }
+                currentBitmap = thePic;
             }
+
         }
     }
 
     @Override
     public void imageLoaded(int postId) {
-
     }
 
     @Override
-    public void postsLoaded() {
+    public void dataLoaded() {
         Picasso.with(getApplicationContext())
-                .load(foundation.defaultPicsUrl[0]).into(imageMain);
+                .load(foundation.defaultPicsUrl[0]).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                imageMain.setImageBitmap(bitmap);
+                currentBitmap = bitmap;
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            }
+        });
 
 //        5 default pics
         for (int i = 0; i < 5; i++) {
@@ -220,34 +270,27 @@ need to transfer foundation, comment and image
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        CommonData.getInstance().imageLoadedIf = null;
+    private void cropImage() {
+        try {
+            //Вызываем стандартное действие захвата изображения:
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            //Указываем тип изображения и Uri
+            cropIntent.setDataAndType(picUri, "image/*");
+            //Настраиваем характеристики захвата:
+            cropIntent.putExtra("crop", "true");
+            cropIntent.putExtra("aspectX", 1);
+            cropIntent.putExtra("aspectY", 1);
+            //Указываем размер в X and Y
+            cropIntent.putExtra("outputX", 256);
+            cropIntent.putExtra("outputY", 256);
+            //Извлекаем данные
+            cropIntent.putExtra("return-data", true);
+            //Запускаем Activity и возвращаемся в метод onActivityResult
+            startActivityForResult(cropIntent, PIC_CROP);
+        } catch (ActivityNotFoundException cant) {
+            //error message
+            String errorMessage = "Problem with the camera";
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        }
     }
-
-    //    private void cropImage() {
-//        try {
-//        }
-//        catch (ActivityNotFoundException cant) {
-//            //Показываем сообщение об ошибке:
-//            String errorMessage = "Ваше устройство не поддерживает работу с камерой!";
-//            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
-//        }
-//        //Вызываем стандартное действие захвата изображения:
-//        Intent cropIntent = new Intent("com.android.camera.action.CROP");
-//        //Указываем тип изображения и Uri
-//        cropIntent.setDataAndType(pUri,"image/*");
-//        //Настраиваем характеристики захвата:
-//        cropIntent.putExtra("crop", "true");
-//        cropIntent.putExtra("aspectX", 1);
-//        cropIntent.putExtra("aspectY", 1);
-//        //Указываем размер в X and Y
-//        cropIntent.putExtra("outputX", 256);
-//        cropIntent.putExtra("outputY", 256);
-//        //Извлекаем данные
-//        cropIntent.putExtra("return-data", true);
-//        //Запускаем Activity и возвращаемся в метод onActivityResult
-//        startActivityForResult(cropIntent, PIC_CROP);
-//    }
 }

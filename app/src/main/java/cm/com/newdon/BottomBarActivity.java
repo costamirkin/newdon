@@ -44,6 +44,7 @@ public class BottomBarActivity extends AppCompatActivity {
             DataLoader.getUserId(getApplicationContext());
 //            DataLoader.getUserPosts();
             DataLoader.getAllFoundations();
+            DataLoader.getFeaturedLotteries();
             CommonData.getInstance().isFirstStart = false;
         }
     }
@@ -61,7 +62,7 @@ public class BottomBarActivity extends AppCompatActivity {
                         commitFragment(searchFragment);
                         break;
                     case R.id.bottomBarDonate:
-                        startActivity(new Intent(BottomBarActivity.this, FoundationGrid.class));
+//                        startActivity(new Intent(BottomBarActivity.this, FoundationGrid.class));
                         break;
                     case R.id.bottomBarNotification:
                         commitFragment(notificationFragment);
@@ -91,5 +92,9 @@ public class BottomBarActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         CommonData.getInstance().imageLoadedIf = null;
+    }
+
+    public void startDonate(View view) {
+        startActivity(new Intent(BottomBarActivity.this, FoundationGrid.class));
     }
 }

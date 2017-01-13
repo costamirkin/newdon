@@ -1,25 +1,27 @@
 package cm.com.newdon.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
 
+import cm.com.newdon.LotteryActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
+import me.relex.circleindicator.CircleIndicator;
 
 /**
  * Created by Marina on 17.12.2016.
@@ -55,7 +57,17 @@ public class PostsAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (position==0){
-            layout = (RelativeLayout) inflater.inflate(R.layout.lottery,parent,false);
+
+            layout = (RelativeLayout) View.inflate(context, R.layout.lottery_view_pager, null);
+            ViewPager viewPager = (ViewPager) layout.findViewById(R.id.viewpager);
+            CircleIndicator indicator = (CircleIndicator) layout.findViewById(R.id.indicator);
+            LotteryViewPagerAdapter viewPagerAdapter = new LotteryViewPagerAdapter(context);
+
+            viewPager.setAdapter(viewPagerAdapter);
+            viewPager.setCurrentItem(0);
+            indicator.setViewPager(viewPager);
+            viewPagerAdapter.registerDataSetObserver(indicator.getDataSetObserver());
+
         }else {
             layout = (RelativeLayout) inflater.inflate(R.layout.post, parent, false);
 

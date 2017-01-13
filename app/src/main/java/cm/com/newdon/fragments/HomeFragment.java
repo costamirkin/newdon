@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -24,6 +25,8 @@ import cm.com.newdon.common.DataLoadedIf;
 
 public class HomeFragment extends Fragment implements DataLoadedIf {
     ListView lv;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,11 +60,7 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
     }
 
     @Override
-    public void postsLoaded() {
+    public void dataLoaded() {
         lv.invalidateViews();
-    }
-
-    public void openLottery(View view) {
-        startActivity(new Intent(getActivity().getApplicationContext(), LotteryActivity.class ));
     }
 }
