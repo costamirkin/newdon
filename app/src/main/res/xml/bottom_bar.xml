@@ -13,6 +13,5 @@
         id="@+id/bottomBarNotification"
         icon="@drawable/shape_6" />
     <tab
-        id="@+id/bottomBarProfile"
-        icon="@android:drawable/ic_dialog_info" />
+        id="@+id/bottomBarProfile"/>
 </tabs>

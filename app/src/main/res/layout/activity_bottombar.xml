@@ -13,8 +13,7 @@
         <FrameLayout
             android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </FrameLayout>
+            android:layout_height="match_parent"></FrameLayout>
 
         <com.roughike.bottombar.BottomBar
             android:id="@+id/bottomBar"
@@ -28,11 +27,34 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="startDonate"
+        android:src="@drawable/coin" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:weightSum="100"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="#00FF0000">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="80"
+            android:background="#00ffffff" />
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:onClick="startDonate"
-            android:src="@drawable/coin" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:id="@+id/faceImage"
+            android:src="@drawable/facebook_logo"/>
+    </LinearLayout>
 </RelativeLayout>

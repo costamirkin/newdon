@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
@@ -22,6 +24,9 @@ import cm.com.newdon.fragments.SearchFragment;
 public class BottomBarActivity extends AppCompatActivity {
 
     private BottomBar bottomBar;
+
+
+
     private int numberNewNotifications = 5;
 
     HomeFragment homeFragment = new HomeFragment();
@@ -42,6 +47,7 @@ public class BottomBarActivity extends AppCompatActivity {
         if (CommonData.getInstance().isFirstStart) {
 //            get userID AND dowbload posts
             DataLoader.getUserId(getApplicationContext());
+            DataLoader.getSuggestedUsers(getApplicationContext());
 //            DataLoader.getUserPosts();
             DataLoader.getAllFoundations();
             DataLoader.getFeaturedLotteries();
@@ -51,6 +57,7 @@ public class BottomBarActivity extends AppCompatActivity {
 
     private void setupBottomBar(){
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(int tabId) {
