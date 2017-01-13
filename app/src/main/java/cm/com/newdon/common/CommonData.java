@@ -1,5 +1,7 @@
 package cm.com.newdon.common;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,4 +107,14 @@ public class CommonData {
     public boolean isFirstStart = true;
 
     public DataLoadedIf imageLoadedIf = null;
+
+    private Uri tempPicUri;
+
+    public Uri getTempPicUri() {
+        return tempPicUri;
+    }
+
+    public void setTempPicUri(Uri tempPicUri) {
+        this.tempPicUri = tempPicUri;
+    }
 }

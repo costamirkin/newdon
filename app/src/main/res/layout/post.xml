@@ -112,7 +112,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/coin"
+            android:src="@drawable/coin_sm"
             android:id="@+id/ivCoin"
             android:layout_marginRight="18dp"
             android:layout_toLeftOf="@+id/tvDonated"

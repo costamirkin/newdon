@@ -38,8 +38,6 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
         lv.setAdapter(new PostsAdapter(getActivity().getApplicationContext()));
         lv.invalidateViews();
 
-//        DataLoader.getUserPosts();
-
         return view;
     }
 
@@ -50,7 +48,7 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
         if (position >= lv.getFirstVisiblePosition() &&
                 position < lv.getLastVisiblePosition() ) {
             RelativeLayout layout = (RelativeLayout) lv.getChildAt(position + 1);
-            ImageView imageView = (ImageView) layout.findViewById(R.id.ivUser);
+            ImageView imageView = (ImageView) layout.findViewById(R.id.ivPost);
             File imgFile = new File(CommonData.getInstance().getPosts().get(position).getLocalImagePath());
             if(imgFile.exists()){
                 Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());

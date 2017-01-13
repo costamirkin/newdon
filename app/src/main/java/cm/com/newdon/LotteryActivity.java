@@ -35,7 +35,7 @@ public class LotteryActivity extends AppCompatActivity {
 
         TextView tvLotteryDate = (TextView) findViewById(R.id.tvLotteryDate);
         if (lottery.getStatus().equals("finished")){
-            tvLotteryDate.setText("Lottery closed");
+            tvLotteryDate.setText("Lottery Closed");
         }
 //        tvLotteryDate.setText(lottery.get());
         // TODO: 06.01.2017

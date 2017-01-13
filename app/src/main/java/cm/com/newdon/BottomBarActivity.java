@@ -45,10 +45,10 @@ public class BottomBarActivity extends AppCompatActivity {
 //        progressDialog.show();
 
         if (CommonData.getInstance().isFirstStart) {
-//            get userID AND dowbload posts
+//            get userID AND download posts
             DataLoader.getUserId(getApplicationContext());
             DataLoader.getSuggestedUsers(getApplicationContext());
-//            DataLoader.getUserPosts();
+            DataLoader.getUserPosts(getApplicationContext());
             DataLoader.getAllFoundations();
             DataLoader.getFeaturedLotteries();
             CommonData.getInstance().isFirstStart = false;

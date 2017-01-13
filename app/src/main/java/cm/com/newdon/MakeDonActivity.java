@@ -60,7 +60,9 @@ public class MakeDonActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Toast.makeText(getApplicationContext(),"YOU made a DON!", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(getApplicationContext(), BottomBarActivity.class));
+                Intent intent = new Intent(getApplicationContext(),BottomBarActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
 
             @Override
@@ -90,7 +92,6 @@ public class MakeDonActivity extends AppCompatActivity {
     private int getAmount(){
         String text = etAmount.getText().toString();
         int amount = Integer.valueOf(text.subSequence(1, text.length()).toString());
-        System.out.println("!!!!!!!PAY " + amount);
         return amount;
     }
 
