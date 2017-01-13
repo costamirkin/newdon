@@ -151,7 +151,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@color/grey"
-        android:onClick="makeDone">
+        android:onClick="makeDone"
+        android:id="@+id/relativeLayout2">
 
         <TextView
             android:layout_width="wrap_content"
@@ -162,6 +163,15 @@
             android:textColor="@color/white"
             android:textSize="28sp" />
     </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CARD"
+        android:id="@+id/button4"
+        android:onClick="creditCard"
+        android:layout_above="@+id/relativeLayout2"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

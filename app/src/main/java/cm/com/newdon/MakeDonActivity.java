@@ -118,4 +118,8 @@ public class MakeDonActivity extends AppCompatActivity {
     public void coin50(View view) {
         setAmount(50);
     }
+
+    public void creditCard(View view) {
+        startActivity(new Intent(getApplicationContext(), CardActivity.class));
+    }
 }
