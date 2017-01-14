@@ -4,60 +4,76 @@
     android:background="@color/white"
     android:id="@+id/lotteryInfoLayout"
     android:orientation="vertical"
-    android:weightSum="100"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
         android:id="@+id/imLotteryLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="16"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/tvLotteryTitle"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Title"
         android:textColor="@color/black"
-        android:textSize="17sp" />
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/tvLotteryPromo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Promo"
+        android:text="Promo_text"
         android:textColor="@color/lightBlue"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lottery Closed"
-        android:textSize="30sp"
+        android:textSize="23sp"
         android:textColor="#b8b8b8"
         android:layout_gravity="center"
-        android:id="@+id/tvLotteryTime" />
+        android:id="@+id/tvLotteryDate" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2 people participating"
-        android:textSize="10sp"
+        android:text="day"
+        android:textSize="12sp"
         android:textColor="@color/lightBlue"
+        android:layout_gravity="center"
+        android:id="@+id/tvLotteryDay" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="amount of people participating"
+        android:textSize="10sp"
+        android:textColor="@color/lightgrey"
         android:layout_gravity="center"
         android:id="@+id/tvParticipants" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thanks for participationg"
+        android:text="Description"
         android:textSize="15sp"
-        android:textColor="@color/black"
+        android:textColor="@color/lightBlue"
         android:layout_gravity="center"
         android:id="@+id/tvDescription" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You are the winner"
+        android:textSize="10sp"
+        android:visibility="invisible"
+        android:textColor="@color/lightgrey"
+        android:layout_gravity="center"
+        android:id="@+id/tvWinner" />
 
 </LinearLayout>

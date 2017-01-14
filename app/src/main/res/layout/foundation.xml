@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="284dp"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
     android:background="@color/white">
 
     <ImageView
-        android:layout_width="132dp"
-        android:layout_height="132dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:id="@+id/imFoundLogo"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
 
@@ -17,7 +18,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/imFoundationInfo"
         android:src="@drawable/info"
-        android:layout_marginTop="25.3dp"
+        android:layout_marginTop="15dp"
         android:layout_alignParentTop="true"
         android:layout_marginRight="8.7dp"
         android:layout_alignParentRight="true" />
@@ -28,6 +29,8 @@
         android:text="Category"
         android:textSize="14.7sp"
         android:id="@+id/txFoundCategoryName"
+        android:background="@drawable/tv_round_border"
+        android:padding="8dp"
         android:layout_below="@+id/imFoundLogo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
@@ -36,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Foundation Title"
+        android:textColor="@color/black"
         android:textSize="22.7sp"
         android:id="@+id/tvFoundTitle"
         android:maxLength="20"
@@ -48,10 +52,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Foundation Adress"
+        android:text="Foundation Address"
         android:textColor="#5f5f5f"
         android:textSize="14.7sp"
-        android:id="@+id/tvFoundAdress"
+        android:id="@+id/tvFoundAddress"
         android:maxLength="30"
         android:maxLines="1"
         android:ellipsize="end"

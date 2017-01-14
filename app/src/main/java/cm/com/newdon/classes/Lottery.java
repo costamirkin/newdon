@@ -1,5 +1,7 @@
 package cm.com.newdon.classes;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,24 +14,25 @@ public class Lottery {
     String status;
     String logoUrl;
     String imageUrl;
-    String scheduleDay;
+    Date scheduleDay;
     String promoText;
     String description;
     String comfortText;
     boolean isYouWin;
     int participantCount;
-    List<Ticket> tickets;
+    ArrayList<Ticket> tickets;
 
     public Lottery(int id, String title) {
         this.id = id;
         this.title = title;
+        tickets  = new ArrayList<>();
     }
 
-    public List<Ticket> getTickets() {
+    public ArrayList<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(List<Ticket> tickets) {
+    public void setTickets(ArrayList<Ticket> tickets) {
         this.tickets = tickets;
     }
 
@@ -65,11 +68,11 @@ public class Lottery {
         this.imageUrl = imageUrl;
     }
 
-    public String getScheduleDay() {
+    public Date getScheduleDay() {
         return scheduleDay;
     }
 
-    public void setScheduleDay(String scheduleDay) {
+    public void setScheduleDay(Date scheduleDay) {
         this.scheduleDay = scheduleDay;
     }
 

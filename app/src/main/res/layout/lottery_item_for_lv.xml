@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:paddingTop="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
 
 
     <ImageView
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/imLotteryLogo"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="16dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,8 +29,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/tvLotteryDate"
+        android:text="Day"
+        android:textColor="#8e8e8e"
+        android:id="@+id/tvLotteryDay"
         android:layout_below="@+id/tvLotteryTitle"
         android:layout_toRightOf="@+id/imLotteryLogo"
         android:layout_toEndOf="@+id/imLotteryLogo" />
@@ -34,9 +39,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="Patercipants"
+        android:textColor="@color/lightBlue"
         android:id="@+id/tvParticipants"
-        android:layout_below="@+id/tvLotteryDate"
+        android:layout_marginBottom="16dp"
+        android:layout_below="@+id/tvLotteryDay"
         android:layout_toRightOf="@+id/imLotteryLogo"
         android:layout_toEndOf="@+id/imLotteryLogo" />
 
@@ -44,6 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imStatus"
+        android:background="@drawable/circle"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true" />
 
@@ -59,7 +67,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/grey"
+        android:background="@color/lightgrey"
         android:layout_alignParentBottom="true">
     </View>
 </RelativeLayout>
