@@ -63,8 +63,8 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         intent = getIntent();
-        int position = intent.getIntExtra("position", 0);
-        foundation = CommonData.getInstance().getFoundations().get(position);
+        int foundationId = intent.getIntExtra("foundationId", 0);
+        foundation = CommonData.getInstance().findFoundById(foundationId);
 
         DataLoader.getFoundationData(foundation.getId());
 
