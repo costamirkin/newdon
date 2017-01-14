@@ -6,77 +6,104 @@
     tools:context="cm.com.newdon.LotteryActivity">
 
     <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/header_hight"
-        android:background="@color/white"
-        android:id="@+id/header">
+        android:background="@color/white">
 
         <ImageView
             android:layout_width="103dp"
-            android:src="@drawable/editmeandsave"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:src="@drawable/editmeandsave" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textSize="20sp"
-            android:textColor="@color/lightBlue"
             android:layout_centerVertical="true"
             android:onClick="lotteryHistory"
-            android:text="History">
-        </TextView>
+            android:text="History"
+            android:textColor="@color/lightBlue"
+            android:textSize="20sp"></TextView>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/keyline">
-        </View>
+            android:background="@drawable/keyline"></View>
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header">
+
         <LinearLayout
-            android:orientation="vertical"
-            android:background="@drawable/vector_smart_object"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/vector_smart_object"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/white"
-                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp">
+                android:layout_marginTop="16dp"
+                android:background="@color/white"
+                android:orientation="vertical">
 
-                <include layout="@layout/lottey_common"/>
+                <include layout="@layout/lottey_common" />
 
-            <ImageView
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_gravity="center"
-                android:id="@+id/imLottery"/>
+                <ImageView
+                    android:id="@+id/imLottery"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:text="Comfort"
-                android:id="@+id/tvComfort"/>
+                <TextView
+                    android:id="@+id/tvNeedToDo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="invisible"
+                    android:text="So what do you need to do?"
+                    android:textColor="@color/lightBlue" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/grey"
-                android:text="My Tickets" />
+                <TextView
+                    android:id="@+id/tvComfort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Comfort"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/btnDonateNow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/rectangle_38"
+                    android:text="Donate now"
+                    android:onClick="donateNow"
+                    android:visibility="invisible"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="My Tickets"
+                    android:textColor="@color/grey" />
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lvTickets">
+                </ListView>
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

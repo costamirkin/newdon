@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number"
+        android:textSize="20sp"
+        android:id="@+id/tvTicketNumber"
+        android:layout_centerVertical="true"
+        android:textColor="@color/lightBlue"/>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imStatus"
+        android:background="@drawable/circle"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Live"
+        android:layout_toLeftOf="@id/imStatus"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/tvTicketStatus"
+        android:textColor="@color/lightBlue"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightgrey"
+        android:layout_alignParentBottom="true">
+    </View>
+
+</RelativeLayout>

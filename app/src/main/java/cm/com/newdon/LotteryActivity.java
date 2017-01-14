@@ -1,17 +1,24 @@
 package cm.com.newdon;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
+
+import cm.com.newdon.adapters.TicketsListAdapter;
 import cm.com.newdon.classes.Lottery;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoader;
+import cm.com.newdon.common.DateHandler;
 
 public class LotteryActivity extends AppCompatActivity {
 
@@ -34,24 +41,57 @@ public class LotteryActivity extends AppCompatActivity {
         tvLotteryPromo.setText(lottery.getPromoText());
 
         TextView tvLotteryDate = (TextView) findViewById(R.id.tvLotteryDate);
-        if (lottery.getStatus().equals("finished")){
-            tvLotteryDate.setText("Lottery Closed");
-        }
-//        tvLotteryDate.setText(lottery.get());
-        // TODO: 06.01.2017
+        TextView tvLotteryDay = (TextView) findViewById(R.id.tvLotteryDay);
+        Date lotteryDate = lottery.getScheduleDay();
 
         TextView tvParticipants = (TextView) findViewById(R.id.tvParticipants);
-        tvParticipants.setText(lottery.getParticipantCount()+" Participants");
+        String patricipation = "";
 
-//        TextView tvStatus = (TextView) findViewById(R.id.tvStatus);
-//        tvStatus.setText(lottery.getStatus());
-        
+        TextView tvDescription = (TextView) findViewById(R.id.tvDescription);
+
+        if (lottery.getStatus().equals("finished")){
+            tvLotteryDate.setText("Lottery Closed");
+            tvLotteryDay.setText(DateHandler.getDaySimpleFormat(lotteryDate));
+            tvLotteryDay.setTextColor(Color.parseColor("#5d9bff"));
+            patricipation = " People Participated";
+            tvParticipants.setTextColor(Color.parseColor("#6c6a75"));
+            if(lottery.isYouWin()){
+                tvDescription.setText("Congratulations!");
+                findViewById(R.id.tvWinner).setVisibility(View.VISIBLE);
+            }else tvDescription.setText("Thanks for participating!");
+        } else {
+            tvLotteryDate.setText(DateHandler.getTimeCountDown(lotteryDate));
+            tvLotteryDay.setText("Days    Hours    Minutes");
+            tvLotteryDay.setTextColor(Color.parseColor("#6c6a75"));
+            patricipation = " People Participating";
+            tvParticipants.setTextColor(Color.parseColor("#5d9bff"));
+            tvDescription.setText(lottery.getDescription());
+            tvDescription.setTextColor(Color.BLACK);
+            tvDescription.setTextSize(11);
+            findViewById(R.id.tvNeedToDo).setVisibility(View.VISIBLE);
+            findViewById(R.id.btnDonateNow).setVisibility(View.VISIBLE);
+        }
+
+        tvParticipants.setText(lottery.getParticipantCount() + patricipation);
+
         ImageView imLottery = (ImageView) findViewById(R.id.imLottery);
         Picasso.with(this).load(lottery.getImageUrl()).into(imLottery);
+
+        TextView tvComfort = (TextView) findViewById(R.id.tvComfort);
+        tvComfort.setText(lottery.getComfortText());
+
+        ListView lvTickets = (ListView) findViewById(R.id.lvTickets);
+        lvTickets.setAdapter(new TicketsListAdapter(this, lottery.getTickets()));
+        lvTickets.invalidateViews();
     }
 
     public void lotteryHistory(View view) {
         DataLoader.getLotteryList();
         startActivity(new Intent(this, LotteryListActivity.class));
+    }
+
+//    // TODO: 14.01.2017
+//    where to go???
+    public void donateNow(View view) {
     }
 }

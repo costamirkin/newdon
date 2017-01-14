@@ -1,6 +1,8 @@
 package cm.com.newdon.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import cm.com.newdon.R;
 import cm.com.newdon.classes.Lottery;
 import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.DateHandler;
 
 /**
  * Created by Marina on 06.01.2017.
@@ -56,18 +59,41 @@ public class LotteryListAdapter extends BaseAdapter{
         TextView tvLotteryTitle = (TextView) layout.findViewById(R.id.tvLotteryTitle);
         tvLotteryTitle.setText(lottery.getTitle());
 
-        TextView tvLotteryDate = (TextView) layout.findViewById(R.id.tvLotteryDate);
-//        tvLotteryDate.setText(lottery.get());
-        // TODO: 06.01.2017
+        TextView tvLotteryDay = (TextView) layout.findViewById(R.id.tvLotteryDay);
+        tvLotteryDay.setText(DateHandler.getDaySimpleFormat(lottery.getScheduleDay()));
 
         TextView tvParticipants = (TextView) layout.findViewById(R.id.tvParticipants);
         tvParticipants.setText(lottery.getParticipantCount()+" Participants");
 
         TextView tvStatus = (TextView) layout.findViewById(R.id.tvStatus);
-        tvStatus.setText(lottery.getStatus());
-
         ImageView imStatus = (ImageView) layout.findViewById(R.id.imStatus);
-        // TODO: 06.01.2017
+        GradientDrawable drawable = (GradientDrawable)imStatus.getBackground();
+
+        switch (lottery.getStatus()) {
+            case ("outstanding"):
+                tvStatus.setText("Future");
+                tvStatus.setTextColor(Color.parseColor("#7749eb"));
+                break;
+            case ("in-progress"):
+                tvStatus.setText(DateHandler.getTimeCountDown(lottery.getScheduleDay()));
+                tvStatus.setTextColor(Color.parseColor("#5d9bff"));
+//                // TODO: 14.01.2017
+//                need to change to clock icon
+                drawable.setColor(Color.GRAY);
+                break;
+            case ("finished"):
+                if (lottery.isYouWin()) {
+                    tvStatus.setText("Win");
+                    int winColor = Color.parseColor("#63bc46");
+                    tvStatus.setTextColor(winColor);
+                    drawable.setColor(winColor);
+                } else {
+                    tvStatus.setText("Expired");
+                    int expiredColor = Color.parseColor("#f26c4f");
+                    tvStatus.setTextColor(expiredColor);
+                    drawable.setColor(expiredColor);
+                }
+        }
 
         return layout;
     }
