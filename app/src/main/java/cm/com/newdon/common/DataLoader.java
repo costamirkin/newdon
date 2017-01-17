@@ -77,7 +77,45 @@ public class DataLoader {
             RestClient.get("foundations/find", params, handler);
     }
 
-    public static void getUserPosts(final Context context) {
+    public static void getFoundationPosts(final Context context, int foundationId) {
+
+        CommonData.getInstance().getFoundationPosts().clear();
+        AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+                    JSONObject object = new JSONObject(new String(responseBody));
+                    JSONArray array = object.getJSONArray("items");
+                    for (int i = 0; i < array.length(); i++) {
+                        Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
+                        System.out.println(post);
+                        if(!post.getImageUrl().equals("null")){
+                            new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
+                                    ImageLoaderToBitmap.DownloadOption.POST).execute();
+                        }
+                        CommonData.getInstance().getFoundationPosts().add(post);
+                        if (CommonData.getInstance().imageLoadedIf != null) {
+                            CommonData.getInstance().imageLoadedIf.dataLoaded();
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
+                System.out.println(new String(responseBody));
+            }
+        };
+
+        RequestParams params = new RequestParams();
+        params.put("foundationId", foundationId);
+
+        RestClient.get("foundations/posts", params, handler);
+    }
+
+   public static void getUserPosts(final Context context) {
 
         CommonData.getInstance().getPosts().clear();
         AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
