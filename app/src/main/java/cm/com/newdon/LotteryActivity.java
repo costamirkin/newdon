@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -52,9 +51,9 @@ public class LotteryActivity extends AppCompatActivity {
         if (lottery.getStatus().equals("finished")){
             tvLotteryDate.setText("Lottery Closed");
             tvLotteryDay.setText(DateHandler.getDaySimpleFormat(lotteryDate));
-            tvLotteryDay.setTextColor(Color.parseColor("#5d9bff"));
+            tvLotteryDay.setTextColor(getResources().getColor(R.color.blueLottery));
             patricipation = " People Participated";
-            tvParticipants.setTextColor(Color.parseColor("#6c6a75"));
+            tvParticipants.setTextColor(getResources().getColor(R.color.greyLottery));
             if(lottery.isYouWin()){
                 tvDescription.setText("Congratulations!");
                 findViewById(R.id.tvWinner).setVisibility(View.VISIBLE);
@@ -62,9 +61,9 @@ public class LotteryActivity extends AppCompatActivity {
         } else {
             tvLotteryDate.setText(DateHandler.getTimeCountDown(lotteryDate));
             tvLotteryDay.setText("Days    Hours    Minutes");
-            tvLotteryDay.setTextColor(Color.parseColor("#6c6a75"));
+            tvLotteryDay.setTextColor(getResources().getColor(R.color.greyLottery));
             patricipation = " People Participating";
-            tvParticipants.setTextColor(Color.parseColor("#5d9bff"));
+            tvParticipants.setTextColor(getResources().getColor(R.color.blueLottery));
             tvDescription.setText(lottery.getDescription());
             tvDescription.setTextColor(Color.BLACK);
             tvDescription.setTextSize(11);

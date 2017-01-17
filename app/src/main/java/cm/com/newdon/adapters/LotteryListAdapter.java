@@ -72,11 +72,11 @@ public class LotteryListAdapter extends BaseAdapter{
         switch (lottery.getStatus()) {
             case ("outstanding"):
                 tvStatus.setText("Future");
-                tvStatus.setTextColor(Color.parseColor("#7749eb"));
+                tvStatus.setTextColor(context.getResources().getColor(R.color.futureLottery));
                 break;
             case ("in-progress"):
                 tvStatus.setText(DateHandler.getTimeCountDown(lottery.getScheduleDay()));
-                tvStatus.setTextColor(Color.parseColor("#5d9bff"));
+                tvStatus.setTextColor(context.getResources().getColor(R.color.blueLottery));
 //                // TODO: 14.01.2017
 //                need to change to clock icon
                 drawable.setColor(Color.GRAY);
@@ -84,12 +84,12 @@ public class LotteryListAdapter extends BaseAdapter{
             case ("finished"):
                 if (lottery.isYouWin()) {
                     tvStatus.setText("Win");
-                    int winColor = Color.parseColor("#63bc46");
+                    int winColor = context.getResources().getColor(R.color.winColor);
                     tvStatus.setTextColor(winColor);
                     drawable.setColor(winColor);
                 } else {
                     tvStatus.setText("Expired");
-                    int expiredColor = Color.parseColor("#f26c4f");
+                    int expiredColor = context.getResources().getColor(R.color.expiredColor);
                     tvStatus.setTextColor(expiredColor);
                     drawable.setColor(expiredColor);
                 }

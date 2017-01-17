@@ -197,8 +197,6 @@ public class DataLoader {
                     for (int i = 0; i < array.length(); i++) {
                         System.out.println(i);
                         Lottery lottery = JsonHandler.parseLotteryFromJson(array.getJSONObject(i));
-//                        new ImageLoaderToBitmap(foundation.getLogoUrl(),foundation.getId(),
-//                                ImageLoaderToBitmap.DownloadOption.FOUNDATION).execute();
                         CommonData.getInstance().getLotteryList()
                                 .add(lottery);
                     }
@@ -236,8 +234,6 @@ public class DataLoader {
                     for (int i = 0; i < array.length(); i++) {
                         System.out.println(i);
                         Lottery lottery = JsonHandler.parseLotteryFromJson(array.getJSONObject(i));
-//                        new ImageLoaderToBitmap(foundation.getLogoUrl(),foundation.getId(),
-//                                ImageLoaderToBitmap.DownloadOption.FOUNDATION).execute();
                         CommonData.getInstance().getLotteryList()
                                 .add(lottery);
                         CommonData.getInstance().getFeaturedLotteries()
