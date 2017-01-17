@@ -35,8 +35,6 @@
         android:background="@drawable/rectangle_46"
         android:padding="16dp">
 
-
-
         <EditText
             android:id="@+id/etAmount"
             android:layout_width="wrap_content"
@@ -105,49 +103,51 @@
             android:src="@drawable/shape_26" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="108dp"
+        android:weightSum="100"
         android:layout_below="@+id/paymentLayout">
 
         <ImageView
             android:id="@+id/coin5"
-            android:layout_width="84dp"
-            android:layout_height="84dp"
-            android:layout_centerVertical="true"
+            android:layout_width="0dp"
+            android:layout_weight="23"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:onClick="coin5"
             android:src="@drawable/coin5" />
 
         <ImageView
             android:id="@+id/coin10"
-            android:layout_width="92dp"
-            android:layout_height="92dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/coin5"
+            android:layout_width="0dp"
+            android:layout_weight="24"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:onClick="coin10"
             android:src="@drawable/coin10" />
 
         <ImageView
             android:id="@+id/coin18"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/coin10"
+            android:layout_width="0dp"
+            android:layout_weight="25"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:onClick="coin18"
             android:src="@drawable/coin18" />
 
         <ImageView
-            android:layout_width="108dp"
-            android:layout_height="108dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/coin18"
+            android:layout_width="0dp"
+            android:layout_weight="26"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:onClick="coin50"
             android:src="@drawable/coin50" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="97.3dp"
+        android:layout_height="@dimen/button_hight"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@color/grey"

@@ -1,8 +1,11 @@
 package cm.com.newdon;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Selection;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -44,10 +47,12 @@ public class MakeDonActivity extends AppCompatActivity {
         etAmount.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(getAmount()==0) etAmount.setText("₪");
+                int position = etAmount.getText().length();
+                Editable editObj= etAmount.getText();
+                Selection.setSelection(editObj, position);
                 //You can identify which key pressed buy checking keyCode value with KeyEvent.KEYCODE_
-                if(keyCode == KeyEvent.KEYCODE_DEL) {
-                    setAmount(0);
-                }
+                if (keyCode == KeyEvent.KEYCODE_DEL) setAmount(0);
                 return false;
             }
         });
