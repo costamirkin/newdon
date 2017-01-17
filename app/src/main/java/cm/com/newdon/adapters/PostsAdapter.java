@@ -96,6 +96,7 @@ public class PostsAdapter extends BaseAdapter {
                 if (imgFile.exists()) {
                     Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                     imageView.setImageBitmap(myBitmap);
+                    imageView.setVisibility(View.VISIBLE);
                 }
             }
 

@@ -53,6 +53,7 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
             if(imgFile.exists()){
                 Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                 imageView.setImageBitmap(myBitmap);
+                imageView.setVisibility(View.VISIBLE);
             }
         }
     }
