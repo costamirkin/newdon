@@ -23,6 +23,7 @@ public class CommonData {
     private CommonData() {
         foundations = new ArrayList<>();
         posts = new ArrayList<>();
+        foundationPosts = new ArrayList<>();
         featuredLotteries = new ArrayList<>();
         lotteryList = new ArrayList<>();
     }
@@ -35,6 +36,11 @@ public class CommonData {
     private List<Post> posts;
     public List<Post> getPosts() {
         return posts;
+    }
+
+    private List<Post> foundationPosts;
+    public List<Post> getFoundationPosts() {
+        return foundationPosts;
     }
 
     private List<Lottery> featuredLotteries;

@@ -6,12 +6,6 @@
     android:orientation="vertical"
     tools:context="cm.com.newdon.SignAcitvity">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="adf"/>
-
-
 
     <cm.com.newdon.classes.SlidingTabLayout
         android:id="@+id/tabs"

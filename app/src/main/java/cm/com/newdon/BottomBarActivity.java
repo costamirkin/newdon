@@ -18,8 +18,10 @@ import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoader;
 import cm.com.newdon.fragments.HomeFragment;
 import cm.com.newdon.fragments.NotificationFragment;
+import cm.com.newdon.fragments.ProfileDonatesFragment;
 import cm.com.newdon.fragments.ProfileFragment;
 import cm.com.newdon.fragments.SearchFragment;
+import cm.com.newdon.fragments.SettingsFragment;
 
 public class BottomBarActivity extends AppCompatActivity {
 
@@ -32,7 +34,9 @@ public class BottomBarActivity extends AppCompatActivity {
     HomeFragment homeFragment = new HomeFragment();
     SearchFragment searchFragment = new SearchFragment();
     ProfileFragment profileFragment = new ProfileFragment();
+    ProfileDonatesFragment profileDonatesFragment = new ProfileDonatesFragment();
     NotificationFragment notificationFragment = new NotificationFragment();
+    SettingsFragment settingsFragment = new SettingsFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +79,7 @@ public class BottomBarActivity extends AppCompatActivity {
                         commitFragment(notificationFragment);
                         break;
                     case R.id.bottomBarProfile:
-                        commitFragment(profileFragment);
+                        commitFragment(settingsFragment);
                         break;
                 }
             }
