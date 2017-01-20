@@ -10,5 +10,6 @@
     <color name="grey">#6c6a75</color>
     <color name="lightgrey">#adadad</color>
     <color name="buttonText">#eeeeee</color>
+    <color name="transparent">#00ffffff</color>
 
 </resources>
