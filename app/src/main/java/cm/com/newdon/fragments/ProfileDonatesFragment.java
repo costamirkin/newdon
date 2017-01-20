@@ -25,13 +25,15 @@ import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 public class ProfileDonatesFragment extends Fragment {
 
     private ListView lv;
+    HomeFragment.OnPostSelectedListener mCallBack;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.fragment_profile_donates,container,false);
 
         lv = (ListView) v.findViewById(R.id.listView);
-        PostsAdapter adapter = new PostsAdapter(getActivity().getApplicationContext());
+        PostsAdapter adapter = new PostsAdapter(getActivity().getApplicationContext(),mCallBack);
         lv.setAdapter(adapter);
         StikkyHeaderBuilder.stickTo(lv)
                 .setHeader(R.id.header, (ViewGroup) v)

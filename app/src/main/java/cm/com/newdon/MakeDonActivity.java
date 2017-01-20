@@ -130,6 +130,7 @@ public class MakeDonActivity extends AppCompatActivity {
     }
 
     public void showKeyboard(View view) {
-
+//// TODO: 20.01.2017
+//        open key board
     }
 }

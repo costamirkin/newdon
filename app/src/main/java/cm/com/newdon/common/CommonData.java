@@ -125,4 +125,14 @@ public class CommonData {
     }
 
     public static String profileImageName = "image.jpg";
+
+    private int currentFoundId = -1;
+
+    public int getCurrentFoundId() {
+        return currentFoundId;
+    }
+
+    public void setCurrentFoundId(int currentFoundId) {
+        this.currentFoundId = currentFoundId;
+    }
 }
