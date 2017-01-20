@@ -36,6 +36,7 @@
             android:textColor="#00f"
             android:textSize="20dp"
             android:text="Full Name"
+            android:id="@+id/fullName"
             android:layout_below="@+id/profile_image"
             android:layout_centerHorizontal="true"/>
 
