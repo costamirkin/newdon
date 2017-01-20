@@ -1,7 +1,6 @@
 package cm.com.newdon.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cm.com.newdon.R;
-import cm.com.newdon.classes.Lottery;
 import cm.com.newdon.classes.Ticket;
 
 /**
@@ -64,13 +61,13 @@ public class TicketsListAdapter extends BaseAdapter {
             case "exprired":
                 tvStatus.setText(ticket.getStatus());
                 tvStatus.setText("Win");
-                int winColor = Color.parseColor("#63bc46");
+                int winColor = context.getResources().getColor(R.color.winColor);
                 tvStatus.setTextColor(winColor);
                 drawable.setColor(winColor);
                 break;
             case "won":
                 tvStatus.setText("Won");
-                int expiredColor = Color.parseColor("#f26c4f");
+                int expiredColor = context.getResources().getColor(R.color.expiredColor);
                 tvStatus.setTextColor(expiredColor);
                 drawable.setColor(expiredColor);
                 break;

@@ -11,5 +11,10 @@
     <color name="lightgrey">#adadad</color>
     <color name="buttonText">#eeeeee</color>
     <color name="transparent">#00ffffff</color>
+    <color name="winColor">#63bc46</color>
+    <color name="expiredColor">#f26c4f</color>
+    <color name="futureLottery">#7749eb</color>
+    <color name="blueLottery">#5d9bff</color>
+    <color name="greyLottery">#6c6a75</color>
 
 </resources>

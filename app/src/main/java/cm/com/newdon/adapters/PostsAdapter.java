@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +21,10 @@ import java.io.File;
 
 import cm.com.newdon.LotteryActivity;
 import cm.com.newdon.R;
+import cm.com.newdon.Share_Dialog_Activity;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
 
 /**
@@ -79,6 +83,26 @@ public class PostsAdapter extends BaseAdapter {
 
             Post post = CommonData.getInstance().getPosts().get(position-1);
 
+            CircleImageView ivUser = (CircleImageView) layout.findViewById(R.id.ivUser);
+//            // TODO: 20.01.2017
+//          !!!! only for current user
+            File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+                    CommonData.profileImageName);
+            if (profileImageFile.exists()) {
+                ivUser.setImageURI(null);
+                ivUser.setImageURI(Uri.fromFile(profileImageFile));
+            }
+
+            ImageView ivShare = (ImageView) layout.findViewById(R.id.ivShare);
+            ivShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, Share_Dialog_Activity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+            });
+            
             //for test
             tvDate.setText(post.getId()+"");
 
@@ -96,6 +120,7 @@ public class PostsAdapter extends BaseAdapter {
                 if (imgFile.exists()) {
                     Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                     imageView.setImageBitmap(myBitmap);
+                    imageView.setVisibility(View.VISIBLE);
                 }
             }
 

@@ -63,9 +63,9 @@ public class LotteryViewPagerAdapter extends PagerAdapter {
         if (lottery.getStatus().equals("finished")){
             tvLotteryDate.setText("Lottery Closed");
             tvLotteryDay.setText(DateHandler.getDaySimpleFormat(lotteryDate));
-            tvLotteryDay.setTextColor(Color.parseColor("#5d9bff"));
+            tvLotteryDay.setTextColor(context.getResources().getColor(R.color.blueLottery));
             patricipation = " People Participated";
-            tvParticipants.setTextColor(Color.parseColor("#6c6a75"));
+            tvParticipants.setTextColor(context.getResources().getColor(R.color.greyLottery));
             if(lottery.isYouWin()){
                 tvDescription.setText("Congratulations!");
                 view.findViewById(R.id.tvWinner).setVisibility(View.VISIBLE);
@@ -73,9 +73,9 @@ public class LotteryViewPagerAdapter extends PagerAdapter {
         } else {
             tvLotteryDate.setText(DateHandler.getTimeCountDown(lotteryDate));
             tvLotteryDay.setText("Days    Hours    Minutes");
-            tvLotteryDay.setTextColor(Color.parseColor("#6c6a75"));
+            tvLotteryDay.setTextColor(context.getResources().getColor(R.color.greyLottery));
             patricipation = " People Participating";
-            tvParticipants.setTextColor(Color.parseColor("#5d9bff"));
+            tvParticipants.setTextColor(context.getResources().getColor(R.color.blueLottery));
             tvDescription.setText(lottery.getDescription());
             tvDescription.setTextColor(Color.BLACK);
             tvDescription.setTextSize(11);

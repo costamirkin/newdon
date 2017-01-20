@@ -12,11 +12,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".MainActivity"
-            android:theme="@style/Theme.Design.NoActionBar">
-        </activity>
-
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.Design.NoActionBar"></activity>
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -60,13 +58,19 @@
         <activity
             android:name=".MakeDonActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".LotteryActivity"
+        <activity
+            android:name=".LotteryActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".LotteryListActivity"
+        <activity
+            android:name=".LotteryListActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".CardActivity"></activity>
-        <activity android:name=".CropActivity"
+        <activity android:name=".CardActivity" />
+        <activity
+            android:name=".CropActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:name=".Share_Dialog_Activity"></activity>
     </application>
 
 </manifest>
