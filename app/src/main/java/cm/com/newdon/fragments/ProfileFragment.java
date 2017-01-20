@@ -1,7 +1,12 @@
 package cm.com.newdon.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,17 +14,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import java.io.File;
+
 import cm.com.newdon.R;
+import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.RestClient;
+import cm.com.newdon.common.Utils;
 import cz.msebera.android.httpclient.Header;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
+    private static final int REQUESTCAMERA = 0;
 
     private Button saveButton;
     private Button passwordButton;
@@ -30,6 +42,11 @@ public class ProfileFragment extends Fragment {
     private EditText nameRealEt;
     private EditText emailEt;
     private ToggleButton toggleButton;
+    private ImageView changeImage;
+
+    private CircleImageView profileImage;
+
+    private Uri profileImageUri; // Profile image uri
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +60,15 @@ public class ProfileFragment extends Fragment {
         nameRealEt   = (EditText) v.findViewById(R.id.nameRealEt);
         emailEt      = (EditText) v.findViewById(R.id.emailEt);
         toggleButton = (ToggleButton) v.findViewById(R.id.privacyToggle);
+        profileImage = (CircleImageView) v.findViewById(R.id.profile_image);
+        changeImage  = (ImageView) v.findViewById(R.id.changeImage);
 
+        File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+                CommonData.profileImageName);
+        if (profileImageFile.exists()) {
+            profileImage.setImageURI(null);
+            profileImage.setImageURI(Uri.fromFile(profileImageFile));
+        }
 
         saveButton = (Button) v.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +147,37 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        changeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                try {
+                    File output = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+                            CommonData.profileImageName);
+                    profileImageUri = Uri.fromFile(output);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, profileImageUri);
+                    //start camera intent
+                    startActivityForResult(intent, REQUESTCAMERA);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUESTCAMERA) {
+                profileImage.setImageURI(null);
+                profileImage.setImageURI(profileImageUri);
+
+            }
+        }
     }
 }

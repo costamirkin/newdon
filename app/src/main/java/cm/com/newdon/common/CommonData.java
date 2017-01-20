@@ -123,4 +123,6 @@ public class CommonData {
     public void setTempPicUri(Uri tempPicUri) {
         this.tempPicUri = tempPicUri;
     }
+
+    public static String profileImageName = "image.jpg";
 }

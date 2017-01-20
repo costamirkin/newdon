@@ -37,7 +37,7 @@ public class SignFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v   = inflater.inflate(R.layout.sign,container,false);
+        View v   = inflater.inflate(R.layout.fragment_sign,container,false);
         button   = (Button) v.findViewById(R.id.loginBtn);
         name     = (EditText) v.findViewById(R.id.userName);
         fullName = (EditText) v.findViewById(R.id.fullName);

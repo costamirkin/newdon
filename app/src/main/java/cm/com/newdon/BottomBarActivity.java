@@ -2,6 +2,8 @@ package cm.com.newdon;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,8 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import java.io.File;
+
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoader;
 import cm.com.newdon.fragments.HomeFragment;
@@ -22,6 +26,7 @@ import cm.com.newdon.fragments.ProfileDonatesFragment;
 import cm.com.newdon.fragments.ProfileFragment;
 import cm.com.newdon.fragments.SearchFragment;
 import cm.com.newdon.fragments.SettingsFragment;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BottomBarActivity extends AppCompatActivity {
 
@@ -37,6 +42,7 @@ public class BottomBarActivity extends AppCompatActivity {
     ProfileDonatesFragment profileDonatesFragment = new ProfileDonatesFragment();
     NotificationFragment notificationFragment = new NotificationFragment();
     SettingsFragment settingsFragment = new SettingsFragment();
+    CircleImageView profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,16 @@ public class BottomBarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bottombar);
 
         setupBottomBar();
+
+        profileImage = (CircleImageView) findViewById(R.id.profileImage);
+        File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+                CommonData.profileImageName);
+        if (profileImageFile.exists()) {
+            profileImage.setImageURI(null);
+            profileImage.setImageURI(Uri.fromFile(profileImageFile));
+        }
+
+
 //        ProgressDialog progressDialog =
 //                ProgressDialog.show(getApplicationContext(), "Altru", "Udpadting posts...", true);
 //        progressDialog.show();
@@ -79,7 +95,7 @@ public class BottomBarActivity extends AppCompatActivity {
                         commitFragment(notificationFragment);
                         break;
                     case R.id.bottomBarProfile:
-                        commitFragment(settingsFragment);
+                        commitFragment(profileFragment);
                         break;
                 }
             }
@@ -107,5 +123,10 @@ public class BottomBarActivity extends AppCompatActivity {
 
     public void startDonate(View view) {
         startActivity(new Intent(BottomBarActivity.this, FoundationGrid.class));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
