@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
+import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import java.io.File;
@@ -29,7 +31,7 @@ import cm.com.newdon.fragments.SearchFragment;
 import cm.com.newdon.fragments.SettingsFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class BottomBarActivity extends AppCompatActivity {
+public class BottomBarActivity extends AppCompatActivity implements HomeFragment.OnPostSelectedListener {
 
     private BottomBar bottomBar;
 
@@ -103,6 +105,15 @@ public class BottomBarActivity extends AppCompatActivity {
             }
         });
 
+        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
+            @Override
+            public void onTabReSelected(@IdRes int tabId) {
+                if (tabId == R.id.bottomBarHome) {
+                    commitFragment(homeFragment);
+                }
+            }
+        });
+
         // Badge for the tab notification (index 3), with red background color.
         BottomBarTab notifications = bottomBar.getTabWithId(R.id.bottomBarNotification);
         notifications.setBadgeCount(numberNewNotifications);
@@ -111,7 +122,7 @@ public class BottomBarActivity extends AppCompatActivity {
 //        notifications.removeBadge();
     }
 
-    private void commitFragment(Fragment fragment){
+    public void commitFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, fragment);
         fragmentTransaction.commit();
@@ -130,5 +141,12 @@ public class BottomBarActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onPostSelected(int foundId) {
+        System.out.println("Foundation!!!!!!!!!!!!!!!!!!! " + foundId);
+        CommonData.getInstance().setCurrentFoundId(foundId);
+        commitFragment(foundationDonatesFragment);
     }
 }

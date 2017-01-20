@@ -1,5 +1,7 @@
 package cm.com.newdon.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -22,6 +24,26 @@ import cm.com.newdon.common.DataLoadedIf;
 public class HomeFragment extends Fragment implements DataLoadedIf {
     ListView lv;
 
+    OnPostSelectedListener mCallBack;
+
+    // Container Activity must implement this interface
+    public interface OnPostSelectedListener {
+        void onPostSelected(int foundId);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallBack = (OnPostSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnPostSelectedListener");
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,7 +51,7 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
         lv = (ListView) view.findViewById(R.id.lvPosts);
-        lv.setAdapter(new PostsAdapter(getActivity().getApplicationContext()));
+        lv.setAdapter(new PostsAdapter(getActivity().getApplicationContext(), mCallBack));
         lv.invalidateViews();
 
         return view;

@@ -1,5 +1,6 @@
 package cm.com.newdon.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,11 +20,15 @@ import android.widget.TextView;
 
 import java.io.File;
 
+import cm.com.newdon.BottomBarActivity;
 import cm.com.newdon.LotteryActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.Share_Dialog_Activity;
+import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
+import cm.com.newdon.fragments.HomeFragment;
+import cm.com.newdon.fragments.ProfileDonatesFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
 
@@ -33,11 +38,13 @@ import me.relex.circleindicator.CircleIndicator;
 public class PostsAdapter extends BaseAdapter {
 
     private Context context;
+    HomeFragment.OnPostSelectedListener mCallBack;
 
     RelativeLayout layout;
 
-    public PostsAdapter(Context context) {
+    public PostsAdapter(Context context, HomeFragment.OnPostSelectedListener mCallBack) {
         this.context = context;
+        this.mCallBack = mCallBack;
     }
 
     @Override
@@ -56,11 +63,11 @@ public class PostsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, final View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (position==0){
+        if (position == 0) {
 
             layout = (RelativeLayout) View.inflate(context, R.layout.lottery_view_pager, null);
             ViewPager viewPager = (ViewPager) layout.findViewById(R.id.viewpager);
@@ -72,7 +79,7 @@ public class PostsAdapter extends BaseAdapter {
             indicator.setViewPager(viewPager);
             viewPagerAdapter.registerDataSetObserver(indicator.getDataSetObserver());
 
-        }else {
+        } else {
             layout = (RelativeLayout) inflater.inflate(R.layout.post, parent, false);
 
             TextView tvUser = (TextView) layout.findViewById(R.id.tvUserName);
@@ -81,16 +88,20 @@ public class PostsAdapter extends BaseAdapter {
             TextView tvComment = (TextView) layout.findViewById(R.id.tvComment);
             TextView tvDonated = (TextView) layout.findViewById(R.id.tvDonated);
 
-            Post post = CommonData.getInstance().getPosts().get(position-1);
+            final Post post = CommonData.getInstance().getPosts().get(position - 1);
 
             CircleImageView ivUser = (CircleImageView) layout.findViewById(R.id.ivUser);
 //            // TODO: 20.01.2017
+//            for all users
+
 //          !!!! only for current user
-            File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                    CommonData.profileImageName);
-            if (profileImageFile.exists()) {
-                ivUser.setImageURI(null);
-                ivUser.setImageURI(Uri.fromFile(profileImageFile));
+            if (post.getUser().getId() == CommonData.getInstance().getCurrentUserId()) {
+                File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+                        CommonData.profileImageName);
+                if (profileImageFile.exists()) {
+                    ivUser.setImageURI(null);
+                    ivUser.setImageURI(Uri.fromFile(profileImageFile));
+                }
             }
 
             ImageView ivShare = (ImageView) layout.findViewById(R.id.ivShare);
@@ -102,16 +113,30 @@ public class PostsAdapter extends BaseAdapter {
                     context.startActivity(intent);
                 }
             });
-            
-            //for test
-            tvDate.setText(post.getId()+"");
+
+            ImageView imFoundation = (ImageView) layout.findViewById(R.id.imFound);
+            Foundation foundation = CommonData.getInstance().findFoundById(post.getFoundation().getId());
+            imFoundation.setImageBitmap(foundation.getLogo());
+            imFoundation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mCallBack.onPostSelected(post.getFoundation().getId());
+                }
+            });
+
+            TextView tvFoundationTitle = (TextView) layout.findViewById(R.id.tvFoundTitle);
+            tvFoundationTitle.setText(foundation.getTitle());
+
+            //// TODO: 20.01.2017
+//            add time
+            tvDate.setText(post.getId() + "");
 
             tvUser.setText(post.getUser().getUserName());
             tvCategory.setText(post.getFoundation().getCategory().getName());
             tvCategory.setTextColor(Color.parseColor(post.getFoundation().getCategory().getColor()));
             try {
                 tvComment.setText(post.getMessage());
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             if (post.getLocalImagePath() != null) {
