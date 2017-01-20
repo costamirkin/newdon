@@ -9,5 +9,6 @@
     <color name="black">#000000</color>
     <color name="grey">#6c6a75</color>
     <color name="lightgrey">#adadad</color>
+    <color name="buttonText">#eeeeee</color>
 
 </resources>

@@ -10,16 +10,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profile_image"
-                android:layout_gravity="center"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:src="@drawable/vector_smart_object"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FF000000"/>
             <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                >
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/profile_image"
+                    android:layout_width="96dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_height="96dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/layer_5"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@color/com_facebook_blue"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/changeImage"
+                    android:layout_marginLeft="90dp"
+                    android:src="@drawable/info"
+                    />
+
+            </RelativeLayout>
+             <RelativeLayout
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">

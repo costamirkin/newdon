@@ -4,15 +4,40 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="300dp"
-    android:background="#ffffff00"
+    android:background="#ffeeeeee"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="10dp"
-        android:text="Hello World!"
-        android:textSize="25dp"/>
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="300dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:textColor="#00f"
+            android:textSize="20dp"
+            android:text="NAME"
+            android:id="@+id/name"
+            android:layout_centerHorizontal="true"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="96dp"
+            android:layout_below="@+id/name"
+            android:layout_height="96dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/layer_5"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/com_facebook_blue"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:textColor="#00f"
+            android:textSize="20dp"
+            android:text="Full Name"
+            android:layout_below="@+id/profile_image"
+            android:layout_centerHorizontal="true"/>
 
+    </RelativeLayout>
 </FrameLayout>
