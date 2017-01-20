@@ -9,6 +9,8 @@
     <color name="black">#000000</color>
     <color name="grey">#6c6a75</color>
     <color name="lightgrey">#adadad</color>
+    <color name="buttonText">#eeeeee</color>
+    <color name="transparent">#00ffffff</color>
     <color name="winColor">#63bc46</color>
     <color name="expiredColor">#f26c4f</color>
     <color name="futureLottery">#7749eb</color>

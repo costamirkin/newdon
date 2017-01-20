@@ -20,6 +20,7 @@ import java.io.File;
 
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoader;
+import cm.com.newdon.fragments.FoundationDonatesFragment;
 import cm.com.newdon.fragments.HomeFragment;
 import cm.com.newdon.fragments.NotificationFragment;
 import cm.com.newdon.fragments.ProfileDonatesFragment;
@@ -36,12 +37,13 @@ public class BottomBarActivity extends AppCompatActivity {
 
     private int numberNewNotifications = 5;
 
-    HomeFragment homeFragment = new HomeFragment();
-    SearchFragment searchFragment = new SearchFragment();
-    ProfileFragment profileFragment = new ProfileFragment();
-    ProfileDonatesFragment profileDonatesFragment = new ProfileDonatesFragment();
-    NotificationFragment notificationFragment = new NotificationFragment();
-    SettingsFragment settingsFragment = new SettingsFragment();
+    HomeFragment              homeFragment = new HomeFragment();
+    SearchFragment            searchFragment = new SearchFragment();
+    ProfileFragment           profileFragment = new ProfileFragment();
+    ProfileDonatesFragment    profileDonatesFragment = new ProfileDonatesFragment();
+    NotificationFragment      notificationFragment = new NotificationFragment();
+    SettingsFragment          settingsFragment = new SettingsFragment();
+    FoundationDonatesFragment foundationDonatesFragment = new FoundationDonatesFragment();
     CircleImageView profileImage;
 
     @Override
@@ -95,7 +97,7 @@ public class BottomBarActivity extends AppCompatActivity {
                         commitFragment(notificationFragment);
                         break;
                     case R.id.bottomBarProfile:
-                        commitFragment(profileFragment);
+                        commitFragment(foundationDonatesFragment);
                         break;
                 }
             }
