@@ -295,4 +295,42 @@ public class DataLoader {
         RequestParams params = new RequestParams();
         RestClient.get("lottery/featured", params, handler);
     }
+
+    public static void getSmth() {
+
+        CommonData.getInstance().getPosts().clear();
+        AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                System.out.println(responseBody);
+                try {
+                    JSONObject object = new JSONObject(new String(responseBody));
+                    JSONArray array = object.getJSONArray("items");
+                    for (int i = 0; i < array.length(); i++) {
+                        Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
+                        System.out.println(post);
+                        if(!post.getImageUrl().equals("null")){
+//                            new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
+//                                    ImageLoaderToBitmap.DownloadOption.POST).execute();
+                        }
+                        CommonData.getInstance().getPosts().add(post);
+                        if (CommonData.getInstance().imageLoadedIf != null) {
+                            CommonData.getInstance().imageLoadedIf.dataLoaded();
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
+                System.out.println(new String(responseBody));
+            }
+        };
+
+        RequestParams params = new RequestParams();
+
+        RestClient.get("feed/wall?page=0&limit=30", params, handler);
+    }
 }

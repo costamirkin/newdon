@@ -47,7 +47,7 @@ public class MakeDonActivity extends AppCompatActivity {
         etAmount.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(getAmount()==0) etAmount.setText("₪");
+                if(getAmount()==0 && keyCode != KeyEvent.KEYCODE_BACK) etAmount.setText("₪");
                 int position = etAmount.getText().length();
                 Editable editObj= etAmount.getText();
                 Selection.setSelection(editObj, position);
@@ -127,5 +127,9 @@ public class MakeDonActivity extends AppCompatActivity {
 
     public void creditCard(View view) {
         startActivity(new Intent(getApplicationContext(), CardActivity.class));
+    }
+
+    public void showKeyboard(View view) {
+
     }
 }

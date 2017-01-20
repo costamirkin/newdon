@@ -1,22 +1,18 @@
 package cm.com.newdon.fragments;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import java.io.File;
 
-import cm.com.newdon.LotteryActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.PostsAdapter;
 import cm.com.newdon.common.CommonData;
@@ -25,8 +21,6 @@ import cm.com.newdon.common.DataLoadedIf;
 
 public class HomeFragment extends Fragment implements DataLoadedIf {
     ListView lv;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

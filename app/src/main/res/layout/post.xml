@@ -2,133 +2,138 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_horizontal_margin"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="@dimen/activity_horizontal_margin">
 
-        <ImageView
-            android:layout_width="53.3dp"
-            android:layout_height="53.3dp"
-            android:id="@+id/ivUser"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="User"
-            android:id="@+id/tvUserName"
-            android:textColor="@color/black"
-            android:textSize="18.7sp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/ivUser"
-            android:layout_marginLeft="14dp"
-            android:layout_toEndOf="@+id/ivUser" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="made a Don"
-            android:textSize="18.7sp"
-            android:textColor="@color/black"
-            android:id="@+id/txMadeDon"
-            android:layout_below="@+id/tvUserName"
-            android:layout_alignLeft="@+id/tvUserName"
-            android:layout_alignStart="@+id/tvUserName" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Yesterday"
-            android:textSize="13.3sp"
-            android:id="@+id/tvDate"
-            android:layout_alignTop="@+id/txMadeDon"
-            android:layout_toRightOf="@+id/txMadeDon"
-            android:layout_marginLeft="3dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ivOptions"
-            android:src="@drawable/options_btn"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category"
-            android:id="@+id/tvCategory"
-            android:layout_alignBottom="@+id/tvUserName"
-            android:layout_toLeftOf="@+id/ivOptions"
-            android:layout_marginRight="10dp"/>
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ivUser"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="7dp"
+        android:src="@drawable/layer_5"
+        app:civ_border_color="#0fff" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Comment"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_toEndOf="@+id/ivUser"
+        android:layout_toRightOf="@+id/ivUser"
+        android:text="User"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        android:id="@+id/tvComment"
-        android:layout_below="@+id/ivUser"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"/>
+        android:textSize="18.7sp" />
+
+    <TextView
+        android:id="@+id/txMadeDon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvUserName"
+        android:layout_alignStart="@+id/tvUserName"
+        android:layout_below="@+id/tvUserName"
+        android:text="made a Don"
+        android:textColor="@color/black"
+        android:textSize="18.7sp" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/txMadeDon"
+        android:layout_marginLeft="3dp"
+        android:layout_toRightOf="@+id/txMadeDon"
+        android:text="Yesterday"
+        android:textSize="13.3sp" />
 
     <ImageView
+        android:id="@+id/ivOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/options_btn" />
+
+    <TextView
+        android:id="@+id/tvCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvUserName"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/ivOptions"
+        android:text="Category" />
+
+    <TextView
+        android:id="@+id/tvComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivUser"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:text="Comment"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/ivPost"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:visibility="gone"
-        android:id="@+id/ivPost"
         android:layout_below="@+id/tvComment"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_below="@+id/ivPost"
-        android:layout_height="70dp">
+        android:layout_height="70dp"
+        android:layout_below="@+id/ivPost">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/layer_5"
             android:id="@+id/ivLike"
-            android:layout_centerVertical="true"/>
-
-        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/layer_4"
+            android:layout_centerVertical="true"
+            android:src="@drawable/layer_5" />
+
+        <ImageView
             android:id="@+id/ivComment"
-            android:layout_toRightOf="@+id/ivLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="29dp"
-            android:layout_centerVertical="true"/>
+            android:layout_toRightOf="@+id/ivLike"
+            android:src="@drawable/layer_4" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/layer_3"
             android:id="@+id/ivShare"
-            android:layout_toRightOf="@+id/ivComment"
-            android:layout_marginLeft="33dp"
-            android:layout_centerVertical="true"/>
-
-        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/coin_sm"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="33dp"
+            android:layout_toRightOf="@+id/ivComment"
+            android:src="@drawable/layer_3" />
+
+        <ImageView
             android:id="@+id/ivCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginRight="18dp"
             android:layout_toLeftOf="@+id/tvDonated"
-            android:layout_centerVertical="true" />
+            android:src="@drawable/coin_sm" />
 
         <TextView
+            android:id="@+id/tvDonated"
             android:layout_width="63dp"
             android:layout_height="wrap_content"
-            android:text="0 donated"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:id="@+id/tvDonated"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:text="0 donated"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
     </RelativeLayout>
 
 </RelativeLayout>

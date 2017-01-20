@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -48,16 +49,16 @@ public class LotteryActivity extends AppCompatActivity {
 
         TextView tvDescription = (TextView) findViewById(R.id.tvDescription);
 
-        if (lottery.getStatus().equals("finished")){
+        if (lottery.getStatus().equals("finished")) {
             tvLotteryDate.setText("Lottery Closed");
             tvLotteryDay.setText(DateHandler.getDaySimpleFormat(lotteryDate));
             tvLotteryDay.setTextColor(getResources().getColor(R.color.blueLottery));
             patricipation = " People Participated";
             tvParticipants.setTextColor(getResources().getColor(R.color.greyLottery));
-            if(lottery.isYouWin()){
+            if (lottery.isYouWin()) {
                 tvDescription.setText("Congratulations!");
                 findViewById(R.id.tvWinner).setVisibility(View.VISIBLE);
-            }else tvDescription.setText("Thanks for participating!");
+            } else tvDescription.setText("Thanks for participating!");
         } else {
             tvLotteryDate.setText(DateHandler.getTimeCountDown(lotteryDate));
             tvLotteryDay.setText("Days    Hours    Minutes");
@@ -81,6 +82,29 @@ public class LotteryActivity extends AppCompatActivity {
 
         ListView lvTickets = (ListView) findViewById(R.id.lvTickets);
         lvTickets.setAdapter(new TicketsListAdapter(this, lottery.getTickets()));
+
+//        lvTickets.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                int action = event.getAction();
+//                switch (action) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        // Disallow ScrollView to intercept touch events.
+//                        v.getParent().requestDisallowInterceptTouchEvent(true);
+//                        break;
+//
+//                    case MotionEvent.ACTION_UP:
+//                        // Allow ScrollView to intercept touch events.
+//                        v.getParent().requestDisallowInterceptTouchEvent(false);
+//                        break;
+//                }
+//
+//                // Handle ListView touch events.
+//                v.onTouchEvent(event);
+//                return true;
+//            }
+//        });
+
         lvTickets.invalidateViews();
     }
 
@@ -89,7 +113,7 @@ public class LotteryActivity extends AppCompatActivity {
         startActivity(new Intent(this, LotteryListActivity.class));
     }
 
-//    // TODO: 14.01.2017
+    //    // TODO: 14.01.2017
 //    where to go???
     public void donateNow(View view) {
     }
