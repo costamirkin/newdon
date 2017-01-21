@@ -63,16 +63,21 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
             profileImage.setImageURI(Uri.fromFile(profileImageFile));
         }
 
-
 //        ProgressDialog progressDialog =
 //                ProgressDialog.show(getApplicationContext(), "Altru", "Udpadting posts...", true);
 //        progressDialog.show();
 
         if (CommonData.getInstance().isFirstStart) {
-//            get userID AND download posts
+//            get userID (and download posts?)
             DataLoader.getUserId(getApplicationContext());
-            DataLoader.getSuggestedUsers(getApplicationContext());
-            DataLoader.getUserPosts(getApplicationContext());
+
+//            get posts for home screen
+            DataLoader.getHomeScreenPosts(getApplicationContext());
+
+//            DataLoader.getSuggestedUsers(getApplicationContext());
+
+//            posts of current user
+//            DataLoader.getUserPosts(getApplicationContext(), CommonData.getInstance().getCurrentUserId());
             DataLoader.getAllFoundations();
             DataLoader.getFeaturedLotteries();
             CommonData.getInstance().isFirstStart = false;
@@ -144,9 +149,14 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
     }
 
     @Override
-    public void onPostSelected(int foundId) {
-        System.out.println("Foundation!!!!!!!!!!!!!!!!!!! " + foundId);
-        CommonData.getInstance().setCurrentFoundId(foundId);
+    public void onFoundationSelected(int foundId) {
+        CommonData.getInstance().setSelectedFoundId(foundId);
         commitFragment(foundationDonatesFragment);
+    }
+
+    @Override
+    public void onUserSelected(int userId) {
+        CommonData.getInstance().setSelectedUserId(userId);
+        commitFragment(profileDonatesFragment);
     }
 }

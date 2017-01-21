@@ -21,23 +21,27 @@ import android.widget.TextView;
 import java.io.File;
 
 import cm.com.newdon.BottomBarActivity;
+import cm.com.newdon.DonateActivity;
 import cm.com.newdon.LotteryActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.Share_Dialog_Activity;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.DateHandler;
 import cm.com.newdon.fragments.HomeFragment;
 import cm.com.newdon.fragments.ProfileDonatesFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
 
 /**
- * Created by Marina on 17.12.2016.
+ * adapter for posts
  */
 public class PostsAdapter extends BaseAdapter {
 
     private Context context;
+
+    //  we use mCallBack to say BottomBarActivity which fragment to commit
     HomeFragment.OnPostSelectedListener mCallBack;
 
     RelativeLayout layout;
@@ -68,7 +72,7 @@ public class PostsAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (position == 0) {
-
+//            Lottery view page in the first row of listview
             layout = (RelativeLayout) View.inflate(context, R.layout.lottery_view_pager, null);
             ViewPager viewPager = (ViewPager) layout.findViewById(R.id.viewpager);
             CircleIndicator indicator = (CircleIndicator) layout.findViewById(R.id.indicator);
@@ -88,6 +92,7 @@ public class PostsAdapter extends BaseAdapter {
             TextView tvComment = (TextView) layout.findViewById(R.id.tvComment);
             TextView tvDonated = (TextView) layout.findViewById(R.id.tvDonated);
 
+//            I use -1 because in the first item we put lottery view pager
             final Post post = CommonData.getInstance().getPosts().get(position - 1);
 
             CircleImageView ivUser = (CircleImageView) layout.findViewById(R.id.ivUser);
@@ -104,6 +109,40 @@ public class PostsAdapter extends BaseAdapter {
                 }
             }
 
+//          on click on User picture we should show profileDonatesFragment
+            ivUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mCallBack.onUserSelected(post.getUser().getId());
+                }
+            });
+
+            ImageView imFoundation = (ImageView) layout.findViewById(R.id.imFound);
+            Foundation foundation = CommonData.getInstance().findFoundById(post.getFoundation().getId());
+            imFoundation.setImageBitmap(foundation.getLogo());
+
+//            on click on FoundationLogo we should show foundationDonatesFragment
+            imFoundation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mCallBack.onFoundationSelected(post.getFoundation().getId());
+                }
+            });
+
+            TextView tvFoundationTitle = (TextView) layout.findViewById(R.id.tvFoundTitle);
+            tvFoundationTitle.setText(foundation.getTitle());
+
+            tvDate.setText(DateHandler.howLongAgoWasDate(post.getCreatedAt()));
+            tvUser.setText(post.getUser().getRealName());
+            tvCategory.setText(post.getFoundation().getCategory().getName());
+            tvCategory.setTextColor(Color.parseColor(post.getFoundation().getCategory().getColor()));
+            try {
+                tvComment.setText(post.getMessage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+//            on click on Share icon dialog will open
             ImageView ivShare = (ImageView) layout.findViewById(R.id.ivShare);
             ivShare.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -114,31 +153,18 @@ public class PostsAdapter extends BaseAdapter {
                 }
             });
 
-            ImageView imFoundation = (ImageView) layout.findViewById(R.id.imFound);
-            Foundation foundation = CommonData.getInstance().findFoundById(post.getFoundation().getId());
-            imFoundation.setImageBitmap(foundation.getLogo());
-            imFoundation.setOnClickListener(new View.OnClickListener() {
+//            on click on Coin we open Donate activity and transfer foundation ID
+            ImageView ivCoin = (ImageView) layout.findViewById(R.id.ivCoin);
+            ivCoin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mCallBack.onPostSelected(post.getFoundation().getId());
+                    Intent intent = new Intent(context, DonateActivity.class);
+                    intent.putExtra("foundationId", post.getFoundation().getId());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
                 }
             });
 
-            TextView tvFoundationTitle = (TextView) layout.findViewById(R.id.tvFoundTitle);
-            tvFoundationTitle.setText(foundation.getTitle());
-
-            //// TODO: 20.01.2017
-//            add time
-            tvDate.setText(post.getId() + "");
-
-            tvUser.setText(post.getUser().getUserName());
-            tvCategory.setText(post.getFoundation().getCategory().getName());
-            tvCategory.setTextColor(Color.parseColor(post.getFoundation().getCategory().getColor()));
-            try {
-                tvComment.setText(post.getMessage());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             if (post.getLocalImagePath() != null) {
                 ImageView imageView = (ImageView) layout.findViewById(R.id.ivPost);
                 File imgFile = new File(post.getLocalImagePath());
@@ -148,7 +174,6 @@ public class PostsAdapter extends BaseAdapter {
                     imageView.setVisibility(View.VISIBLE);
                 }
             }
-
         }
         return layout;
     }
