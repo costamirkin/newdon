@@ -6,8 +6,9 @@ package cm.com.newdon.classes;
 public class User {
     private int id;
     private String userName;
-    private String firstName;
-    private String lastName;
+    private String realName;
+//    private String firstName;
+//    private String lastName;
     private int followersCount;
     private int followingCount;
     private int donCount;
@@ -29,21 +30,29 @@ public class User {
         this.userName = userName;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    //    public String getFirstName() {
+//        return firstName;
+//    }
+//
+//    public void setFirstName(String firstName) {
+//        this.firstName = firstName;
+//    }
+//
+//    public String getLastName() {
+//        return lastName;
+//    }
+//
+//    public void setLastName(String lastName) {
+//        this.lastName = lastName;
+//    }
 
     public int getFollowersCount() {
         return followersCount;
