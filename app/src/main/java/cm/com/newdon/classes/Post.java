@@ -1,6 +1,7 @@
 package cm.com.newdon.classes;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 /**
  * Class represents one donation post

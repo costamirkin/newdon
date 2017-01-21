@@ -126,13 +126,23 @@ public class CommonData {
 
     public static String profileImageName = "image.jpg";
 
-    private int currentFoundId = -1;
+    private int selectedFoundId = -1;
 
-    public int getCurrentFoundId() {
-        return currentFoundId;
+    public int getSelectedFoundId() {
+        return selectedFoundId;
     }
 
-    public void setCurrentFoundId(int currentFoundId) {
-        this.currentFoundId = currentFoundId;
+    public void setSelectedFoundId(int selectedFoundId) {
+        this.selectedFoundId = selectedFoundId;
+    }
+
+    private int selectedUserId = -1;
+
+    public int getSelectedUserId() {
+        return selectedUserId;
+    }
+
+    public void setSelectedUserId(int selectedUserId) {
+        this.selectedUserId = selectedUserId;
     }
 }

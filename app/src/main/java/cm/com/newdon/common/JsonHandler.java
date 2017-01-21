@@ -4,8 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cm.com.newdon.classes.FoundCategory;
@@ -16,7 +14,7 @@ import cm.com.newdon.classes.Ticket;
 import cm.com.newdon.classes.User;
 
 /**
- * Created by Marina on 23.12.2016.
+ * class for parsing data from Json to objects
  */
 public class JsonHandler {
 
@@ -53,6 +51,8 @@ public class JsonHandler {
         int id = item.getInt("id");
         String message = item.getString("message");
         String imageUrl = item.getString("image");
+        String createdAt = item.getString("createdAt");
+        Date date = DateHandler.parseDateFromString(createdAt);
 
         JSONObject foundationObj = item.getJSONObject("foundation");
         Foundation foundation = parseFoundationFromJson(foundationObj);
@@ -66,6 +66,7 @@ public class JsonHandler {
         post.setId(id);
         post.setMessage(message);
         post.setImageUrl(imageUrl);
+        post.setCreatedAt(date);
 
         return post;
     }
@@ -74,8 +75,19 @@ public class JsonHandler {
         User user = new User();
         int id = item.getInt("id");
         String username = item.getString("username");
+        String realName = item.getString("realName");
+//        String firstName = item.getString("firstName");
+//        String lastName = item.getString("lastName");
+        int followersCount = item.getInt("followersCount");
+        int followingCount = item.getInt("followingCount");
+
         user.setId(id);
         user.setUserName(username);
+        user.setRealName(realName);
+//        user.setFirstName(firstName);
+//        user.setLastName(lastName);
+        user.setFollowersCount(followersCount);
+        user.setFollowingCount(followingCount);
         return user;
     }
 
@@ -88,13 +100,7 @@ public class JsonHandler {
         String logoUrl  = item.getString("logo");
         String imageUrl = item.getString("image");
         String scheduleDay = item.getString("scheduleDay");
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        Date date = null;
-        try {
-            date = formatter.parse(scheduleDay);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Date date = DateHandler.parseDateFromString(scheduleDay);
 
         String promoText = item.getString("promoText");
         String description = item.getString("description");

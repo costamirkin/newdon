@@ -28,7 +28,8 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
 
     // Container Activity must implement this interface
     public interface OnPostSelectedListener {
-        void onPostSelected(int foundId);
+        void onFoundationSelected(int foundId);
+        void onUserSelected(int userId);
     }
 
     @Override

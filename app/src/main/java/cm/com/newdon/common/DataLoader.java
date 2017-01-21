@@ -19,6 +19,9 @@ import cz.msebera.android.httpclient.Header;
  */
 public class DataLoader {
 
+//    get data ot current user
+//    for now we use only id from it
+//    could get more info
     public static void getUserId(final Context context){
         AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
             @Override
@@ -28,7 +31,8 @@ public class DataLoader {
                     JSONObject object = new JSONObject(new String(responseBody));
                     int userId = object.getInt("id");
                     CommonData.getInstance().setCurrentUserId(userId);
-                    getUserPosts(context);
+//                    ? do we need posts here?
+//                    getUserPosts(context, userId);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -44,6 +48,7 @@ public class DataLoader {
         RestClient.get("account/me", params, handler);
     }
 
+//    get info about all foundations
     public static void getAllFoundations() {
         CommonData.getInstance().getFoundations().clear();
 
@@ -77,6 +82,7 @@ public class DataLoader {
             RestClient.get("foundations/find", params, handler);
     }
 
+//    get posts of foundation by Foundation ID
     public static void getFoundationPosts(final Context context, int foundationId) {
 
         CommonData.getInstance().getFoundationPosts().clear();
@@ -115,7 +121,8 @@ public class DataLoader {
         RestClient.get("foundations/posts", params, handler);
     }
 
-   public static void getUserPosts(final Context context) {
+    //    get posts of user by User ID
+   public static void getUserPosts(final Context context, int userID) {
 
         CommonData.getInstance().getPosts().clear();
         AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
@@ -148,7 +155,7 @@ public class DataLoader {
         };
 
         RequestParams params = new RequestParams();
-        params.put("userId", CommonData.getInstance().getCurrentUserId());
+        params.put("userId", userID);
 
         RestClient.get("users/posts", params, handler);
     }
@@ -221,6 +228,7 @@ public class DataLoader {
         RestClient.get("foundations/get", params, handler);
     }
 
+    //    get lotteries that we show in the listview Lottery History
     public static void getLotteryList() {
         CommonData.getInstance().getLotteryList().clear();
 
@@ -258,6 +266,7 @@ public class DataLoader {
         RestClient.get("lottery/list", params, handler);
     }
 
+//    get lotteries that we show in the viewPager of home screen
     public static void getFeaturedLotteries() {
         CommonData.getInstance().getFeaturedLotteries().clear();
         CommonData.getInstance().getLotteryList().clear();
@@ -296,7 +305,8 @@ public class DataLoader {
         RestClient.get("lottery/featured", params, handler);
     }
 
-    public static void getSmth() {
+//    get posts that we show on the home screen
+    public static void getHomeScreenPosts(final Context context) {
 
         CommonData.getInstance().getPosts().clear();
         AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
@@ -310,8 +320,8 @@ public class DataLoader {
                         Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
                         System.out.println(post);
                         if(!post.getImageUrl().equals("null")){
-//                            new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
-//                                    ImageLoaderToBitmap.DownloadOption.POST).execute();
+                            new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
+                                    ImageLoaderToBitmap.DownloadOption.POST).execute();
                         }
                         CommonData.getInstance().getPosts().add(post);
                         if (CommonData.getInstance().imageLoadedIf != null) {
