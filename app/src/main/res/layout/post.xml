@@ -44,11 +44,12 @@
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/txMadeDon"
-        android:layout_marginLeft="3dp"
-        android:layout_toRightOf="@+id/txMadeDon"
+        android:textColor="@color/grey"
         android:text="Yesterday"
-        android:textSize="13.3sp" />
+        android:textSize="13.3sp"
+        android:layout_alignBottom="@+id/txMadeDon"
+        android:layout_toRightOf="@+id/txMadeDon"
+        android:layout_marginLeft="3dp"/>
 
     <ImageView
         android:id="@+id/ivOptions"
