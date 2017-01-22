@@ -9,6 +9,7 @@ import java.util.Date;
 import cm.com.newdon.classes.FoundCategory;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Lottery;
+import cm.com.newdon.classes.Notification;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.classes.Ticket;
 import cm.com.newdon.classes.User;
@@ -128,5 +129,25 @@ public class JsonHandler {
         lottery.setParticipantCount(participantCount);
 
         return lottery;
+    }
+
+    public static Notification parseNotificationFromJson(JSONObject item) throws JSONException {
+        Notification notification = new Notification();
+        int id = item.getInt("id");
+        String type = item.getString("type");
+        String content = item.getString("content");
+        String createdAt = item.getString("createdAt");
+        Date date = DateHandler.parseDateFromString(createdAt);
+
+        JSONObject userObj = item.getJSONObject("user");
+        User user = parseUserFromJson(userObj);
+
+        notification.setId(id);
+        notification.setUser(user);
+        notification.setType(type);
+        notification.setContent(content);
+        notification.setCreatedAt(date);
+
+        return notification;
     }
 }

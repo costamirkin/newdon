@@ -11,16 +11,20 @@ import android.widget.TextView;
 
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.NotificationsAdapter;
+import cm.com.newdon.common.DataLoader;
 
 public class NotificationFragment extends Fragment {
+    final static boolean NOTIFICATIONS = false;
+    final static boolean ACTIVITIES = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         View view =  inflater.inflate(R.layout.fragment_notification, container, false);
         ListView listView = (ListView) view.findViewById(R.id.lvNotifications);
+        DataLoader.getNotificationList(ACTIVITIES);
+
         listView.setAdapter(new NotificationsAdapter(getActivity()));
 
         final TextView tvNotifications = (TextView) view.findViewById(R.id.tvNotifications);

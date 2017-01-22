@@ -343,4 +343,38 @@ public class DataLoader {
 
         RestClient.get("feed/wall?page=0&limit=30", params, handler);
     }
+
+    //    get notification|activity list
+    public static void getNotificationList(boolean isActivities) {
+
+        AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                System.out.println(new String(responseBody));
+                try {
+                    JSONObject object = new JSONObject(new String(responseBody));
+                    JSONArray array = object.getJSONArray("items");
+                    System.out.println(array.length());
+                    for (int i = 0; i < array.length(); i++) {
+                        System.out.println(i);
+                    }
+                    if (CommonData.getInstance().imageLoadedIf != null) {
+                        CommonData.getInstance().imageLoadedIf.dataLoaded();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
+                System.out.println(new String(responseBody));
+            }
+        };
+
+        RequestParams params = new RequestParams();
+        RestClient.get((isActivities?"activity":"notification")+"/list?page=0", params, handler);
+    }
 }
