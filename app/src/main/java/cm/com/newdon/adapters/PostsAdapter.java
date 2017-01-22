@@ -1,6 +1,5 @@
 package cm.com.newdon.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,24 +12,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
 
-import cm.com.newdon.BottomBarActivity;
 import cm.com.newdon.DonateActivity;
-import cm.com.newdon.LotteryActivity;
+import cm.com.newdon.HideDeleteDialogActivity;
+import cm.com.newdon.HideReportDialogActivity;
 import cm.com.newdon.R;
-import cm.com.newdon.Share_Dialog_Activity;
+import cm.com.newdon.ShareDialogActivity;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DateHandler;
 import cm.com.newdon.fragments.HomeFragment;
-import cm.com.newdon.fragments.ProfileDonatesFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
 
@@ -40,8 +37,9 @@ import me.relex.circleindicator.CircleIndicator;
 public class PostsAdapter extends BaseAdapter {
 
     private Context context;
+    private Intent intent;
 
-    //  we use mCallBack to say BottomBarActivity which fragment to commit
+            //  we use mCallBack to say BottomBarActivity which fragment to commit
     HomeFragment.OnPostSelectedListener mCallBack;
 
     RelativeLayout layout;
@@ -147,7 +145,23 @@ public class PostsAdapter extends BaseAdapter {
             ivShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, Share_Dialog_Activity.class);
+                    Intent intent = new Intent(context, ShareDialogActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+            });
+
+            //            on click on Share icon dialog will open
+            ImageView ivOptions = (ImageView) layout.findViewById(R.id.ivOptions);
+            ivOptions.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(post.getUser().getId()==CommonData.getInstance().getCurrentUserId()) {
+                        intent = new Intent(context, HideDeleteDialogActivity.class);
+                    }else {
+                        intent = new Intent(context, HideReportDialogActivity.class);
+                    }
+                    intent.putExtra("postId",post.getId());
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }
@@ -158,7 +172,7 @@ public class PostsAdapter extends BaseAdapter {
             ivCoin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, DonateActivity.class);
+                    intent = new Intent(context, DonateActivity.class);
                     intent.putExtra("foundationId", post.getFoundation().getId());
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
