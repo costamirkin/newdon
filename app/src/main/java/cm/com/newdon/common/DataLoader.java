@@ -31,6 +31,7 @@ public class DataLoader {
                     JSONObject object = new JSONObject(new String(responseBody));
                     int userId = object.getInt("id");
                     CommonData.getInstance().setCurrentUserId(userId);
+                    CommonData.getInstance().setCurrentUser(JsonHandler.parseUserFromJson(object));
 //                    ? do we need posts here?
 //                    getUserPosts(context, userId);
                 } catch (JSONException e) {

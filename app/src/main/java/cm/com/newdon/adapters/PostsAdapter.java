@@ -113,6 +113,7 @@ public class PostsAdapter extends BaseAdapter {
             ivUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    CommonData.getInstance().setSelectedUser(post.getUser());
                     mCallBack.onUserSelected(post.getUser().getId());
                 }
             });

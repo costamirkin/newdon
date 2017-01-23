@@ -13,6 +13,8 @@ import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -22,6 +24,7 @@ import java.io.File;
 
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoader;
+import cm.com.newdon.common.RestClient;
 import cm.com.newdon.fragments.FoundationDonatesFragment;
 import cm.com.newdon.fragments.HomeFragment;
 import cm.com.newdon.fragments.NotificationFragment;
@@ -29,6 +32,7 @@ import cm.com.newdon.fragments.ProfileDonatesFragment;
 import cm.com.newdon.fragments.ProfileFragment;
 import cm.com.newdon.fragments.SearchFragment;
 import cm.com.newdon.fragments.SettingsFragment;
+import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BottomBarActivity extends AppCompatActivity implements HomeFragment.OnPostSelectedListener {
@@ -101,10 +105,13 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
 //                        startActivity(new Intent(BottomBarActivity.this, FoundationGrid.class));
                         break;
                     case R.id.bottomBarNotification:
+                        //followUser(165);
                         commitFragment(notificationFragment);
                         break;
                     case R.id.bottomBarProfile:
-                        commitFragment(foundationDonatesFragment);
+                        CommonData.getInstance().setSelectedUser(CommonData.getInstance().getCurrentUser());
+                        CommonData.getInstance().setSelectedUserId(CommonData.getInstance().getCurrentUserId());
+                        commitFragment(profileDonatesFragment);
                         break;
                 }
             }
@@ -125,6 +132,23 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
 
         // Remove the badge when you're done with it.
 //        notifications.removeBadge();
+    }
+
+    private void followUser(int userId) {
+        RequestParams params = new RequestParams();
+        params.put("userId", userId);
+        RestClient.put("connections/follow", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                System.out.println(new String(responseBody));
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println(new String(responseBody));
+
+            }
+        });
     }
 
     public void commitFragment(Fragment fragment){
