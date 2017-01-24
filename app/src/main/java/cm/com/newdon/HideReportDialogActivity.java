@@ -19,6 +19,7 @@ public class HideReportDialogActivity extends Activity {
     }
 
     public void reportPost(View view) {
+        startActivity(new Intent(getApplicationContext(),ReportDialogActivity.class));
     }
 
     public void hidePost(View view) {
