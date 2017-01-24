@@ -61,6 +61,18 @@ public class CommonData {
         return foundationPosts;
     }
 
+    public void copyFoundationPosts() {
+        foundationPosts.clear();
+        for (Post post:
+                posts) {
+            if (post.getFoundation().getId() == selectedFoundId) {
+                foundationPosts.add(post);
+            }
+
+        }
+    }
+
+
     private List<Lottery> featuredLotteries;
     public List<Lottery> getFeaturedLotteries() {
         return featuredLotteries;

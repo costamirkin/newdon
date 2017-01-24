@@ -120,7 +120,9 @@ public class PostsAdapter extends BaseAdapter {
 
             ImageView imFoundation = (ImageView) layout.findViewById(R.id.imFound);
             Foundation foundation = CommonData.getInstance().findFoundById(post.getFoundation().getId());
-            imFoundation.setImageBitmap(foundation.getLogo());
+            if (foundation.getLogo() != null) {
+                imFoundation.setImageBitmap(foundation.getLogo());
+            }
 
 //            on click on FoundationLogo we should show foundationDonatesFragment
             imFoundation.setOnClickListener(new View.OnClickListener() {

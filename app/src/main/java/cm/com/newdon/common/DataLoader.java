@@ -41,7 +41,9 @@ public class DataLoader {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
             }
         };
 
@@ -75,7 +77,9 @@ public class DataLoader {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
             }
         };
 
@@ -112,7 +116,9 @@ public class DataLoader {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
             }
         };
 
@@ -219,7 +225,9 @@ public class DataLoader {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
             }
         };
 
@@ -260,7 +268,9 @@ public class DataLoader {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
             }
         };
         RequestParams params = new RequestParams();
@@ -299,7 +309,9 @@ public class DataLoader {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
             }
         };
         RequestParams params = new RequestParams();
@@ -336,7 +348,9 @@ public class DataLoader {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
             }
         };
 

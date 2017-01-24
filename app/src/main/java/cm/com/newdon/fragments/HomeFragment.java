@@ -48,7 +48,6 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        CommonData.getInstance().imageLoadedIf =  this;
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
         lv = (ListView) view.findViewById(R.id.lvPosts);
@@ -56,6 +55,20 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
         lv.invalidateViews();
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        CommonData.getInstance().imageLoadedIf =  this;
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        CommonData.getInstance().imageLoadedIf =  null;
+
     }
 
     @Override
