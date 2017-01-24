@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +19,13 @@ import java.io.File;
 
 import cm.com.newdon.DonateActivity;
 import cm.com.newdon.R;
-import cm.com.newdon.Share_Dialog_Activity;
+import cm.com.newdon.ShareDialogActivity;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DateHandler;
 import cm.com.newdon.fragments.HomeFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
-import me.relex.circleindicator.CircleIndicator;
 
 /**
  * Created by Marina on 17.12.2016.
@@ -128,7 +126,7 @@ public class FoundationPostsAdapter extends BaseAdapter {
         ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Share_Dialog_Activity.class);
+                Intent intent = new Intent(context, ShareDialogActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }

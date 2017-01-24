@@ -28,5 +28,6 @@ public class HideReportDialogActivity extends Activity {
     }
 
     public void followUser(View view) {
+//        TODO
     }
 }
