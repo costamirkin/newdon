@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingTop="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <android.support.v4.widget.CircleImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/ivUser"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey"
+        android:text="Name"
+        android:textSize="17sp"
+        android:id="@+id/tvUserName"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/ivUser"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Action"
+        android:textSize="17sp"
+        android:textColor="@color/lightBlue"
+        android:id="@+id/tvAction"
+        android:layout_below="@+id/tvUserName"
+        android:layout_toRightOf="@+id/ivUser"
+        android:layout_toEndOf="@+id/ivUser" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="when"
+        android:textSize="13sp"
+        android:textColor="#8e8e8e"
+        android:id="@+id/tvActionTime"
+        android:layout_marginBottom="16dp"
+        android:layout_below="@+id/tvAction"
+        android:layout_toRightOf="@+id/ivUser"
+        android:layout_toEndOf="@+id/ivUser" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imNotification"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightgrey"
+        android:layout_alignParentBottom="true">
+    </View>
+</RelativeLayout>
