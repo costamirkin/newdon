@@ -24,6 +24,12 @@ public class RestClient  {
         client.post(getAbsoluteUrl(url), params, responseHandler);
     }
 
+    public static void put(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.setBasicAuth("egenesis", "rhk@Wf54");
+        client.addHeader("Authorization", "Basic " + CommonData.getInstance().getToken());
+        client.put(getAbsoluteUrl(url), params, responseHandler);
+    }
+
     public static void loginSignup(String cmd, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         String url = "";
         if (cmd.equals("login")) {

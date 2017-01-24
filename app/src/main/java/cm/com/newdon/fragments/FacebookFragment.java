@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -69,6 +71,10 @@ public class FacebookFragment extends Fragment {
                                 }
                             }
                         });
+                AccessToken token = AccessToken.getCurrentAccessToken();
+                if (token != null) {
+                    Toast.makeText(getActivity(), token.getToken(), Toast.LENGTH_LONG).show();
+                }
                 Bundle parameters = new Bundle();
                 parameters.putString("fields", "id,name,link");
                 request.setParameters(parameters);

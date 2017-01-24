@@ -8,6 +8,7 @@ import java.util.List;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Lottery;
 import cm.com.newdon.classes.Post;
+import cm.com.newdon.classes.User;
 
 /**
  * Class stores common data, like list of foundations,...
@@ -21,11 +22,12 @@ public class CommonData {
     }
 
     private CommonData() {
-        foundations = new ArrayList<>();
-        posts = new ArrayList<>();
-        foundationPosts = new ArrayList<>();
+        foundations       = new ArrayList<>();
+        posts             = new ArrayList<>();
+        userPosts         = new ArrayList<>();
+        foundationPosts   = new ArrayList<>();
         featuredLotteries = new ArrayList<>();
-        lotteryList = new ArrayList<>();
+        lotteryList       = new ArrayList<>();
     }
 
     private List<Foundation> foundations;
@@ -36,6 +38,22 @@ public class CommonData {
     private List<Post> posts;
     public List<Post> getPosts() {
         return posts;
+    }
+
+    private List<Post> userPosts;
+
+    public List<Post> getUserPosts() {
+        return userPosts;
+    }
+    public void copyUserPosts() {
+        userPosts.clear();
+        for (Post post:
+                posts) {
+            if (post.getUser().getId() == selectedUserId) {
+                userPosts.add(post);
+            }
+
+        }
     }
 
     private List<Post> foundationPosts;
@@ -144,5 +162,25 @@ public class CommonData {
 
     public void setSelectedUserId(int selectedUserId) {
         this.selectedUserId = selectedUserId;
+    }
+
+    private User currentUser;
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    private User selectedUser;
+
+    public User getSelectedUser() {
+        return selectedUser;
+    }
+
+    public void setSelectedUser(User selectedUser) {
+        this.selectedUser = selectedUser;
     }
 }
