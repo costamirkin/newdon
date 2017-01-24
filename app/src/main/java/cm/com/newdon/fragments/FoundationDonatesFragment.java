@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import cm.com.newdon.R;
+import cm.com.newdon.adapters.FoundationPostsAdapter;
 import cm.com.newdon.adapters.PostsAdapter;
+import cm.com.newdon.common.CommonData;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 public class FoundationDonatesFragment extends Fragment {
@@ -38,7 +40,8 @@ public class FoundationDonatesFragment extends Fragment {
         View v =inflater.inflate(R.layout.fragment_foundation_donates,container,false);
 
         lv = (ListView) v.findViewById(R.id.listView);
-        PostsAdapter adapter = new PostsAdapter(getActivity().getApplicationContext(), mCallBack);
+        CommonData.getInstance().copyFoundationPosts();
+        FoundationPostsAdapter adapter = new FoundationPostsAdapter(getActivity().getApplicationContext(), mCallBack);
         lv.setAdapter(adapter);
         StikkyHeaderBuilder.stickTo(lv)
                 .setHeader(R.id.header, (ViewGroup) v)

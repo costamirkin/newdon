@@ -1,6 +1,7 @@
 package cm.com.newdon.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,13 +19,19 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import cm.com.newdon.BottomBarActivity;
 import cm.com.newdon.R;
+import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.RestClient;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by costa on 17/12/16.
@@ -53,7 +60,35 @@ public class FacebookFragment extends Fragment {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                // App code
+                AccessToken token = AccessToken.getCurrentAccessToken();
+                RequestParams params = new RequestParams();
+                params.put("token", token.getToken());
+
+                RestClient.post("account/connect", params, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        JSONObject object = null;
+                        try {
+                            object = new JSONObject(new String(responseBody));
+                            CommonData.getInstance().setToken(object.getString("token"));
+                            SharedPreferences settings = getActivity().getSharedPreferences("settings", 0);
+                            SharedPreferences.Editor editor = settings.edit();
+//                            editor.putString("email", emailEt.getText().toString());
+//                            editor.putString("password", pswdEt.getText().toString());
+                            editor.commit();
+                            startActivity(new Intent(getActivity(), BottomBarActivity.class));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        Toast.makeText(getActivity().getApplicationContext(),
+                                "Facebook Login failed", Toast.LENGTH_LONG).show();
+                    }
+                });
+
                 GraphRequest request = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {
@@ -71,10 +106,7 @@ public class FacebookFragment extends Fragment {
                                 }
                             }
                         });
-                AccessToken token = AccessToken.getCurrentAccessToken();
-                if (token != null) {
-                    Toast.makeText(getActivity(), token.getToken(), Toast.LENGTH_LONG).show();
-                }
+
                 Bundle parameters = new Bundle();
                 parameters.putString("fields", "id,name,link");
                 request.setParameters(parameters);
