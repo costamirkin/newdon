@@ -98,18 +98,20 @@ public class UserPostsAdapter extends BaseAdapter {
 
         ImageView imFoundation = (ImageView) layout.findViewById(R.id.imFound);
         Foundation foundation = CommonData.getInstance().findFoundById(post.getFoundation().getId());
-        imFoundation.setImageBitmap(foundation.getLogo());
+        if (foundation != null) {
+            imFoundation.setImageBitmap(foundation.getLogo());
 
-//            on click on FoundationLogo we should show foundationDonatesFragment
-        imFoundation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCallBack.onFoundationSelected(post.getFoundation().getId());
-            }
-        });
+            //            on click on FoundationLogo we should show foundationDonatesFragment
+            imFoundation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mCallBack.onFoundationSelected(post.getFoundation().getId());
+                }
+            });
 
-        TextView tvFoundationTitle = (TextView) layout.findViewById(R.id.tvFoundTitle);
-        tvFoundationTitle.setText(foundation.getTitle());
+            TextView tvFoundationTitle = (TextView) layout.findViewById(R.id.tvFoundTitle);
+            tvFoundationTitle.setText(foundation.getTitle());
+        }
 
         tvDate.setText(DateHandler.howLongAgoWasDate(post.getCreatedAt()));
         tvUser.setText(post.getUser().getRealName());

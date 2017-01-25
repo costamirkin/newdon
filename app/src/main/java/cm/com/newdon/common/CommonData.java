@@ -195,4 +195,11 @@ public class CommonData {
     public void setSelectedUser(User selectedUser) {
         this.selectedUser = selectedUser;
     }
+
+    // Connections
+    private ArrayList<User> suggestedUsers = new ArrayList<>();
+
+    public ArrayList<User> getSuggestedUsers() {
+        return suggestedUsers;
+    }
 }

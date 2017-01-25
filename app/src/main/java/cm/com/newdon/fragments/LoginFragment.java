@@ -101,8 +101,9 @@ public class LoginFragment extends Fragment {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        String strErr = responseBody == null ? " No internet" : new String(responseBody);
                         Toast.makeText(getActivity().getApplicationContext(),
-                                "Login failed: " + new String(responseBody), Toast.LENGTH_LONG).show();
+                                "Login failed: " + strErr, Toast.LENGTH_LONG).show();
 
                     }
                 });

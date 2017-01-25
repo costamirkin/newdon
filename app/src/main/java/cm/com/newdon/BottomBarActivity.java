@@ -25,6 +25,7 @@ import java.io.File;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoader;
 import cm.com.newdon.common.RestClient;
+import cm.com.newdon.fragments.ConnectionsFragment;
 import cm.com.newdon.fragments.FoundationDonatesFragment;
 import cm.com.newdon.fragments.HomeFragment;
 import cm.com.newdon.fragments.NotificationFragment;
@@ -43,14 +44,15 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
 
     private int numberNewNotifications = 5;
 
-    HomeFragment              homeFragment = new HomeFragment();
-    SearchFragment            searchFragment = new SearchFragment();
-    ProfileFragment           profileFragment = new ProfileFragment();
-    ProfileDonatesFragment    profileDonatesFragment = new ProfileDonatesFragment();
-    NotificationFragment      notificationFragment = new NotificationFragment();
-    SettingsFragment          settingsFragment = new SettingsFragment();
+    HomeFragment              homeFragment              = new HomeFragment();
+    SearchFragment            searchFragment            = new SearchFragment();
+    ProfileFragment           profileFragment           = new ProfileFragment();
+    ProfileDonatesFragment    profileDonatesFragment    = new ProfileDonatesFragment();
+    NotificationFragment      notificationFragment      = new NotificationFragment();
+    SettingsFragment          settingsFragment          = new SettingsFragment();
     FoundationDonatesFragment foundationDonatesFragment = new FoundationDonatesFragment();
-    CircleImageView profileImage;
+    ConnectionsFragment       connectionsFragment       = new ConnectionsFragment();
+    CircleImageView           profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +107,6 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
 //                        startActivity(new Intent(BottomBarActivity.this, FoundationGrid.class));
                         break;
                     case R.id.bottomBarNotification:
-                        //followUser(165);
                         commitFragment(notificationFragment);
                         break;
                     case R.id.bottomBarProfile:
@@ -132,23 +133,6 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
 
         // Remove the badge when you're done with it.
 //        notifications.removeBadge();
-    }
-
-    private void followUser(int userId) {
-        RequestParams params = new RequestParams();
-        params.put("userId", userId);
-        RestClient.put("connections/follow", params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                System.out.println(new String(responseBody));
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println(new String(responseBody));
-
-            }
-        });
     }
 
     public void commitFragment(Fragment fragment){

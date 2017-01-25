@@ -117,26 +117,28 @@ public class PostsAdapter extends BaseAdapter {
             });
 
             ImageView imFoundation = (ImageView) layout.findViewById(R.id.imFound);
-            Foundation foundation = CommonData.getInstance().findFoundById(post.getFoundation().getId());
-            if (foundation.getLogo() != null) {
-                imFoundation.setImageBitmap(foundation.getLogo());
-            }
-
-//            on click on FoundationLogo we should show foundationDonatesFragment
-            imFoundation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mCallBack.onFoundationSelected(post.getFoundation().getId());
-                }
-            });
-
             TextView tvFoundationTitle = (TextView) layout.findViewById(R.id.tvFoundTitle);
-            tvFoundationTitle.setText(foundation.getTitle());
+            Foundation foundation = CommonData.getInstance().findFoundById(post.getFoundation().getId());
+            if (foundation != null) {
+                if (foundation.getLogo() != null) {
+                    imFoundation.setImageBitmap(foundation.getLogo());
+                }
+                //            on click on FoundationLogo we should show foundationDonatesFragment
+                imFoundation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mCallBack.onFoundationSelected(post.getFoundation().getId());
+                    }
+                });
+
+                tvFoundationTitle.setText(foundation.getTitle());
+                tvCategory.setText(post.getFoundation().getCategory().getName());
+                tvCategory.setTextColor(Color.parseColor(post.getFoundation().getCategory().getColor()));
+
+            }
 
             tvDate.setText(DateHandler.howLongAgoWasDate(post.getCreatedAt()));
             tvUser.setText(post.getUser().getRealName());
-            tvCategory.setText(post.getFoundation().getCategory().getName());
-            tvCategory.setTextColor(Color.parseColor(post.getFoundation().getCategory().getColor()));
             try {
                 tvComment.setText(post.getMessage());
             } catch (Exception e) {

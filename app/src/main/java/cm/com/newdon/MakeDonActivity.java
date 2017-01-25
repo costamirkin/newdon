@@ -47,9 +47,9 @@ public class MakeDonActivity extends AppCompatActivity {
         etAmount.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(getAmount()==0 && keyCode != KeyEvent.KEYCODE_BACK) etAmount.setText("₪");
+                if (getAmount() == 0 && keyCode != KeyEvent.KEYCODE_BACK) etAmount.setText("₪");
                 int position = etAmount.getText().length();
-                Editable editObj= etAmount.getText();
+                Editable editObj = etAmount.getText();
                 Selection.setSelection(editObj, position);
                 //You can identify which key pressed buy checking keyCode value with KeyEvent.KEYCODE_
                 if (keyCode == KeyEvent.KEYCODE_DEL) setAmount(0);
@@ -72,7 +72,12 @@ public class MakeDonActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getApplicationContext(), new String(responseBody), Toast.LENGTH_LONG).show();
+                String errStr = "Donate Error!";
+                if(responseBody != null)  {
+                    errStr = new String(responseBody);
+                }
+
+                Toast.makeText(getApplicationContext(), errStr, Toast.LENGTH_LONG).show();
             }
         };
 

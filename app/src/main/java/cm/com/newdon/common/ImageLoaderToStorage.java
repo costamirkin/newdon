@@ -62,7 +62,7 @@ public class ImageLoaderToStorage extends AsyncTask {
         } finally {
             try {
                 input.close();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

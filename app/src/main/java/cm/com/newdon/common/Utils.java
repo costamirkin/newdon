@@ -1,8 +1,15 @@
 package cm.com.newdon.common;
 
+import android.content.Context;
 import android.os.Environment;
+import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import java.io.File;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by costa on 18/01/17.
@@ -16,5 +23,27 @@ public class Utils {
         }
         return File.createTempFile(part, ext, tempDir);
     }
+
+    public static void followUser(int userId, final Context context) {
+        RequestParams params = new RequestParams();
+        params.put("userId", userId);
+        RestClient.put("connections/follow", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                System.out.println(new String(responseBody));
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                String strErr = responseBody == null ? "" : new String(responseBody);
+                Toast.makeText(context,
+                        "Follow failed. " + strErr, Toast.LENGTH_LONG).show();
+                System.out.println(new String(responseBody));
+
+            }
+        });
+    }
+
+
 
 }

@@ -82,6 +82,19 @@ public class JsonHandler {
         int followersCount = item.getInt("followersCount");
         int followingCount = item.getInt("followingCount");
 
+        String email  = "";
+        if (item.has("email")) {
+            email = item.getString("email");
+        }
+        user.setEmail(email);
+
+
+        String pictureURL  = "";
+        if (item.has("pictureURL")) {
+            pictureURL = item.getString("pictureURL");
+        }
+        user.setPictureUrl(pictureURL);
+        user.setEmail(email);
         user.setId(id);
         user.setUserName(username);
         user.setRealName(realName);

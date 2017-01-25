@@ -7,6 +7,7 @@ public class User {
     private int id;
     private String userName;
     private String realName;
+    private String email;
 //    private String firstName;
 //    private String lastName;
     private int followersCount;
@@ -84,5 +85,13 @@ public class User {
 
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
