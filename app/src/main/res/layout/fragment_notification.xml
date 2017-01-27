@@ -1,29 +1,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context="cm.com.newdon.fragments.ProfileFragment">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:weightSum="100"
-        android:layout_height="@dimen/header_hight">
+        android:layout_height="@dimen/header_hight"
+        android:orientation="horizontal"
+        android:weightSum="100">
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_weight="50"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="50">
 
             <TextView
+                android:id="@+id/tvNotifications"
                 android:layout_width="120dp"
                 android:layout_height="30dp"
-                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:background="@drawable/rectangle_38"
-                android:id="@+id/tvNotifications"
                 android:gravity="center"
                 android:text="Notifications"
                 android:textAllCaps="false"
@@ -33,18 +33,18 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_weight="50"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="50">
 
 
             <TextView
+                android:id="@+id/tvActivity"
                 android:layout_width="120dp"
                 android:layout_height="30dp"
-                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:src="@color/white"
-                android:id="@+id/tvActivity"
+                android:layout_centerVertical="true"
                 android:gravity="center"
+                android:src="@color/white"
                 android:text="Activity"
                 android:textAllCaps="false"
                 android:textColor="@color/grey"
@@ -57,23 +57,26 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/keyline">
-    </View>
+        android:background="@drawable/keyline"></View>
 
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="15sp"
-        android:textColor="@color/grey"
-        android:gravity="center"
-        android:id="@+id/tvNoNotifications"
-        android:text="No any notifications yet"/>
+        android:layout_height="match_parent">
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/lvNotifications">
-    </ListView>
+        <TextView
+            android:id="@+id/tvNoNotifications"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="No any notifications yet"
+            android:textColor="@color/grey"
+            android:textSize="15sp" />
+
+        <ListView
+            android:id="@+id/lvNotifications"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+    </RelativeLayout>
 
 </LinearLayout>

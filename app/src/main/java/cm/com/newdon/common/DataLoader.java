@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Lottery;
+import cm.com.newdon.classes.Notification;
 import cm.com.newdon.classes.Post;
 import cz.msebera.android.httpclient.Header;
 
@@ -364,6 +365,7 @@ public class DataLoader {
 
     //    get notification|activity list
     public static void getNotificationList(boolean isActivities) {
+        CommonData.getInstance().getNotifications().clear();
 
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
             @Override
@@ -374,6 +376,9 @@ public class DataLoader {
                     JSONArray array = object.getJSONArray("items");
                     System.out.println(array.length());
                     for (int i = 0; i < array.length(); i++) {
+                        JSONObject notificationJson = array.getJSONObject(i);
+                        Notification notification = JsonHandler.parseNotificationFromJson(notificationJson);
+                        CommonData.getInstance().getNotifications().add(notification);
                         System.out.println(i);
                     }
                     if (CommonData.getInstance().imageLoadedIf != null) {
