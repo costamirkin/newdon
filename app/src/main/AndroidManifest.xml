@@ -46,6 +46,7 @@
         <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -76,11 +77,11 @@
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".HideReportDialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog" >
-        </activity>
-        <activity android:name=".ReportDialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog" >
-        </activity>
+            android:theme="@style/Theme.AppCompat.Dialog"></activity>
+        <activity
+            android:name=".ReportDialogActivity"
+            android:theme="@style/Theme.AppCompat.Dialog"></activity>
+        <activity android:name=".CommentsActivity"></activity>
     </application>
 
 </manifest>

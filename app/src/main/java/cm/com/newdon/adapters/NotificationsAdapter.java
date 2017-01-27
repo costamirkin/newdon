@@ -47,20 +47,17 @@ public class NotificationsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-//        LayoutInflater inflater = (LayoutInflater)
-//                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         RelativeLayout layout;
         if (convertView != null) {
-            layout = (RelativeLayout)convertView;
-        }
-        else {
+            layout = (RelativeLayout) convertView;
+        } else {
             layout = (RelativeLayout) View.inflate(context, R.layout.notification_item_for_lv, null);
-      }
+        }
 
         Notification notification = CommonData.getInstance().getNotifications().get(position);
 
         CircleImageView ivUser = (CircleImageView) layout.findViewById(R.id.ivUser);
-        if(notification.getUser().getPictureUrl()!=null&&!notification.getUser().getPictureUrl().equals("")) {
+        if (notification.getUser().getPictureUrl() != null && !notification.getUser().getPictureUrl().equals("")) {
             Picasso.with(context).load(notification.getUser().getPictureUrl()).into(ivUser);
         }
 
@@ -79,5 +76,5 @@ public class NotificationsAdapter extends BaseAdapter {
         ImageView ivNotification = (ImageView) layout.findViewById(R.id.imNotification);
 
         return layout;
-        }
-        }
+    }
+}

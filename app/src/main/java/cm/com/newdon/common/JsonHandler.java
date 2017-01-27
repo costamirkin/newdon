@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
+import cm.com.newdon.classes.Comment;
 import cm.com.newdon.classes.FoundCategory;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Lottery;
@@ -162,5 +163,19 @@ public class JsonHandler {
         notification.setCreatedAt(date);
 
         return notification;
+    }
+
+    public static Comment parseCommentFromJson(JSONObject item) throws JSONException {
+        int id = item.getInt("id");
+        String text = item.getString("text");
+        String stringDate = item.getString("date");
+        Date date = DateHandler.parseDateFromString(stringDate);
+
+        JSONObject userObj = item.getJSONObject("user");
+        User user = parseUserFromJson(userObj);
+
+        Comment comment = new Comment(id,text,user,date);
+
+        return comment;
     }
 }

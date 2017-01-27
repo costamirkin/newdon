@@ -5,6 +5,7 @@ import android.net.Uri;
 import java.util.ArrayList;
 import java.util.List;
 
+import cm.com.newdon.classes.Comment;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Lottery;
 import cm.com.newdon.classes.Notification;
@@ -30,6 +31,7 @@ public class CommonData {
         featuredLotteries = new ArrayList<>();
         lotteryList = new ArrayList<>();
         notifications = new ArrayList<>();
+        comments = new ArrayList<>();
     }
 
     private List<Foundation> foundations;
@@ -217,5 +219,13 @@ public class CommonData {
 
     public List<Notification> getNotifications() {
         return notifications;
+    }
+
+    //Comments
+
+    private List<Comment> comments;
+
+    public List<Comment> getComments() {
+        return comments;
     }
 }
