@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.PostQuery;
+import cm.com.newdon.common.Utils;
 
 public class HideReportDialogActivity extends Activity {
     int postId;
@@ -19,7 +21,9 @@ public class HideReportDialogActivity extends Activity {
     }
 
     public void reportPost(View view) {
-        startActivity(new Intent(getApplicationContext(),ReportDialogActivity.class));
+        Intent intent = new Intent(getApplicationContext(),ReportDialogActivity.class);
+        intent.putExtra("postId",postId);
+        startActivity(intent);
     }
 
     public void hidePost(View view) {
@@ -28,6 +32,7 @@ public class HideReportDialogActivity extends Activity {
     }
 
     public void followUser(View view) {
-//        TODO
+        Utils.followUser(CommonData.getInstance().findPostById(postId).getUser().getId(),getApplicationContext());
+        finish();
     }
 }

@@ -28,7 +28,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:text="Select reason"
         android:textSize="20sp"
         android:onClick="showSpinner"
@@ -37,14 +37,21 @@
         android:textColor="@color/black"
         android:background="@drawable/rectangle_49"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:id="@+id/tvReason"/>
+
     <EditText
-        android:id="@+id/etShareComment"
+        android:id="@+id/etReportMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="@drawable/rectangle_49"
         android:textSize="20sp"
         android:padding="5dp"
+        android:layout_marginTop="8dp"
         android:hint="Optional message"
         android:textColor="@color/black"
         android:textColorHint="@color/grey" />
