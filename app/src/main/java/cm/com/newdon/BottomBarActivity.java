@@ -12,7 +12,12 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.roughike.bottombar.BottomBar;
@@ -41,18 +46,22 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
     private BottomBar bottomBar;
 
 
-
     private int numberNewNotifications = 5;
 
-    HomeFragment              homeFragment              = new HomeFragment();
-    SearchFragment            searchFragment            = new SearchFragment();
-    ProfileFragment           profileFragment           = new ProfileFragment();
-    ProfileDonatesFragment    profileDonatesFragment    = new ProfileDonatesFragment();
-    NotificationFragment      notificationFragment      = new NotificationFragment();
-    SettingsFragment          settingsFragment          = new SettingsFragment();
+    HomeFragment homeFragment = new HomeFragment();
+    SearchFragment searchFragment = new SearchFragment();
+    ProfileFragment profileFragment = new ProfileFragment();
+    ProfileDonatesFragment profileDonatesFragment = new ProfileDonatesFragment();
+    NotificationFragment notificationFragment = new NotificationFragment();
+    SettingsFragment settingsFragment = new SettingsFragment();
     FoundationDonatesFragment foundationDonatesFragment = new FoundationDonatesFragment();
-    ConnectionsFragment       connectionsFragment       = new ConnectionsFragment();
-    CircleImageView           profileImage;
+    ConnectionsFragment connectionsFragment = new ConnectionsFragment();
+    CircleImageView profileImage;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +97,36 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
             DataLoader.getFeaturedLotteries();
             CommonData.getInstance().isFirstStart = false;
         }
+
+
+        final RelativeLayout layoutDonSuccess = (RelativeLayout) findViewById(R.id.layoutDonSuccessful);
+        layoutDonSuccess.setVisibility(View.GONE);
+
+//        when return to the activity after Donate
+        Intent intent = getIntent();
+        if (intent.getIntExtra("success", 0) == 1) {
+            //            renew posts for home screen
+            DataLoader.getHomeScreenPosts(getApplicationContext());
+
+            layoutDonSuccess.setVisibility(View.VISIBLE);
+            ImageView imClose = (ImageView) findViewById(R.id.ivClose);
+            imClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    layoutDonSuccess.setVisibility(View.GONE);
+                }
+            });
+            layoutDonSuccess.postDelayed(new Runnable() {
+                public void run() {
+                    layoutDonSuccess.setVisibility(View.GONE); } }, 3000);
+        }
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    private void setupBottomBar(){
+    private void setupBottomBar() {
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
@@ -136,17 +172,17 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
 //        notifications.removeBadge();
     }
 
-    public void commitFragment(Fragment fragment){
+    public void commitFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, fragment);
         fragmentTransaction.commit();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        CommonData.getInstance().imageLoadedIf = null;
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        CommonData.getInstance().imageLoadedIf = null;
+//    }
 
     public void startDonate(View view) {
         startActivity(new Intent(BottomBarActivity.this, FoundationGrid.class));
@@ -167,5 +203,45 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
     public void onUserSelected(int userId) {
         CommonData.getInstance().setSelectedUserId(userId);
         commitFragment(profileDonatesFragment);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "BottomBar Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://cm.com.newdon/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "BottomBar Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://cm.com.newdon/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
     }
 }

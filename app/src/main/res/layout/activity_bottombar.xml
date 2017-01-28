@@ -60,4 +60,61 @@
             app:civ_border_color="#0fff"/>
 
      </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:id="@+id/layoutDonSuccessful"
+        android:background="@color/lightBlue">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Don completed successfully!"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_margin="20dp"
+            android:id="@+id/txSuccess"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivClose"
+            android:layout_margin="10dp"
+            android:src="@drawable/close"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="15dp"
+            android:layout_below="@+id/txSuccess">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icn_share"
+                android:id="@+id/imShare"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Spread the world about it"
+                android:textSize="15sp"
+                android:layout_toRightOf="@+id/imShare"
+                android:textColor="@color/lightBlue"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>
