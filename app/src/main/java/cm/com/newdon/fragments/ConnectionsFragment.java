@@ -13,11 +13,21 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 import cm.com.newdon.R;
+import cm.com.newdon.adapters.ContactsAdapter;
 import cm.com.newdon.adapters.NotificationsAdapter;
 import cm.com.newdon.adapters.SuggestedConnectionsAdapter;
+import cm.com.newdon.classes.PhoneContact;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoadedIf;
 import cm.com.newdon.common.DataLoader;
@@ -48,18 +58,45 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
         tvFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeTextViewColors(tvFacebook,tvSuggested, tvContacts);
+                changeTextViewColors(tvFacebook, tvSuggested, tvContacts);
+                findFacebookConnections();
             }
         });
         tvContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changeTextViewColors(tvContacts, tvFacebook,tvSuggested);
+                showContacts();
             }
         });
 
         getNameEmailDetails();
         return view;
+    }
+
+    private boolean isFbFirst = true;
+
+    private void findFacebookConnections() {
+        if (isFbFirst) {
+            isFbFirst = false;
+            new GraphRequest(
+                    AccessToken.getCurrentAccessToken(),
+                    "/me/taggable_friends",
+                    null,
+                    HttpMethod.GET,
+                    new GraphRequest.Callback() {
+                        public void onCompleted(GraphResponse response) {
+                            System.out.println(response.toString());
+                            try {
+                                JSONArray rawName = response.getJSONObject().getJSONArray("data");
+                                System.out.println(rawName.length());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+            ).executeAsync();        }
     }
 
     private void changeTextViewColors(TextView activeView, TextView inactiveView, TextView inactiveView2) {
@@ -78,8 +115,13 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
 
     }
 
-    public ArrayList<String> getNameEmailDetails(){
-        ArrayList<String> names = new ArrayList<String>();
+    private void showContacts() {
+        ArrayList<PhoneContact> contacts = getNameEmailDetails();
+        listView.setAdapter(new ContactsAdapter(getActivity(), contacts));
+    }
+
+    private ArrayList<PhoneContact> getNameEmailDetails(){
+        ArrayList<PhoneContact> names = new ArrayList<PhoneContact>();
         ContentResolver cr = getActivity().getContentResolver();
         Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,null, null, null, null);
         if (cur.getCount() > 0) {
@@ -100,7 +142,7 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
                     String email = cur1.getString(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
                     Log.e("Email", email);
                     if(email!=null){
-                        names.add(name);
+                        names.add(new PhoneContact(name, email, contactNumber));
                     }
                 }
                 cur1.close();
