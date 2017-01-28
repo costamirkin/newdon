@@ -13,9 +13,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_alignParentTop="true"
-            android:textColor="#0000ff"
+            android:textColor="@color/blueLottery"
             android:textSize="20dp"
             android:text="NAME"
             android:id="@+id/name"
@@ -23,18 +23,30 @@
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
-            android:layout_marginTop="20dp"
-            android:layout_width="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="120dp"
             android:layout_below="@+id/name"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/layer_5"
             app:civ_border_width="2dp"
-            app:civ_border_color="@color/com_facebook_blue"/>
+            app:civ_border_color="@color/blueLottery"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/follow_btn"
+            android:layout_toEndOf="@+id/profile_image"
+            android:layout_toRightOf="@+id/profile_image"
+            android:layout_alignTop="@+id/profile_image"
+            android:layout_marginLeft="-25dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/follow_btn"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:textColor="#00f"
+            android:textColor="@color/blueLottery"
             android:textSize="20dp"
             android:text="Full Name"
             android:id="@+id/fullName"
@@ -43,7 +55,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:textColor="#00f"
+            android:textColor="@color/blueLottery"
             android:textSize="20dp"
             android:text="Follow"
             android:id="@+id/follow"
@@ -52,22 +64,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:textColor="#00f"
+            android:textColor="@color/blueLottery"
             android:textSize="20dp"
             android:text="2 donates"
             android:id="@+id/donations"
             android:layout_below="@+id/follow"
             android:layout_centerHorizontal="true"/>
         <ImageView
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="31dp"
+            android:layout_marginRight="31dp"
             android:layout_height="30dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/rectangle_34"
+            android:src="@drawable/line"
             android:id="@+id/niceLine"
             android:layout_below="@+id/donations"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:layout_marginLeft="31dp"
+            android:layout_marginRight="31dp"
             android:orientation="horizontal"
             android:layout_below="@+id/niceLine"
             android:weightSum="100"
@@ -76,33 +92,40 @@
                 android:layout_width="0dp"
                 android:background="@color/transparent"
                 android:layout_height="match_parent"
-                android:layout_weight="20"/>
+                android:layout_weight="22"/>
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="20dp"
-                android:layout_weight="20"
+                android:layout_weight="6"
                 android:id="@+id/smallImage1"
-                android:src="@drawable/pas_icn"
+                android:src="@drawable/don_icns"
 
                 />
             <View
                 android:layout_width="0dp"
                 android:background="@color/transparent"
                 android:layout_height="match_parent"
-                android:layout_weight="20"/>
+                android:layout_weight="44"/>
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="20dp"
-                android:layout_weight="20"
+                android:layout_weight="6"
                 android:id="@+id/smallImage2"
-                android:src="@drawable/pas_icn" />
+                android:src="@drawable/badges_icn" />
 
             <View
                 android:layout_width="0dp"
                 android:background="@color/transparent"
                 android:layout_height="match_parent"
-                android:layout_weight="20"/>
+                android:layout_weight="22"/>
         </LinearLayout>
 
     </RelativeLayout>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="left|bottom" />
 </FrameLayout>

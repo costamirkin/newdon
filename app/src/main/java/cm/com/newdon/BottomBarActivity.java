@@ -143,13 +143,13 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
 //                        startActivity(new Intent(BottomBarActivity.this, FoundationGrid.class));
                         break;
                     case R.id.bottomBarNotification:
-                        //commitFragment(notificationFragment);
-                        commitFragment(connectionsFragment);
+                        commitFragment(notificationFragment);
+                        //commitFragment(connectionsFragment);
                         break;
                     case R.id.bottomBarProfile:
                         CommonData.getInstance().setSelectedUser(CommonData.getInstance().getCurrentUser());
                         CommonData.getInstance().setSelectedUserId(CommonData.getInstance().getCurrentUserId());
-                        commitFragment(profileDonatesFragment);
+                        commitFragment(profileFragment);
                         break;
                 }
             }

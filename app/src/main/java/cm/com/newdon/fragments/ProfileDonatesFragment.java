@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,12 @@ public class ProfileDonatesFragment extends Fragment {
         }
     }
 
+    private ImageView smallImage1;
+    private ImageView smallImage2;
+    private ImageView line;
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +82,24 @@ public class ProfileDonatesFragment extends Fragment {
 
         TextView donationsTv = (TextView) v.findViewById(R.id.donations);
         donationsTv.setText("" + selectedUser.getDonCount() + " donates");
+
+
+        line = (ImageView) v.findViewById(R.id.niceLine);
+        smallImage1 = (ImageView) v.findViewById(R.id.smallImage1);
+        smallImage1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                line.setImageResource(R.drawable.line);
+
+            }
+        });
+        smallImage2 = (ImageView) v.findViewById(R.id.smallImage2);
+        smallImage2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                line.setImageResource(R.drawable.lineopp);
+            }
+        });
 
         return v;
     }

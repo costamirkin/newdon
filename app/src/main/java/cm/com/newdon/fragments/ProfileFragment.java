@@ -61,7 +61,7 @@ public class ProfileFragment extends Fragment {
         emailEt      = (EditText) v.findViewById(R.id.emailEt);
         toggleButton = (ToggleButton) v.findViewById(R.id.privacyToggle);
         profileImage = (CircleImageView) v.findViewById(R.id.profile_image);
-        changeImage  = (ImageView) v.findViewById(R.id.changeImage);
+        changeImage  = (ImageView) v.findViewById(R.id.follow_btn);
 
         File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
                 CommonData.profileImageName);

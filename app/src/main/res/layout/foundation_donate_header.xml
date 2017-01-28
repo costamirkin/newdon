@@ -30,7 +30,7 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/layer_5"
             app:civ_border_width="2dp"
-            app:civ_border_color="@color/com_facebook_blue"/>
+            app:civ_border_color="@color/blueLottery"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25dp"
