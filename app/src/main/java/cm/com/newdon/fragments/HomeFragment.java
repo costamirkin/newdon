@@ -67,7 +67,9 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
     @Override
     public void onStop() {
         super.onStop();
-        CommonData.getInstance().imageLoadedIf =  null;
+        if(CommonData.getInstance().imageLoadedIf==this) {
+            CommonData.getInstance().imageLoadedIf = null;
+        }
 
     }
 

@@ -45,8 +45,10 @@ public class HideReportDialogActivity extends Activity {
             //if already follow
             boolean unFollow = true;
             Utils.followUser(user.getId(), getApplicationContext(), unFollow);
+            user.setIsFollowed(false);
         }else {
             Utils.followUser(user.getId(), getApplicationContext());
+            user.setIsFollowed(true);
         }
         finish();
     }

@@ -1,5 +1,6 @@
 package cm.com.newdon;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.text.Editable;
 import android.text.Selection;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -66,6 +68,7 @@ public class MakeDonActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Toast.makeText(getApplicationContext(),"YOU made a DON!", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(),BottomBarActivity.class);
+                intent.putExtra("success", 1);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -137,5 +140,8 @@ public class MakeDonActivity extends AppCompatActivity {
     public void showKeyboard(View view) {
 //// TODO: 20.01.2017
 //        open key board
+        /* show keyboard */
+        ((InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE))
+                .toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 }

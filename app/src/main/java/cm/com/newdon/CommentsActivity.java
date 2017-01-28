@@ -44,8 +44,9 @@ public class CommentsActivity extends Activity implements DataLoadedIf {
     public void sendComment(View view) {
         EditText etComment = (EditText) findViewById(R.id.etComment);
         PostQuery.createComment(getApplicationContext(),postId,etComment.getText().toString());
-        post.setCommentsCount(post.getCommentsCount()+1);
+        post.setCommentsCount(post.getCommentsCount() + 1);
         setCommentsCount();
+        etComment.setText("");
     }
 
     @Override
