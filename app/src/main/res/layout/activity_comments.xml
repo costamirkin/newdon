@@ -22,7 +22,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:id="@+id/tvHeaderComments"
-            android:text="2 Comments">
+            android:text="1 Comment">
         </TextView>
 
         <View

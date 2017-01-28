@@ -10,13 +10,16 @@ public class Post {
     private int id;
     private String message;
     private Date createdAt;
-    private int likeCount;
+    private int likesCount;
     private int commentsCount;
+    private int donatorCount;
     private String imageUrl;
     private String localImagePath;
     private User user;
     private Foundation foundation;
     private String uri;
+
+    private String action;
 
     public String getUri() {
         return uri;
@@ -50,12 +53,12 @@ public class Post {
         this.createdAt = createdAt;
     }
 
-    public int getLikeCount() {
-        return likeCount;
+    public int getLikesCount() {
+        return likesCount;
     }
 
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
+    public void setLikesCount(int likesCount) {
+        this.likesCount = likesCount;
     }
 
     public int getCommentsCount() {
@@ -64,6 +67,14 @@ public class Post {
 
     public void setCommentsCount(int commentsCount) {
         this.commentsCount = commentsCount;
+    }
+
+    public int getDonatorCount() {
+        return donatorCount;
+    }
+
+    public void setDonatorCount(int donatorCount) {
+        this.donatorCount = donatorCount;
     }
 
     public String getImageUrl() {
@@ -98,13 +109,21 @@ public class Post {
         this.foundation = foundation;
     }
 
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
                 "id=" + id +
                 ", message='" + message + '\'' +
                 ", createdAt=" + createdAt +
-                ", likeCount=" + likeCount +
+                ", likesCount=" + likesCount +
                 ", commentsCount=" + commentsCount +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", user=" + user +

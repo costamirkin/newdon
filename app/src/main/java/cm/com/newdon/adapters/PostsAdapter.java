@@ -40,6 +40,9 @@ public class PostsAdapter extends BaseAdapter {
 
     private Context context;
     private Intent intent;
+    TextView tvLikesBadge;
+    TextView tvCommentsBadge;
+
 
     //  we use mCallBack to say BottomBarActivity which fragment to commit
     HomeFragment.OnPostSelectedListener mCallBack;
@@ -86,13 +89,7 @@ public class PostsAdapter extends BaseAdapter {
         } else {
             layout = (RelativeLayout) inflater.inflate(R.layout.post, parent, false);
 
-            TextView tvUser = (TextView) layout.findViewById(R.id.tvUserName);
-            TextView tvDate = (TextView) layout.findViewById(R.id.tvDate);
-            TextView tvCategory = (TextView) layout.findViewById(R.id.tvCategory);
-            TextView tvComment = (TextView) layout.findViewById(R.id.tvComment);
-            TextView tvDonated = (TextView) layout.findViewById(R.id.tvDonated);
-
-//            I use -1 because in the first item we put lottery view pager
+            //            I use -1 because in the first item we put lottery view pager
             final Post post = CommonData.getInstance().getPosts().get(position - 1);
 
             CircleImageView ivUser = (CircleImageView) layout.findViewById(R.id.ivUser);
@@ -134,21 +131,35 @@ public class PostsAdapter extends BaseAdapter {
                 });
 
                 tvFoundationTitle.setText(foundation.getTitle());
+
+                TextView tvCategory = (TextView) layout.findViewById(R.id.tvCategory);
                 tvCategory.setText(post.getFoundation().getCategory().getName());
                 tvCategory.setTextColor(Color.parseColor(post.getFoundation().getCategory().getColor()));
 
             }
 
+            TextView tvDate = (TextView) layout.findViewById(R.id.tvDate);
             tvDate.setText(DateHandler.howLongAgoWasDate(post.getCreatedAt()));
+
+            TextView tvUser = (TextView) layout.findViewById(R.id.tvUserName);
             tvUser.setText(post.getUser().getRealName());
+
+            TextView tvComment = (TextView) layout.findViewById(R.id.tvComment);
             try {
                 tvComment.setText(post.getMessage());
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
+            TextView tvDonated = (TextView) layout.findViewById(R.id.tvDonated);
+            if(post.getDonatorCount()>0) {
+                tvDonated.setText(post.getDonatorCount() + " donated");
+            }
+
+            tvLikesBadge = (TextView) layout.findViewById(R.id.tvLikesBadge);
+            changeLikesBadge(post);
             //            on click on Like icon
-            final ImageView ivLike = (ImageView) layout.findViewById(R.id.ivLike);
+            ImageView ivLike = (ImageView) layout.findViewById(R.id.ivLike);
             ivLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -156,9 +167,15 @@ public class PostsAdapter extends BaseAdapter {
 //                    change icon
 
                     PostQuery.managePost(context, post.getId(), PostQuery.PostAction.LIKE);
+                    post.setLikesCount(post.getLikesCount()+1);
+
 //                    change amount on badge
+                    changeLikesBadge(post);
                 }
             });
+
+            tvCommentsBadge = (TextView) layout.findViewById(R.id.tvCommentsBadge);
+            changeCommentsBadge(post);
 
             //            on click on Comment icon CommentsActivity will open
             ImageView ivComment = (ImageView) layout.findViewById(R.id.ivComment);
@@ -223,5 +240,23 @@ public class PostsAdapter extends BaseAdapter {
             }
         }
         return layout;
+    }
+
+    private void changeLikesBadge(Post post){
+        if(post.getLikesCount()==0){
+            tvLikesBadge.setVisibility(View.INVISIBLE);
+        }else {
+            tvLikesBadge.setVisibility(View.VISIBLE);
+            tvLikesBadge.setText(post.getLikesCount()+"");
+        }
+    }
+
+    private void changeCommentsBadge(Post post){
+        if(post.getCommentsCount()==0){
+            tvCommentsBadge.setVisibility(View.INVISIBLE);
+        }else {
+            tvCommentsBadge.setVisibility(View.VISIBLE);
+            tvCommentsBadge.setText(post.getCommentsCount()+"");
+        }
     }
 }

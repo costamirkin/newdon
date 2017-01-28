@@ -36,11 +36,6 @@ public class PostQuery {
 
                 if (action == PostAction.HIDE || action == PostAction.DELETE) {
                     CommonData.getInstance().getPosts().remove(CommonData.getInstance().findPostById(postId));
-
-                    //                renew listview
-                    if (CommonData.getInstance().imageLoadedIf != null) {
-                        CommonData.getInstance().imageLoadedIf.dataLoaded();
-                    }
                 }
             }
 
@@ -115,6 +110,8 @@ public class PostQuery {
 //                for testing
                 Toast.makeText(context, "You created new comment!", Toast.LENGTH_LONG).show();
                 System.out.println(responseBody);
+
+                DataLoader.getComments(postId);
             }
 
             @Override

@@ -341,7 +341,10 @@ public class DataLoader {
                             new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
                                     ImageLoaderToBitmap.DownloadOption.POST).execute();
                         }
-                        CommonData.getInstance().getPosts().add(post);
+//                        for now we are not showing shared post
+                        if(!post.getAction().equals("share")) {
+                            CommonData.getInstance().getPosts().add(post);
+                        }
                         if (CommonData.getInstance().imageLoadedIf != null) {
                             CommonData.getInstance().imageLoadedIf.dataLoaded();
                         }
