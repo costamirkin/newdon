@@ -82,29 +82,6 @@ public class LotteryActivity extends AppCompatActivity {
 
         ListView lvTickets = (ListView) findViewById(R.id.lvTickets);
         lvTickets.setAdapter(new TicketsListAdapter(this, lottery.getTickets()));
-
-//        lvTickets.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                int action = event.getAction();
-//                switch (action) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        // Disallow ScrollView to intercept touch events.
-//                        v.getParent().requestDisallowInterceptTouchEvent(true);
-//                        break;
-//
-//                    case MotionEvent.ACTION_UP:
-//                        // Allow ScrollView to intercept touch events.
-//                        v.getParent().requestDisallowInterceptTouchEvent(false);
-//                        break;
-//                }
-//
-//                // Handle ListView touch events.
-//                v.onTouchEvent(event);
-//                return true;
-//            }
-//        });
-
         lvTickets.invalidateViews();
     }
 
@@ -113,8 +90,7 @@ public class LotteryActivity extends AppCompatActivity {
         startActivity(new Intent(this, LotteryListActivity.class));
     }
 
-    //    // TODO: 14.01.2017
-//    where to go???
     public void donateNow(View view) {
+        startActivity(new Intent(this, FoundationGrid.class));
     }
 }

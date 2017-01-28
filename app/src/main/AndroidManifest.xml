@@ -43,9 +43,11 @@
         <activity
             android:name=".BottomBarActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Splash">
+        <activity android:name=".Splash"
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -76,11 +78,12 @@
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".HideReportDialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog" >
-        </activity>
-        <activity android:name=".ReportDialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog" >
-        </activity>
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
+            android:name=".ReportDialogActivity"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity android:name=".CommentsActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

@@ -9,8 +9,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cm.com.newdon.classes.Comment;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Lottery;
+import cm.com.newdon.classes.Notification;
 import cm.com.newdon.classes.Post;
 import cz.msebera.android.httpclient.Header;
 
@@ -339,7 +341,10 @@ public class DataLoader {
                             new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
                                     ImageLoaderToBitmap.DownloadOption.POST).execute();
                         }
-                        CommonData.getInstance().getPosts().add(post);
+//                        for now we are not showing shared post
+                        if(!post.getAction().equals("share")) {
+                            CommonData.getInstance().getPosts().add(post);
+                        }
                         if (CommonData.getInstance().imageLoadedIf != null) {
                             CommonData.getInstance().imageLoadedIf.dataLoaded();
                         }
@@ -364,6 +369,7 @@ public class DataLoader {
 
     //    get notification|activity list
     public static void getNotificationList(boolean isActivities) {
+        CommonData.getInstance().getNotifications().clear();
 
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
             @Override
@@ -374,6 +380,9 @@ public class DataLoader {
                     JSONArray array = object.getJSONArray("items");
                     System.out.println(array.length());
                     for (int i = 0; i < array.length(); i++) {
+                        JSONObject notificationJson = array.getJSONObject(i);
+                        Notification notification = JsonHandler.parseNotificationFromJson(notificationJson);
+                        CommonData.getInstance().getNotifications().add(notification);
                         System.out.println(i);
                     }
                     if (CommonData.getInstance().imageLoadedIf != null) {
@@ -428,5 +437,44 @@ public class DataLoader {
         RequestParams params = new RequestParams();
         params.put("type", "suggested");
         RestClient.get("connections/list", params, handler);
+    }
+
+    //    get comment by postId
+    public static void getComments(int postId) {
+        CommonData.getInstance().getComments().clear();
+
+        AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                System.out.println(new String(responseBody));
+                try {
+                    JSONObject jsonObject = new JSONObject(new String(responseBody));
+                    JSONArray array = jsonObject.getJSONArray("items");
+                    System.out.println(array.length());
+                    for (int i = 0; i < array.length(); i++) {
+                        Comment comment = JsonHandler.parseCommentFromJson(array.getJSONObject(i));
+                        CommonData.getInstance().getComments()
+                                .add(comment);
+                    }
+                    if (CommonData.getInstance().imageLoadedIf != null) {
+                        CommonData.getInstance().imageLoadedIf.dataLoaded();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
+            }
+        };
+        RequestParams params = new RequestParams();
+        params.put("postId", postId);
+        RestClient.get("comments/list?post", params, handler);
     }
 }

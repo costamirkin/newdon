@@ -11,21 +11,30 @@ import android.widget.TextView;
 
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.NotificationsAdapter;
+import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.DataLoadedIf;
 import cm.com.newdon.common.DataLoader;
 
-public class NotificationFragment extends Fragment {
+public class NotificationFragment extends Fragment implements DataLoadedIf {
     final static boolean NOTIFICATIONS = false;
     final static boolean ACTIVITIES = true;
+
+    ListView listView;
+    TextView tvNoNotifications;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.fragment_notification, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.lvNotifications);
-        DataLoader.getNotificationList(ACTIVITIES);
+        View view = inflater.inflate(R.layout.fragment_notification, container, false);
 
-        listView.setAdapter(new NotificationsAdapter(getActivity()));
+        DataLoader.getNotificationList(NOTIFICATIONS);
+
+        listView = (ListView) view.findViewById(R.id.lvNotifications);
+        listView.setAdapter(new NotificationsAdapter(getActivity().getApplicationContext()));
+        listView.invalidateViews();
+
+        tvNoNotifications = (TextView) view.findViewById(R.id.tvNoNotifications);
 
         final TextView tvNotifications = (TextView) view.findViewById(R.id.tvNotifications);
         final TextView tvActivity = (TextView) view.findViewById(R.id.tvActivity);
@@ -33,13 +42,15 @@ public class NotificationFragment extends Fragment {
         tvNotifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeTextViewColors(tvNotifications,tvActivity);
+                changeTextViewColors(tvNotifications, tvActivity);
+                DataLoader.getNotificationList(NOTIFICATIONS);
             }
         });
         tvActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeTextViewColors(tvActivity,tvNotifications);
+                changeTextViewColors(tvActivity, tvNotifications);
+                DataLoader.getNotificationList(ACTIVITIES);
             }
         });
 
@@ -51,5 +62,31 @@ public class NotificationFragment extends Fragment {
         activeView.setBackgroundResource(R.drawable.rectangle_38);
         inactiveView.setBackgroundColor(Color.WHITE);
         inactiveView.setTextColor(getActivity().getResources().getColor(R.color.grey));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        CommonData.getInstance().imageLoadedIf = this;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        CommonData.getInstance().imageLoadedIf = null;
+    }
+
+    @Override
+    public void imageLoaded(int postId) {
+    }
+
+    @Override
+    public void dataLoaded() {
+        if(CommonData.getInstance().getNotifications().size()==0){
+            tvNoNotifications.setVisibility(View.VISIBLE);
+        }else {
+            tvNoNotifications.setVisibility(View.INVISIBLE);
+        }
+        listView.invalidateViews();
     }
 }

@@ -14,6 +14,7 @@ public class User {
     private int followingCount;
     private int donCount;
     private String pictureUrl;
+    private boolean isFollowed;
 
     public int getId() {
         return id;
@@ -93,5 +94,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isFollowed() {
+        return isFollowed;
+    }
+
+    public void setIsFollowed(boolean isFollowed) {
+        this.isFollowed = isFollowed;
     }
 }

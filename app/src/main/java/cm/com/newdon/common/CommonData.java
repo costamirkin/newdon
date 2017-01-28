@@ -5,8 +5,10 @@ import android.net.Uri;
 import java.util.ArrayList;
 import java.util.List;
 
+import cm.com.newdon.classes.Comment;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Lottery;
+import cm.com.newdon.classes.Notification;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.classes.User;
 
@@ -22,20 +24,24 @@ public class CommonData {
     }
 
     private CommonData() {
-        foundations       = new ArrayList<>();
-        posts             = new ArrayList<>();
-        userPosts         = new ArrayList<>();
-        foundationPosts   = new ArrayList<>();
+        foundations = new ArrayList<>();
+        posts = new ArrayList<>();
+        userPosts = new ArrayList<>();
+        foundationPosts = new ArrayList<>();
         featuredLotteries = new ArrayList<>();
-        lotteryList       = new ArrayList<>();
+        lotteryList = new ArrayList<>();
+        notifications = new ArrayList<>();
+        comments = new ArrayList<>();
     }
 
     private List<Foundation> foundations;
+
     public List<Foundation> getFoundations() {
         return foundations;
     }
 
     private List<Post> posts;
+
     public List<Post> getPosts() {
         return posts;
     }
@@ -45,9 +51,10 @@ public class CommonData {
     public List<Post> getUserPosts() {
         return userPosts;
     }
+
     public void copyUserPosts() {
         userPosts.clear();
-        for (Post post:
+        for (Post post :
                 posts) {
             if (post.getUser().getId() == selectedUserId) {
                 userPosts.add(post);
@@ -57,13 +64,14 @@ public class CommonData {
     }
 
     private List<Post> foundationPosts;
+
     public List<Post> getFoundationPosts() {
         return foundationPosts;
     }
 
     public void copyFoundationPosts() {
         foundationPosts.clear();
-        for (Post post:
+        for (Post post :
                 posts) {
             if (post.getFoundation().getId() == selectedFoundId) {
                 foundationPosts.add(post);
@@ -74,36 +82,38 @@ public class CommonData {
 
 
     private List<Lottery> featuredLotteries;
+
     public List<Lottery> getFeaturedLotteries() {
         return featuredLotteries;
     }
 
     private List<Lottery> lotteryList;
+
     public List<Lottery> getLotteryList() {
         return lotteryList;
     }
 
-    public Foundation findFoundById(int id){
-        for (Foundation foundation: foundations) {
-            if (foundation.getId()==id){
+    public Foundation findFoundById(int id) {
+        for (Foundation foundation : foundations) {
+            if (foundation.getId() == id) {
                 return foundation;
             }
         }
         return null;
     }
 
-    public Post findPostById(int id){
-        for (Post post: posts) {
-            if (post.getId()==id){
+    public Post findPostById(int id) {
+        for (Post post : posts) {
+            if (post.getId() == id) {
                 return post;
             }
         }
         return null;
     }
 
-    public int findPostIndexById(int id){
+    public int findPostIndexById(int id) {
         for (int i = 0; i < posts.size(); i++) {
-            if (posts.get(i).getId()==id){
+            if (posts.get(i).getId() == id) {
                 return i;
             }
         }
@@ -201,5 +211,21 @@ public class CommonData {
 
     public ArrayList<User> getSuggestedUsers() {
         return suggestedUsers;
+    }
+
+    //Notifications
+
+    private List<Notification> notifications;
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    //Comments
+
+    private List<Comment> comments;
+
+    public List<Comment> getComments() {
+        return comments;
     }
 }

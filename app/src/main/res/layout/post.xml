@@ -127,6 +127,18 @@
             android:layout_centerVertical="true"
             android:src="@drawable/layer_5" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:id="@+id/tvLikesBadge"
+            android:background="@drawable/circle"
+            android:layout_alignTop="@+id/ivCoin"
+            android:layout_toRightOf="@+id/ivLike" />
+
         <ImageView
             android:id="@+id/ivComment"
             android:layout_width="wrap_content"
@@ -135,6 +147,18 @@
             android:layout_marginLeft="29dp"
             android:layout_toRightOf="@+id/ivLike"
             android:src="@drawable/layer_4" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:id="@+id/tvCommentsBadge"
+            android:background="@drawable/circle"
+            android:layout_alignTop="@+id/ivCoin"
+            android:layout_toRightOf="@+id/ivComment" />
 
         <ImageView
             android:id="@+id/ivShare"

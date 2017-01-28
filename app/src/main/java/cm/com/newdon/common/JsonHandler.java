@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
+import cm.com.newdon.classes.Comment;
 import cm.com.newdon.classes.FoundCategory;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Lottery;
@@ -51,9 +52,13 @@ public class JsonHandler {
         Post post = new Post();
         int id = item.getInt("id");
         String message = item.getString("message");
+        int likesCount = item.getInt("likesCount");
+        int commentsCount = item.getInt("commentsCount");
+        int donatorCount = item.getInt("donatorCount");
         String imageUrl = item.getString("image");
         String createdAt = item.getString("createdAt");
         Date date = DateHandler.parseDateFromString(createdAt);
+        String action = item.getString("action");
 
         JSONObject foundationObj = item.getJSONObject("foundation");
         Foundation foundation = parseFoundationFromJson(foundationObj);
@@ -66,8 +71,12 @@ public class JsonHandler {
 
         post.setId(id);
         post.setMessage(message);
+        post.setLikesCount(likesCount);
+        post.setCommentsCount(commentsCount);
+        post.setDonatorCount(donatorCount);
         post.setImageUrl(imageUrl);
         post.setCreatedAt(date);
+        post.setAction(action);
 
         return post;
     }
@@ -81,6 +90,7 @@ public class JsonHandler {
 //        String lastName = item.getString("lastName");
         int followersCount = item.getInt("followersCount");
         int followingCount = item.getInt("followingCount");
+        boolean isFollowed = item.getBoolean("isFollowed");
 
         String email  = "";
         if (item.has("email")) {
@@ -102,6 +112,7 @@ public class JsonHandler {
 //        user.setLastName(lastName);
         user.setFollowersCount(followersCount);
         user.setFollowingCount(followingCount);
+        user.setIsFollowed(isFollowed);
         return user;
     }
 
@@ -162,5 +173,19 @@ public class JsonHandler {
         notification.setCreatedAt(date);
 
         return notification;
+    }
+
+    public static Comment parseCommentFromJson(JSONObject item) throws JSONException {
+        int id = item.getInt("id");
+        String text = item.getString("text");
+        String stringDate = item.getString("date");
+        Date date = DateHandler.parseDateFromString(stringDate);
+
+        JSONObject userObj = item.getJSONObject("user");
+        User user = parseUserFromJson(userObj);
+
+        Comment comment = new Comment(id,text,user,date);
+
+        return comment;
     }
 }

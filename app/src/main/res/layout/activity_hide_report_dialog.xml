@@ -46,6 +46,7 @@
         android:layout_height="wrap_content"
         android:text="Follow this user"
         android:onClick="followUser"
+        android:id="@+id/tvFollowUser"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:gravity="center"/>
