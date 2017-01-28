@@ -42,8 +42,9 @@ public class HideReportDialogActivity extends Activity {
 
     public void followUser(View view) {
         if(user.isFollowed()){
-            // TODO: 27.01.2017
-
+            //if already follow
+            boolean unFollow = true;
+            Utils.followUser(user.getId(), getApplicationContext(), unFollow);
         }else {
             Utils.followUser(user.getId(), getApplicationContext());
         }

@@ -25,9 +25,13 @@ public class Utils {
     }
 
     public static void followUser(int userId, final Context context) {
+        followUser(userId, context, false);
+    }
+
+    public static void followUser(int userId, final Context context, boolean unFollow) {
         RequestParams params = new RequestParams();
         params.put("userId", userId);
-        RestClient.put("connections/follow", params, new AsyncHttpResponseHandler() {
+        RestClient.put("connections/" + (unFollow? "unfollow" : "follow"), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 System.out.println(new String(responseBody));
@@ -43,7 +47,4 @@ public class Utils {
             }
         });
     }
-
-
-
 }
