@@ -17,11 +17,13 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,7 +54,7 @@ public class FacebookFragment extends Fragment {
         loginButton = (LoginButton) v.findViewById(R.id.fbLogin);
         loginButton.setFragment(this   );
         loginButton.setReadPermissions(Arrays.asList(
-                "public_profile", "email"));
+                "user_friends", "public_profile", "email"));
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -89,28 +91,47 @@ public class FacebookFragment extends Fragment {
                     }
                 });
 
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                Log.v("LoginActivity", response.toString());
 
-                                // Application code
-                                try {
-                                    String email = object.getString("email");
-                                    String birthday = object.getString("birthday"); // 01/31/1980 format
-                                    System.out.println(object.toString());
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,link");
-                request.setParameters(parameters);
-                request.executeAsync();
+//               new GraphRequest(
+//                        AccessToken.getCurrentAccessToken(),
+//                        "/me/invitable_friends",
+//                        null,
+//                        HttpMethod.GET,
+//                        new GraphRequest.Callback() {
+//                            public void onCompleted(GraphResponse response) {
+//                                System.out.println(response.toString());
+//                                try {
+//                                    JSONArray rawName = response.getJSONObject().getJSONArray("data");
+//                                    System.out.println(rawName.length());
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//
+//                            }
+//                        }
+//                ).executeAsync();
+//                GraphRequest request = GraphRequest.newMeRequest(
+//                        loginResult.getAccessToken(),
+//                        new GraphRequest.GraphJSONObjectCallback() {
+//                            @Override
+//                            public void onCompleted(JSONObject object, GraphResponse response) {
+//                                Log.v("LoginActivity", response.toString());
+//
+//                                // Application code
+//                                try {
+//                                    String email = object.getString("email");
+//                                    String birthday = object.getString("birthday"); // 01/31/1980 format
+//                                    System.out.println(object.toString());
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        });
+//
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields", "id,name,link");
+//                request.setParameters(parameters);
+//                request.executeAsync();
             }
 
             @Override
