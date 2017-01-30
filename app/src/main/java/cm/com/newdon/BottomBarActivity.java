@@ -149,7 +149,7 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
                     case R.id.bottomBarProfile:
                         CommonData.getInstance().setSelectedUser(CommonData.getInstance().getCurrentUser());
                         CommonData.getInstance().setSelectedUserId(CommonData.getInstance().getCurrentUserId());
-                        commitFragment(profileFragment);
+                        commitFragment(settingsFragment);
                         break;
                 }
             }

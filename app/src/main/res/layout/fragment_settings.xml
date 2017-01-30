@@ -1,46 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#fff">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/supportBg"
+                    android:background="@drawable/vector_smart_object"/>
+                <ImageView
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/logo"
+                    android:src="@drawable/logo"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/logo"
+                    android:id="@+id/lorem"
+                    android:textColor="#fff"
+                    android:text="Lorem"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#fff"
+                    android:layout_below="@+id/lorem"
+                    android:id="@+id/support"
+                    android:text="support@anewdon.com"/>
+
+            </RelativeLayout>
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
                 android:id="@+id/notificationSettings"
-                android:text="Notification Settings"
-                />
-           <Button
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="72dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rectangle_46b"
+                android:text="Notification Settings" />
+
+            <Button
+                android:id="@+id/profileSettings"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rectangle_46b"
+                android:text="Profile Settings" />
+
+            <Button
                 android:id="@+id/linkedAccounts"
-                android:text="Linked Accounts"
-                />
-           <Button
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="72dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rectangle_46b"
+                android:text="Linked Accounts" />
+
+            <Button
                 android:id="@+id/findFriends"
-                android:text="Find Friends"
-                />
-           <Button
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="72dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rectangle_46b"
+                android:text="Find Friends" />
+
+            <Button
                 android:id="@+id/tutorial"
-                android:text="Tutorial"
-                />
-          <Button
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="72dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rectangle_46b"
+                android:text="Tutorial" />
+
+            <Button
                 android:id="@+id/logout"
-                android:text="Logout"
-                />
-         </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rectangle_46b"
+                android:text="Logout" />
+        </LinearLayout>
     </ScrollView>
 
 </RelativeLayout>

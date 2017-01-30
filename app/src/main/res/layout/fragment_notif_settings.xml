@@ -1,21 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#fff"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ToggleButton
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/allowPush"
-        android:background="@drawable/toggle_me"
+        android:textSize="25dp"
+        android:layout_marginTop="23dp"
+        android:id="@+id/header"
+        android:textColor="@color/lightBlue"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:text="Notification Settings">
+    </TextView>
+    
+    <ImageView
+        android:layout_width="28dp"
+        android:layout_height="24dp"
+        android:src="@drawable/shape_22"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"/>
-    <ToggleButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/enableSound"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/allowPush"
-        android:background="@drawable/toggle_me"
+        android:id="@+id/back"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="24dp"
         />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/header"
+        android:id="@+id/headerLine"
+        android:background="@drawable/keyline"/>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/headerLine"
+        android:id="@+id/allowPushRl"
+        android:layout_height="41dp">
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/allowPush"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/toggle_me"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:text="Allow push notification"
+            android:id="@+id/allowPushTv"
+            android:layout_alignParentLeft="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/allowPushRl"
+        android:layout_height="41dp">
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/enableSound"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/toggle_me"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:text="Enable sound for notification"
+            android:id="@+id/enableSoundTv"
+            android:layout_alignParentLeft="true"/>
+
+    </RelativeLayout>
+
+
 </RelativeLayout>
