@@ -38,6 +38,8 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        startActivity(new Intent(Splash.this, SignAcitvity.class));
+
         SharedPreferences settings = getSharedPreferences("settings", 0);
         String email = settings.getString("email", "");
         String password = settings.getString("password","");

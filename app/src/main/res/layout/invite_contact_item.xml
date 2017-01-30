@@ -1,51 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="113dp"
+    android:layout_width="match_parent" android:layout_height="127dp"
     android:background="@color/white">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/ivUser"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="16dp"/>
+
+
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/lightBlue"
         android:text="Name"
-        android:textSize="17sp"
-        android:id="@+id/tvUserMail"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="15dp"
+        android:textSize="15dp"
+        android:id="@+id/tvUserName"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="14dp"
+        android:layout_marginTop="40dp"
         android:layout_toRightOf="@+id/ivUser"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Action"
-        android:visibility="invisible"
         android:layout_marginLeft="14dp"
-        android:textSize="17sp"
+        android:textSize="12dp"
         android:textColor="@color/lightgrey"
-        android:id="@+id/tvFollowers"
-        android:layout_below="@+id/tvUserMail"
+        android:id="@+id/tvUserMail"
+        android:layout_below="@+id/tvUserName"
         android:layout_toRightOf="@+id/ivUser"
+        android:layout_marginTop="6dp"
         android:layout_toEndOf="@+id/ivUser" />
 
 
 
     <ImageView
-        android:layout_width="100dp"
+        android:layout_width="70dp"
         android:layout_height="50dp"
-        android:id="@+id/imFollow"
-        android:src="@drawable/follow_btn"
-        android:layout_marginRight="16dp"
+        android:id="@+id/imEmail"
+        android:src="@drawable/email_btn"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"/>
+
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:id="@+id/imSms"
+        android:src="@drawable/sms_btn"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/imEmail"
+        android:layout_marginRight="8dp"/>
 
 
 </RelativeLayout>

@@ -4,9 +4,40 @@
     android:layout_height="match_parent"
     android:background="#fff">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/supportBg"
+        android:background="@drawable/vector_smart_object"/>
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/logo"
+        android:src="@drawable/logo"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:id="@+id/lorem"
+        android:textColor="#fff"
+        android:text="Lorem"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:layout_below="@+id/lorem"
+        android:id="@+id/support"
+        android:text="support@anewdon.com"/>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/supportBg">
 
 
         <LinearLayout
@@ -14,41 +45,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                >
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_alignParentTop="true"
-                    android:id="@+id/supportBg"
-                    android:background="@drawable/vector_smart_object"/>
-                <ImageView
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="20dp"
-                    android:id="@+id/logo"
-                    android:src="@drawable/logo"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/logo"
-                    android:id="@+id/lorem"
-                    android:textColor="#fff"
-                    android:text="Lorem"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="#fff"
-                    android:layout_below="@+id/lorem"
-                    android:id="@+id/support"
-                    android:text="support@anewdon.com"/>
-
-            </RelativeLayout>
             <Button
                 android:id="@+id/notificationSettings"
                 android:layout_width="match_parent"

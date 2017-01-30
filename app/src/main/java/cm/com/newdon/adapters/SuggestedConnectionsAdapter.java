@@ -33,7 +33,6 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        System.out.println("sizeeeeeee " + CommonData.getInstance().getSuggestedUsers().size());
 
         return CommonData.getInstance().getSuggestedUsers().size();
     }

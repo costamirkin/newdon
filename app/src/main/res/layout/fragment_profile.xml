@@ -50,7 +50,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/follow_btn"
+                    android:src="@drawable/edit_btn"
                     android:layout_toEndOf="@+id/profile_image"
                     android:layout_toRightOf="@+id/profile_image"
                     android:layout_alignTop="@+id/profile_image"

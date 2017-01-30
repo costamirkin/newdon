@@ -43,6 +43,7 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
         listView = (ListView) view.findViewById(R.id.lvConnections);
         DataLoader.getSuggestedUsers();
 
+        showSuggestedConnections();
         listView.setAdapter(new SuggestedConnectionsAdapter(getActivity()));
 
         final TextView tvSuggested = (TextView) view.findViewById(R.id.tvSuggested);
@@ -52,6 +53,7 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
         tvSuggested.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showSuggestedConnections();
                 changeTextViewColors(tvSuggested,tvFacebook, tvContacts);
             }
         });
@@ -115,38 +117,79 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
 
     }
 
+    private SuggestedConnectionsAdapter suggestedConnectionsAdapter = null;
+    private ContactsAdapter             contactsAdapter             = null;
+
+    private void showSuggestedConnections() {
+        if (suggestedConnectionsAdapter == null) {
+            suggestedConnectionsAdapter = new SuggestedConnectionsAdapter(getActivity());
+        }
+        listView.setAdapter(suggestedConnectionsAdapter);
+    }
+
+
+
     private void showContacts() {
-        ArrayList<PhoneContact> contacts = getNameEmailDetails();
-        listView.setAdapter(new ContactsAdapter(getActivity(), contacts));
+        if (contactsAdapter == null) {
+            ArrayList<PhoneContact> contacts = getNameEmailDetails();
+            contactsAdapter = new ContactsAdapter(getActivity(), contacts);
+        }
+        listView.setAdapter(contactsAdapter);
     }
 
     private ArrayList<PhoneContact> getNameEmailDetails(){
         ArrayList<PhoneContact> names = new ArrayList<PhoneContact>();
         ContentResolver cr = getActivity().getContentResolver();
-        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,null, null, null, null);
-        if (cur.getCount() > 0) {
+        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null,
+                null, null, null);
+
+         if (cur.getCount() > 0) {
             while (cur.moveToNext()) {
                 String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
+                String name = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                String phoneNumber = "";
+                String email = "";
+                if (Integer.parseInt(cur.getString(cur.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0)
+                {
+                    // Query phone here. Covered next
+                    Cursor phones = getActivity().getContentResolver().query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                            null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ id,
+                            null,
+                            null);
+
+                    while (phones.moveToNext()) {
+                        phoneNumber = phones.getString(
+                                phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        if (phoneNumber != null && !phoneNumber.equals("")) {
+                            break;
+                        }
+                    }
+                    phones.close();
+
+                }
+
+
                 Cursor cur1 = cr.query(
                         ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
                         ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?",
                         new String[]{id}, null);
                 while (cur1.moveToNext()) {
-                    //to get the contact names
-                    String name=cur1.getString(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                    Log.e("Name :", name);
-                    String contactNumber = cur1.getString(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                    Log.e("phone :", contactNumber);
-                    int type = cur1.getInt(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
-                    Log.e("type :", "" + type);
-                    String email = cur1.getString(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
-                    Log.e("Email", email);
+                    email = cur1.getString(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
                     if(email!=null){
-                        names.add(new PhoneContact(name, email, contactNumber));
+                        break;
                     }
                 }
                 cur1.close();
+                names.add(new PhoneContact(name, email, phoneNumber));
+
             }
+        }
+
+        for (PhoneContact contact :
+                names) {
+            System.out.println(contact);
         }
         return names;
     }
