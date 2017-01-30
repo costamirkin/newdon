@@ -20,6 +20,7 @@ import java.io.File;
 
 import cm.com.newdon.CommentsActivity;
 import cm.com.newdon.DonateActivity;
+import cm.com.newdon.EditDialogActivity;
 import cm.com.newdon.HideDeleteDialogActivity;
 import cm.com.newdon.HideReportDialogActivity;
 import cm.com.newdon.R;
@@ -70,7 +71,7 @@ public class PostsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, final View convertView, ViewGroup parent) {
+    public View getView(final int position, final View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -165,10 +166,8 @@ public class PostsAdapter extends BaseAdapter {
                 public void onClick(View v) {
 //// TODO: 27.01.2017
 //                    change icon
-
-                    PostQuery.managePost(context, post.getId(), PostQuery.PostAction.LIKE);
-                    post.setLikesCount(post.getLikesCount()+1);
-
+                    PostQuery.likePost(context,post.getId(),post.isLiked());
+                    post.setLikesCount(post.getLikesCount()+ (post.isLiked()? -1:1));
 //                    change amount on badge
                     changeLikesBadge(post);
                 }
@@ -201,7 +200,7 @@ public class PostsAdapter extends BaseAdapter {
                 }
             });
 
-            //            on click on Share icon dialog will open
+            //            on click on options icon dialog will be open
             ImageView ivOptions = (ImageView) layout.findViewById(R.id.ivOptions);
             ivOptions.setOnClickListener(new View.OnClickListener() {
                 @Override

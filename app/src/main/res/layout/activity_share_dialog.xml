@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".ShareDialogActivity">
 
+
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -20,13 +21,13 @@
             android:layout_centerVertical="true"
             android:text="Share"
             android:textColor="@color/lightBlue"
-            android:textSize="20sp"></TextView>
+            android:textSize="20sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/keyline"></View>
+            android:background="@drawable/keyline" />
     </RelativeLayout>
 
     <EditText
@@ -34,12 +35,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:padding="5dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/rectangle_49"
         android:hint="Type what you feel"
+        android:padding="5dp"
         android:textColor="@color/black"
         android:textColorHint="@color/grey" />
 
@@ -49,40 +50,35 @@
         android:orientation="horizontal"
         android:weightSum="100">
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:gravity="center"
+            android:onClick="closeShareDialog"
+            android:text="Cancel"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_weight="50"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="50">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+            <Button
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:layout_centerHorizontal="true"
-                android:onClick="closeShareDialog"
-                android:text="Cancel"
-                android:textColor="@color/black"
+                android:layout_centerVertical="true"
+                android:background="@drawable/rectangle_34"
+                android:gravity="center"
+                android:onClick="sharePost"
+                android:text="Post it!"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:textSize="15sp" />
         </RelativeLayout>
-
-        <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_weight="50"
-        android:layout_height="match_parent">
-        <Button
-            android:layout_width="90dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/rectangle_34"
-            android:gravity="center"
-            android:onClick="sharePost"
-            android:text="Post it!"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-    </RelativeLayout>
     </LinearLayout>
 
     <View
@@ -90,7 +86,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:background="@color/lightgrey"/>
+        android:background="@color/lightgrey" />
 
     <LinearLayout
         android:layout_width="match_parent"
