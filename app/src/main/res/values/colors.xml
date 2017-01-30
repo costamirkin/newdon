@@ -16,5 +16,7 @@
     <color name="futureLottery">#7749eb</color>
     <color name="blueLottery">#5d9bff</color>
     <color name="greyLottery">#6c6a75</color>
+    <color name="foundationBck">#d9d9d9</color>
+    <color name="foundationBorder">#7b7554</color>
 
 </resources>

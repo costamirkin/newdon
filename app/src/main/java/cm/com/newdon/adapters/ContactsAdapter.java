@@ -52,28 +52,35 @@ public class ContactsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         RelativeLayout layout;
         if (convertView != null) {
             layout = (RelativeLayout)convertView;
         }
         else {
-            layout = (RelativeLayout) View.inflate(context, R.layout.suggested_connection_item, null);
+            layout = (RelativeLayout) View.inflate(context, R.layout.invite_contact_item, null);
         }
 
         final PhoneContact contact = contacts.get(position);
 
         CircleImageView ivUser         = (CircleImageView) layout.findViewById(R.id.ivUser);
 
+        TextView        tvUserName    = (TextView) layout.findViewById(R.id.tvUserName);
+        tvUserName.setText(contact.getName());
         TextView        tvUserMail     = (TextView) layout.findViewById(R.id.tvUserMail);
         tvUserMail.setText(contact.getEmail());
-        TextView        tvFollowers    = (TextView) layout.findViewById(R.id.tvFollowers);
-        tvFollowers.setText("" + contact.getName());
-        ImageView       ivNotification = (ImageView) layout.findViewById(R.id.imFollow);
-        ivNotification.setOnClickListener(new View.OnClickListener() {
+        ImageView       ivEmail = (ImageView) layout.findViewById(R.id.imEmail);
+        ivEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "CLICK", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "MAIL" + position, Toast.LENGTH_LONG).show();
+            }
+        });
+        ImageView       imSms = (ImageView) layout.findViewById(R.id.imSms);
+        imSms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "SMS", Toast.LENGTH_LONG).show();
             }
         });
 

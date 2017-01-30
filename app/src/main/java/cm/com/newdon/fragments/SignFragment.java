@@ -77,7 +77,9 @@ public class SignFragment extends Fragment {
                             editor.putString("email", emailEt.getText().toString());
                             editor.putString("password", pswdEt.getText().toString());
                             editor.commit();
-                            startActivity(new Intent(getActivity(), BottomBarActivity.class));
+                            Intent intent = new Intent(getActivity(), BottomBarActivity.class);
+                            intent.putExtra("signup","signup");
+                            startActivity(intent);
 
 
                         } catch (Exception e) {

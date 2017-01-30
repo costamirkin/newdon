@@ -69,7 +69,11 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
         setContentView(R.layout.activity_bottombar);
 
         setupBottomBar();
-
+        Intent intent = getIntent();
+        String signup = intent.getStringExtra("signup");
+        if (signup == null) {
+            bottomBar.setDefaultTabPosition(2);
+        }
         profileImage = (CircleImageView) findViewById(R.id.profileImage);
         File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
                 CommonData.profileImageName);
@@ -103,7 +107,6 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
         layoutDonSuccess.setVisibility(View.GONE);
 
 //        when return to the activity after Donate
-        Intent intent = getIntent();
         if (intent.getIntExtra("success", 0) == 1) {
             //            renew posts for home screen
             DataLoader.getHomeScreenPosts(getApplicationContext());
@@ -140,16 +143,16 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
                         commitFragment(searchFragment);
                         break;
                     case R.id.bottomBarDonate:
-//                        startActivity(new Intent(BottomBarActivity.this, FoundationGrid.class));
+                        commitFragment(connectionsFragment);
                         break;
                     case R.id.bottomBarNotification:
-                        //commitFragment(notificationFragment);
-                        commitFragment(connectionsFragment);
+                        commitFragment(notificationFragment);
+                        //commitFragment(connectionsFragment);
                         break;
                     case R.id.bottomBarProfile:
                         CommonData.getInstance().setSelectedUser(CommonData.getInstance().getCurrentUser());
                         CommonData.getInstance().setSelectedUserId(CommonData.getInstance().getCurrentUserId());
-                        commitFragment(profileDonatesFragment);
+                        commitFragment(settingsFragment);
                         break;
                 }
             }

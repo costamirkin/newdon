@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import cm.com.newdon.R;
 import cm.com.newdon.SignAcitvity;
@@ -19,6 +22,10 @@ public class SettingsFragment extends Fragment {
     private Button findFriendsButton;
     private Button tutorialButton;
     private Button logoutButton;
+    private ImageView supportBg;
+
+    NotifSettingsFragment notifSettingsFragment = new NotifSettingsFragment();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,11 +33,23 @@ public class SettingsFragment extends Fragment {
         View v =inflater.inflate(R.layout.fragment_settings,container,false);
 
 
+        supportBg = (ImageView) v.findViewById(R.id.supportBg);
+        supportBg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "asdfasd", Toast.LENGTH_LONG).show();
+            }
+        });
 
         notificationSettingsButton = (Button) v.findViewById(R.id.notificationSettings);
         notificationSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.fragmentContainer, notifSettingsFragment);
+
+                ft.addToBackStack("This Fragment");
+                ft.commit();
 
             }
         });

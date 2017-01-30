@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import cm.com.newdon.R;
@@ -17,7 +18,12 @@ import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 public class FoundationDonatesFragment extends Fragment {
 
     private ListView lv;
-    HomeFragment.OnPostSelectedListener mCallBack;
+    private ImageView smallImage1;
+    private ImageView smallImage2;
+    private ImageView smallImage3;
+    private ImageView line;
+
+    private HomeFragment.OnPostSelectedListener mCallBack;
 
     @Override
     public void onAttach(Activity activity) {
@@ -49,6 +55,32 @@ public class FoundationDonatesFragment extends Fragment {
 //                .animator(new IconAnimator())
 
                 .build();
+
+        line = (ImageView) v.findViewById(R.id.niceLine);
+        smallImage1 = (ImageView) v.findViewById(R.id.smallImage1);
+        smallImage1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                line.setImageResource(R.drawable.line);
+
+            }
+        });
+        smallImage2 = (ImageView) v.findViewById(R.id.smallImage2);
+        smallImage2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                line.setImageResource(R.drawable.lineopp);
+            }
+        });
+
+        smallImage3 = (ImageView) v.findViewById(R.id.smallImage3);
+        smallImage3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                line.setImageResource(R.drawable.linemid);
+            }
+        });
+
 
         return v;
     }

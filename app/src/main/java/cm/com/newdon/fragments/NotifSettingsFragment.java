@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import cm.com.newdon.R;
@@ -17,8 +19,8 @@ public class NotifSettingsFragment extends Fragment {
 
     private ToggleButton allowPush;
     private ToggleButton enableSound;
-    SharedPreferences settings;
-    SharedPreferences.Editor editor;
+    private SharedPreferences settings;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -28,6 +30,14 @@ public class NotifSettingsFragment extends Fragment {
         settings = getActivity().getSharedPreferences("settings", 0);
         editor   = settings.edit();
 
+        ImageView back = (ImageView) v.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().remove(NotifSettingsFragment.this).commit();
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
 
 
         allowPush = (ToggleButton) v.findViewById(R.id.allowPush);
