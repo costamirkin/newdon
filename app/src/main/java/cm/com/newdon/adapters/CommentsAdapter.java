@@ -1,14 +1,18 @@
 package cm.com.newdon.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import cm.com.newdon.EditDialogActivity;
+import cm.com.newdon.HideReportDialogActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.classes.Comment;
 import cm.com.newdon.common.CommonData;
@@ -50,7 +54,7 @@ public class CommentsAdapter extends BaseAdapter{
             layout = (RelativeLayout) View.inflate(context, R.layout.comment_item_for_lv, null);
         }
 
-        Comment comment = CommonData.getInstance().getComments().get(position);
+        final Comment comment = CommonData.getInstance().getComments().get(position);
 
         CircleImageView ivUser = (CircleImageView) layout.findViewById(R.id.ivUser);
         if (comment.getUser().getPictureUrl() != null && !comment.getUser().getPictureUrl().equals("")) {
@@ -65,6 +69,25 @@ public class CommentsAdapter extends BaseAdapter{
 
         TextView tvComment = (TextView) layout.findViewById(R.id.tvComment);
         tvComment.setText(comment.getText());
+
+        //            on click on options icon dialog will be open
+        ImageView ivOptions = (ImageView) layout.findViewById(R.id.ivOptions);
+        ivOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                if (comment.getUser().getId() == CommonData.getInstance().getCurrentUserId()) {
+                    intent = new Intent(context, EditDialogActivity.class);
+                } else {
+//                    // TODO: 30.01.2017
+                    //need to change dialog for comment
+                    intent = new Intent(context, HideReportDialogActivity.class);
+                }
+                intent.putExtra("commentId", comment.getId());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
 
         return layout;
     }

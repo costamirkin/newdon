@@ -13,7 +13,7 @@ import cz.msebera.android.httpclient.Header;
  */
 public class PostQuery {
     public enum PostAction {
-        HIDE("hide"), DELETE("delete"), LIKE("like"), UNLIKE("unlike");
+        HIDE("hide"), DELETE("delete");
         private String action;
 
         PostAction(String action) {
@@ -33,9 +33,9 @@ public class PostQuery {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 //                for testing
                 Toast.makeText(context, "You successfully " + action.getValue() + " the post!", Toast.LENGTH_LONG).show();
-
-                if (action == PostAction.HIDE || action == PostAction.DELETE) {
-                    CommonData.getInstance().getPosts().remove(CommonData.getInstance().findPostById(postId));
+                CommonData.getInstance().getPosts().remove(CommonData.getInstance().findPostById(postId));
+                if (CommonData.getInstance().imageLoadedIf != null) {
+                    CommonData.getInstance().imageLoadedIf.dataLoaded();
                 }
             }
 
@@ -126,4 +126,85 @@ public class PostQuery {
 
         RestClient.post("comments/create", params, handler);
     }
+
+    public static void likePost(final Context context, final int postId, final boolean unLike) {
+
+        AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                for testing
+                Toast.makeText(context, "You successfully " + (unLike? "un":"") + "liked the post!", Toast.LENGTH_LONG).show();
+                CommonData.getInstance().findPostById(postId).setIsLiked(!unLike);
+                if (CommonData.getInstance().imageLoadedIf != null) {
+                    CommonData.getInstance().imageLoadedIf.dataLoaded();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!!");
+                System.out.println(new String(responseBody));
+                Toast.makeText(context, new String(responseBody), Toast.LENGTH_LONG).show();
+            }
+        };
+
+        RequestParams params = new RequestParams();
+        params.put("postId", postId);
+
+        RestClient.put("posts/" + (unLike ? "unlike" : "like"), params, handler);
+    }
+
+    public static void updateComment(int commentId, String text){
+        AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (CommonData.getInstance().imageLoadedIf != null) {
+                    CommonData.getInstance().imageLoadedIf.dataLoaded();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!!");
+                System.out.println(new String(responseBody));
+            }
+        };
+
+        RequestParams params = new RequestParams();
+        params.put("commentId", commentId);
+        params.put("text", text);
+
+        RestClient.put("comments/edit", params, handler);
+    }
+
+    public static void deleteComment(final Context context, final int commentId) {
+
+        AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                for testing
+                Toast.makeText(context, "You successfully deleted the post!", Toast.LENGTH_LONG).show();
+                CommonData.getInstance().getPosts().remove(CommonData.getInstance().findPostById(commentId));
+                if (CommonData.getInstance().imageLoadedIf != null) {
+                    CommonData.getInstance().imageLoadedIf.dataLoaded();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!!");
+                System.out.println(new String(responseBody));
+                Toast.makeText(context, new String(responseBody), Toast.LENGTH_LONG).show();
+            }
+        };
+
+        RequestParams params = new RequestParams();
+        params.put("commentId", commentId);
+
+        RestClient.delete("comments/delete", params, handler);
+    }
+
 }

@@ -18,6 +18,7 @@ public class Post {
     private User user;
     private Foundation foundation;
     private String uri;
+    private boolean isLiked;
 
     private String action;
 
@@ -107,6 +108,14 @@ public class Post {
 
     public void setFoundation(Foundation foundation) {
         this.foundation = foundation;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setIsLiked(boolean isLiked) {
+        this.isLiked = isLiked;
     }
 
     public String getAction() {

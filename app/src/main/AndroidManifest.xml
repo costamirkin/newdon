@@ -43,8 +43,9 @@
         <activity
             android:name=".BottomBarActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Splash"
-            android:theme="@style/Theme.AppCompat.NoActionBar" >
+        <activity
+            android:name=".Splash"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -77,18 +78,28 @@
             android:name=".HideDeleteDialogActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
+            android:name=".EditDialogActivity"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
             android:name=".HideReportDialogActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".ReportDialogActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity android:name=".CommentsActivity"
+        <activity
+            android:name=".CommentsActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <!--
+             ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".DeleteDialogActivity"
+            android:theme="@style/Theme.AppCompat.Dialog" />
     </application>
 
 </manifest>

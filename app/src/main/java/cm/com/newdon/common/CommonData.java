@@ -111,6 +111,15 @@ public class CommonData {
         return null;
     }
 
+    public Comment findCommentById(int id) {
+        for (Comment comment : comments) {
+            if (comment.getId() == id) {
+                return comment;
+            }
+        }
+        return null;
+    }
+
     public int findPostIndexById(int id) {
         for (int i = 0; i < posts.size(); i++) {
             if (posts.get(i).getId() == id) {
