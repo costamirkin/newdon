@@ -1,9 +1,14 @@
 package cm.com.newdon.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +24,9 @@ import android.widget.ToggleButton;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import java.io.File;
+
+import cm.com.newdon.BottomBarActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.PostsAdapter;
 import cm.com.newdon.adapters.UserPostsAdapter;
@@ -48,6 +56,8 @@ public class ProfileDonatesFragment extends Fragment {
     private ImageView smallImage1;
     private ImageView smallImage2;
     private ImageView line;
+    private ImageView changeImage;
+    private ProfileFragment profileFragment = new ProfileFragment();
 
 
 
@@ -98,6 +108,19 @@ public class ProfileDonatesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 line.setImageResource(R.drawable.lineopp);
+            }
+        });
+
+
+        changeImage  = (ImageView) v.findViewById(R.id.edit_btn);
+        changeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.fragmentContainer, profileFragment);
+
+                ft.addToBackStack("This Fragment");
+                ft.commit();
             }
         });
 

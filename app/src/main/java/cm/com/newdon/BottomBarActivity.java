@@ -50,7 +50,6 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
 
     HomeFragment homeFragment = new HomeFragment();
     SearchFragment searchFragment = new SearchFragment();
-    ProfileFragment profileFragment = new ProfileFragment();
     ProfileDonatesFragment profileDonatesFragment = new ProfileDonatesFragment();
     NotificationFragment notificationFragment = new NotificationFragment();
     SettingsFragment settingsFragment = new SettingsFragment();
@@ -72,7 +71,7 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
         Intent intent = getIntent();
         String signup = intent.getStringExtra("signup");
         if (signup == null) {
-            bottomBar.setDefaultTabPosition(2);
+            bottomBar.setDefaultTabPosition(0);
         }
         profileImage = (CircleImageView) findViewById(R.id.profileImage);
         File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
@@ -129,6 +128,8 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+
+
     private void setupBottomBar() {
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
@@ -152,7 +153,7 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
                     case R.id.bottomBarProfile:
                         CommonData.getInstance().setSelectedUser(CommonData.getInstance().getCurrentUser());
                         CommonData.getInstance().setSelectedUserId(CommonData.getInstance().getCurrentUserId());
-                        commitFragment(settingsFragment);
+                        commitFragment(profileDonatesFragment);
                         break;
                 }
             }

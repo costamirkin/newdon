@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,7 @@ public class ProfileFragment extends Fragment {
     private EditText emailEt;
     private ToggleButton toggleButton;
     private ImageView changeImage;
+    private ImageView backBtn;
 
     private CircleImageView profileImage;
 
@@ -61,7 +63,8 @@ public class ProfileFragment extends Fragment {
         emailEt      = (EditText) v.findViewById(R.id.emailEt);
         toggleButton = (ToggleButton) v.findViewById(R.id.privacyToggle);
         profileImage = (CircleImageView) v.findViewById(R.id.profile_image);
-        changeImage  = (ImageView) v.findViewById(R.id.follow_btn);
+        changeImage  = (ImageView) v.findViewById(R.id.edit_btn);
+        backBtn      = (ImageView) v.findViewById(R.id.backBtn);
 
         File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
                 CommonData.profileImageName);
@@ -163,6 +166,14 @@ public class ProfileFragment extends Fragment {
                 }
 
 
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().remove(ProfileFragment.this).commit();
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         });
 

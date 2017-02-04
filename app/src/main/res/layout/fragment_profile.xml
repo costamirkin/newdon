@@ -12,18 +12,31 @@
             android:layout_height="match_parent"
             android:layout_marginTop="23dp"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile Settings"
-                android:textSize="20dp"
-                android:visibility="visible"
-                android:id="@+id/settingsTv"
-                android:layout_alignParentTop="true"
-                android:textColor="@color/blueLottery"
-                android:layout_gravity="center"
-                />
-            <ImageView
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="24dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/shape_22"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="26dp"
+                    android:id="@+id/backBtn"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profile Settings"
+                    android:textSize="20dp"
+                    android:visibility="visible"
+                    android:id="@+id/settingsTv"
+                    android:layout_alignParentTop="true"
+                    android:textColor="@color/blueLottery"
+                    android:layout_centerHorizontal="true"
+                    />
+
+            </RelativeLayout>
+             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="21dp"
@@ -43,7 +56,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_height="120dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/layer_5"
+                    android:src="@drawable/profile"
                     app:civ_border_width="2dp"
                     app:civ_border_color="@color/blueLottery"/>
 
@@ -57,7 +70,7 @@
                     android:layout_marginLeft="-25dp"
                     android:layout_marginTop="10dp"
                     android:visibility="visible"
-                    android:id="@+id/follow_btn"
+                    android:id="@+id/edit_btn"
                     />
 
 
