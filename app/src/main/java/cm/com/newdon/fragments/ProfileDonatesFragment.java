@@ -60,6 +60,20 @@ public class ProfileDonatesFragment extends Fragment {
     private ProfileFragment profileFragment = new ProfileFragment();
 
 
+    class FollowersListener implements View.OnClickListener {
+
+        private String type;
+
+        public FollowersListener(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(getActivity(), type, Toast.LENGTH_SHORT).show();
+
+        }
+    }
 
 
     @Override
@@ -86,10 +100,20 @@ public class ProfileDonatesFragment extends Fragment {
         TextView fullNameTv = (TextView) v.findViewById(R.id.fullName);
         fullNameTv.setText(selectedUser.getRealName());
 
-        TextView followersTv = (TextView) v.findViewById(R.id.follow);
-        followersTv.setText("" + CommonData.getInstance().getCurrentUser().getFollowersCount() + " followers | " +
-                selectedUser.getFollowingCount() + " following");
+        // Followers following
+        TextView followersTv = (TextView) v.findViewById(R.id.followers);
+        followersTv.setText("" + selectedUser.getFollowersCount() + " followers");
 
+        TextView followingTv = (TextView) v.findViewById(R.id.following);
+        followingTv.setText("" + selectedUser.getFollowingCount() + " following");
+
+        FollowersListener followersListener = new FollowersListener("followers");
+        followersTv.setOnClickListener(followersListener);
+
+        FollowersListener followingListener = new FollowersListener("following");
+        followingTv.setOnClickListener(followingListener);
+
+        // Donations
         TextView donationsTv = (TextView) v.findViewById(R.id.donations);
         donationsTv.setText("" + selectedUser.getDonCount() + " donates");
 
@@ -113,16 +137,25 @@ public class ProfileDonatesFragment extends Fragment {
 
 
         changeImage  = (ImageView) v.findViewById(R.id.edit_btn);
-        changeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragmentContainer, profileFragment);
+        if (!selectedUser.equals(CommonData.getInstance().getCurrentUser())) {
+            changeImage.setVisibility(View.INVISIBLE);
+        }
+        else {
+            changeImage.setVisibility(View.VISIBLE);
 
-                ft.addToBackStack("This Fragment");
-                ft.commit();
-            }
-        });
+            changeImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.fragmentContainer, profileFragment);
+
+                    ft.addToBackStack("This Fragment");
+                    ft.commit();
+
+                }
+
+            });
+        }
 
         return v;
     }

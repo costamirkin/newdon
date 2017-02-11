@@ -87,7 +87,7 @@ public class ProfileFragment extends Fragment {
                 RestClient.post("account/profile", params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_LONG).show();
+                        Utils.showAlertDialog("DETAILS CHANGED", getActivity());
                         SharedPreferences settings = getActivity().getSharedPreferences("settings", 0);
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putString("firstName", nameEt.getText().toString());
@@ -99,7 +99,8 @@ public class ProfileFragment extends Fragment {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        Log.e("Details", new String(responseBody));
+                        Utils.showAlertDialog("DETAILS CHANGED " + responseBody!= null ? new String(responseBody):"", getActivity());
+
 
                     }
                 });
@@ -116,12 +117,12 @@ public class ProfileFragment extends Fragment {
                 String new1Pswd = new1PswdEd.getText().toString();
 
                 if (curPswd.length() < 6 || newPswd.length() < 6 || new1Pswd.length() < 6) {
-                    Toast.makeText(getActivity(), "Password to short", Toast.LENGTH_LONG).show();
+                    Utils.showAlertDialog("Password too short", getActivity());
                     return;
                 }
 
                 if (!new1Pswd.equals(newPswd)) {
-                    Toast.makeText(getActivity(), "Password doesnt match", Toast.LENGTH_LONG).show();
+                    Utils.showAlertDialog("Password  doesnt match", getActivity());
                     return;
                 }
 
@@ -141,7 +142,8 @@ public class ProfileFragment extends Fragment {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        Log.e("Posts", new String(responseBody));
+                        Toast.makeText(getActivity(), "Failed to change password", Toast.LENGTH_LONG).show();
+
 
                     }
                 });

@@ -30,6 +30,7 @@ import java.io.File;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoader;
 import cm.com.newdon.common.RestClient;
+import cm.com.newdon.common.Utils;
 import cm.com.newdon.fragments.ConnectionsFragment;
 import cm.com.newdon.fragments.FoundationDonatesFragment;
 import cm.com.newdon.fragments.HomeFragment;
@@ -126,6 +127,7 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     }
 
 
@@ -178,7 +180,15 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
 
     public void commitFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+
+        if (currentFragment != null && currentFragment.equals(fragment)) {
+            fragmentTransaction.detach(currentFragment);
+            fragmentTransaction.attach(currentFragment);
+        }
+        else {
+            fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+        }
         fragmentTransaction.commit();
     }
 

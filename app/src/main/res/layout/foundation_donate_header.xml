@@ -12,7 +12,7 @@
         android:layout_height="300dp">
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
+            android:id="@+id/found_image"
             android:layout_marginTop="15dp"
             android:layout_width="120dp"
             android:layout_height="120dp"
@@ -28,7 +28,7 @@
             android:textSize="20dp"
             android:text="Full Name"
             android:id="@+id/fullName"
-            android:layout_below="@+id/profile_image"
+            android:layout_below="@+id/found_image"
             android:layout_centerHorizontal="true"/>
         <TextView
             android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_weight="6"
-                android:id="@+id/smallImage3"
+                android:id="@+id/smallImage2"
                 android:src="@drawable/badges_icn" />
            <View
                 android:layout_width="0dp"
@@ -100,7 +100,7 @@
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_weight="6"
-                android:id="@+id/smallImage2"
+                android:id="@+id/smallImage3"
                 android:src="@drawable/badges_icn" />
 
             <View

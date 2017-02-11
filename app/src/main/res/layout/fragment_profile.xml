@@ -157,14 +157,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_gravity="left"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/blueLottery"
+                android:layout_marginTop="25dp"
                 android:text="Privacy:"/>
             <RelativeLayout
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
-                    android:layout_width="100dp"
+                    android:layout_width="250dp"
                     android:layout_height="50dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/greyLottery"
                     android:text="Keep my account private"
                     android:layout_alignParentLeft="true"
                     android:id="@+id/tv4"/>
@@ -173,45 +179,62 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/privacyToggle"
                     android:background="@drawable/toggle_me"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="18dp"/>
             </RelativeLayout>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/rectangle_46b"
                 android:id="@+id/saveButton"
                 android:text="save"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="25dp"
+                android:textColor="@color/blueLottery"
                 android:layout_gravity="left"
                 android:text="Change password (at least 6 characters)"/>
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:textColor="#000"
+                android:textColorHint="@color/greyLottery"
                 android:inputType="textPassword"
                 android:id="@+id/currPswd"
+                android:paddingLeft="20dp"
+                android:background="@drawable/rectangle_46"
                 android:hint="Type your current password"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:inputType="textPassword"
                 android:textColor="#000"
+                android:textColorHint="@color/greyLottery"
                 android:id="@+id/newPswd"
+                android:paddingLeft="20dp"
+                android:background="@drawable/rectangle_46"
                 android:hint="New password"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textColor="#000"
                 android:inputType="textPassword"
+                android:textColorHint="@color/greyLottery"
                 android:id="@+id/newPswd1"
+                android:paddingLeft="20dp"
+                android:background="@drawable/rectangle_46"
                 android:hint="Confirm new password"/>
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
+                android:background="@drawable/rectangle_46b"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:id="@+id/passwordButton"
                 android:text="Change password"/>
 
