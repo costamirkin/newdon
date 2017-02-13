@@ -222,6 +222,12 @@ public class CommonData {
         return suggestedUsers;
     }
 
+    // Following
+    private ArrayList<User> followUsers = new ArrayList<>();
+
+    public ArrayList<User> getFollowUsers() {
+        return followUsers;
+    }
     //Notifications
 
     private List<Notification> notifications;

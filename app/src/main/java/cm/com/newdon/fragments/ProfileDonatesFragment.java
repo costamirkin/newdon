@@ -58,6 +58,7 @@ public class ProfileDonatesFragment extends Fragment {
     private ImageView line;
     private ImageView changeImage;
     private ProfileFragment profileFragment = new ProfileFragment();
+    private FollowFragment  followFragment  = new FollowFragment();
 
 
     class FollowersListener implements View.OnClickListener {
@@ -70,7 +71,12 @@ public class ProfileDonatesFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(getActivity(), type, Toast.LENGTH_SHORT).show();
+            followFragment.setType(type);
+            final FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.fragmentContainer, followFragment);
+
+            ft.addToBackStack("This Fragment");
+            ft.commit();
 
         }
     }

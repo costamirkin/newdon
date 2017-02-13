@@ -2,15 +2,12 @@ package cm.com.newdon.adapters;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,18 +20,20 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * adapter for notificaion listview
  */
-public class SuggestedConnectionsAdapter extends BaseAdapter {
+public class FollowAdapter extends BaseAdapter {
 
-    Context context;
+    private Context context;
+    private String  type;
 
-    public SuggestedConnectionsAdapter(Context context) {
+    public FollowAdapter(Context context, String type) {
         this.context = context;
+        this.type = type;
     }
 
     @Override
     public int getCount() {
 
-        return CommonData.getInstance().getSuggestedUsers().size();
+        return CommonData.getInstance().getFollowUsers().size();
     }
 
     @Override
@@ -57,7 +56,7 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
             layout = (RelativeLayout) View.inflate(context, R.layout.suggested_connection_item, null);
         }
 
-        final User user = CommonData.getInstance().getSuggestedUsers().get(position);
+        final User user = CommonData.getInstance().getFollowUsers().get(position);
 
         CircleImageView ivUser         = (CircleImageView) layout.findViewById(R.id.ivUser);
         Log.e("sss", user.getPictureUrl());
