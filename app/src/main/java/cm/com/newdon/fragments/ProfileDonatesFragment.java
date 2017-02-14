@@ -1,9 +1,14 @@
 package cm.com.newdon.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +24,9 @@ import android.widget.ToggleButton;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import java.io.File;
+
+import cm.com.newdon.BottomBarActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.PostsAdapter;
 import cm.com.newdon.adapters.UserPostsAdapter;
@@ -48,8 +56,30 @@ public class ProfileDonatesFragment extends Fragment {
     private ImageView smallImage1;
     private ImageView smallImage2;
     private ImageView line;
+    private ImageView changeImage;
+    private ProfileFragment profileFragment = new ProfileFragment();
+    private FollowFragment  followFragment  = new FollowFragment();
 
 
+    class FollowersListener implements View.OnClickListener {
+
+        private String type;
+
+        public FollowersListener(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public void onClick(View v) {
+            followFragment.setType(type);
+            final FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.fragmentContainer, followFragment);
+
+            ft.addToBackStack("This Fragment");
+            ft.commit();
+
+        }
+    }
 
 
     @Override
@@ -76,10 +106,20 @@ public class ProfileDonatesFragment extends Fragment {
         TextView fullNameTv = (TextView) v.findViewById(R.id.fullName);
         fullNameTv.setText(selectedUser.getRealName());
 
-        TextView followersTv = (TextView) v.findViewById(R.id.follow);
-        followersTv.setText("" + CommonData.getInstance().getCurrentUser().getFollowersCount() + " followers | " +
-                selectedUser.getFollowingCount() + " following");
+        // Followers following
+        TextView followersTv = (TextView) v.findViewById(R.id.followers);
+        followersTv.setText("" + selectedUser.getFollowersCount() + " followers");
 
+        TextView followingTv = (TextView) v.findViewById(R.id.following);
+        followingTv.setText("" + selectedUser.getFollowingCount() + " following");
+
+        FollowersListener followersListener = new FollowersListener("followers");
+        followersTv.setOnClickListener(followersListener);
+
+        FollowersListener followingListener = new FollowersListener("following");
+        followingTv.setOnClickListener(followingListener);
+
+        // Donations
         TextView donationsTv = (TextView) v.findViewById(R.id.donations);
         donationsTv.setText("" + selectedUser.getDonCount() + " donates");
 
@@ -100,6 +140,28 @@ public class ProfileDonatesFragment extends Fragment {
                 line.setImageResource(R.drawable.lineopp);
             }
         });
+
+
+        changeImage  = (ImageView) v.findViewById(R.id.edit_btn);
+        if (!selectedUser.equals(CommonData.getInstance().getCurrentUser())) {
+            changeImage.setVisibility(View.INVISIBLE);
+        }
+        else {
+            changeImage.setVisibility(View.VISIBLE);
+
+            changeImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.fragmentContainer, profileFragment);
+
+                    ft.addToBackStack("This Fragment");
+                    ft.commit();
+
+                }
+
+            });
+        }
 
         return v;
     }

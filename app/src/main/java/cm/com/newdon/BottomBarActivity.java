@@ -30,6 +30,7 @@ import java.io.File;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoader;
 import cm.com.newdon.common.RestClient;
+import cm.com.newdon.common.Utils;
 import cm.com.newdon.fragments.ConnectionsFragment;
 import cm.com.newdon.fragments.FoundationDonatesFragment;
 import cm.com.newdon.fragments.HomeFragment;
@@ -50,7 +51,6 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
 
     HomeFragment homeFragment = new HomeFragment();
     SearchFragment searchFragment = new SearchFragment();
-    ProfileFragment profileFragment = new ProfileFragment();
     ProfileDonatesFragment profileDonatesFragment = new ProfileDonatesFragment();
     NotificationFragment notificationFragment = new NotificationFragment();
     SettingsFragment settingsFragment = new SettingsFragment();
@@ -72,7 +72,7 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
         Intent intent = getIntent();
         String signup = intent.getStringExtra("signup");
         if (signup == null) {
-            bottomBar.setDefaultTabPosition(2);
+            bottomBar.setDefaultTabPosition(0);
         }
         profileImage = (CircleImageView) findViewById(R.id.profileImage);
         File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
@@ -127,7 +127,10 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     }
+
+
 
     private void setupBottomBar() {
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
@@ -152,7 +155,7 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
                     case R.id.bottomBarProfile:
                         CommonData.getInstance().setSelectedUser(CommonData.getInstance().getCurrentUser());
                         CommonData.getInstance().setSelectedUserId(CommonData.getInstance().getCurrentUserId());
-                        commitFragment(settingsFragment);
+                        commitFragment(profileDonatesFragment);
                         break;
                 }
             }
@@ -177,7 +180,15 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
 
     public void commitFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+
+        if (currentFragment != null && currentFragment.equals(fragment)) {
+            fragmentTransaction.detach(currentFragment);
+            fragmentTransaction.attach(currentFragment);
+        }
+        else {
+            fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+        }
         fragmentTransaction.commit();
     }
 

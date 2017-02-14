@@ -8,11 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.FoundationPostsAdapter;
 import cm.com.newdon.adapters.PostsAdapter;
+import cm.com.newdon.adapters.SingleFoundationAdapter;
+import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.common.CommonData;
+import de.hdodenhof.circleimageview.CircleImageView;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 public class FoundationDonatesFragment extends Fragment {
@@ -24,6 +28,8 @@ public class FoundationDonatesFragment extends Fragment {
     private ImageView line;
 
     private HomeFragment.OnPostSelectedListener mCallBack;
+    private FoundationPostsAdapter  adapter;
+    private SingleFoundationAdapter singleFoundationAdapter;
 
     @Override
     public void onAttach(Activity activity) {
@@ -47,7 +53,8 @@ public class FoundationDonatesFragment extends Fragment {
 
         lv = (ListView) v.findViewById(R.id.listView);
         CommonData.getInstance().copyFoundationPosts();
-        FoundationPostsAdapter adapter = new FoundationPostsAdapter(getActivity().getApplicationContext(), mCallBack);
+        adapter = new FoundationPostsAdapter(getActivity().getApplicationContext(), mCallBack);
+
         lv.setAdapter(adapter);
         StikkyHeaderBuilder.stickTo(lv)
                 .setHeader(R.id.header, (ViewGroup) v)
@@ -56,11 +63,23 @@ public class FoundationDonatesFragment extends Fragment {
 
                 .build();
 
+        CircleImageView image = (CircleImageView) v.findViewById(R.id.found_image);
+        int foundationId = CommonData.getInstance().getSelectedFoundId();
+        if (foundationId != -1) {
+            Foundation f = CommonData.getInstance().findFoundById(foundationId);
+            if (f != null && f.getLogo() != null) {
+                image.setImageBitmap(f.getLogo());
+            }
+
+        }
+
         line = (ImageView) v.findViewById(R.id.niceLine);
         smallImage1 = (ImageView) v.findViewById(R.id.smallImage1);
         smallImage1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                lv.setAdapter(adapter);
+                lv.invalidateViews();
                 line.setImageResource(R.drawable.line);
 
             }
@@ -69,7 +88,11 @@ public class FoundationDonatesFragment extends Fragment {
         smallImage2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                line.setImageResource(R.drawable.lineopp);
+                line.setImageResource(R.drawable.linemid);
+                singleFoundationAdapter = new SingleFoundationAdapter(getActivity());
+                lv.setAdapter(singleFoundationAdapter);
+                lv.invalidateViews();
+
             }
         });
 
@@ -77,7 +100,9 @@ public class FoundationDonatesFragment extends Fragment {
         smallImage3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                line.setImageResource(R.drawable.linemid);
+                line.setImageResource(R.drawable.lineopp);
+                lv.setAdapter(adapter);
+                lv.invalidateViews();
             }
         });
 

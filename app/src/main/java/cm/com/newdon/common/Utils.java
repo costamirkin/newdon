@@ -1,7 +1,9 @@
 package cm.com.newdon.common;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -46,5 +48,24 @@ public class Utils {
 
             }
         });
+    }
+
+    public static void showAlertDialog(String message, Context context) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                context, android.R.style.Theme_Holo_Light_Dialog_NoActionBar);
+
+        // set title
+        alertDialogBuilder.setTitle(message);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",null);
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
     }
 }

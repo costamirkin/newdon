@@ -28,7 +28,7 @@
             android:layout_below="@+id/name"
             android:layout_height="120dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/layer_5"
+            android:src="@drawable/profile"
             app:civ_border_width="2dp"
             app:civ_border_color="@color/blueLottery"/>
 
@@ -41,7 +41,7 @@
             android:layout_alignTop="@+id/profile_image"
             android:layout_marginLeft="-25dp"
             android:layout_marginTop="10dp"
-            android:id="@+id/follow_btn"
+            android:id="@+id/edit_btn"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -52,23 +52,43 @@
             android:id="@+id/fullName"
             android:layout_below="@+id/profile_image"
             android:layout_centerHorizontal="true"/>
-        <TextView
-            android:layout_width="wrap_content"
+        <View
+            android:layout_width="2dp"
             android:layout_height="25dp"
-            android:textColor="@color/blueLottery"
-            android:textSize="20dp"
-            android:text="Follow"
-            android:id="@+id/follow"
             android:layout_below="@+id/fullName"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:background="@color/blueLottery"
+            android:id="@+id/follCenter"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:textColor="@color/blueLottery"
             android:textSize="20dp"
             android:text="2 donates"
+            android:id="@+id/following"
+            android:layout_below="@+id/fullName"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/follCenter"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:textColor="@color/blueLottery"
+            android:textSize="20dp"
+            android:text="2 donates"
+            android:id="@+id/followers"
+            android:layout_below="@+id/fullName"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/follCenter"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:textColor="@color/blueLottery"
+            android:textSize="20dp"
+            android:text="donations"
             android:id="@+id/donations"
-            android:layout_below="@+id/follow"
+            android:layout_below="@+id/follCenter"
             android:layout_centerHorizontal="true"/>
         <ImageView
             android:layout_width="match_parent"

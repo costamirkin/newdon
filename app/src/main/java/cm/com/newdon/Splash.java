@@ -31,6 +31,7 @@ public class Splash extends AppCompatActivity {
         public void run() {
 
             startActivity(new Intent(Splash.this, cls));
+            finish();
         }
     }
 
@@ -38,7 +39,7 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        startActivity(new Intent(Splash.this, SignAcitvity.class));
+        //startActivity(new Intent(Splash.this, SignAcitvity.class));
 
         SharedPreferences settings = getSharedPreferences("settings", 0);
         String email = settings.getString("email", "");

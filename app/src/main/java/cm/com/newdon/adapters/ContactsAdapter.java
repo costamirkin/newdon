@@ -1,6 +1,8 @@
 package cm.com.newdon.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,14 +75,32 @@ public class ContactsAdapter extends BaseAdapter {
         ivEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "MAIL" + position, Toast.LENGTH_LONG).show();
+                if (!contact.getEmail().equals("")) {
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                            "mailto", contact.getEmail(), null));
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "New don");
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
+                    context.startActivity(Intent.createChooser(emailIntent, "Send email..."));
+                }
+                else {
+                    Utils.showAlertDialog("No email for the contact", context);
+                }
             }
         });
         ImageView       imSms = (ImageView) layout.findViewById(R.id.imSms);
         imSms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "SMS", Toast.LENGTH_LONG).show();
+                if (!contact.getPhone().equals("")) {
+                    Uri uri = Uri.parse("smsto:" +contact.getPhone());
+                    Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+                    it.putExtra("New don", "The SMS text");
+                    context.startActivity(it);
+                }
+                else {
+                    Utils.showAlertDialog("No phone for the contact", context);
+
+                }
             }
         });
 
