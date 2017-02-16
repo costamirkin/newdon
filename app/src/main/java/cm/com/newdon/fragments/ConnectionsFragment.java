@@ -45,7 +45,8 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
         DataLoader.getSuggestedUsers();
 
         showSuggestedConnections();
-        listView.setAdapter(new SuggestedConnectionsAdapter(getActivity()));
+        listView.setAdapter(new SuggestedConnectionsAdapter(getActivity(), false,
+                CommonData.getInstance().getSuggestedUsers()));
 
         final TextView tvSuggested = (TextView) view.findViewById(R.id.tvSuggested);
         final TextView tvFacebook = (TextView) view.findViewById(R.id.tvFacebook);
@@ -122,7 +123,8 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
 
     private void showSuggestedConnections() {
         if (suggestedConnectionsAdapter == null) {
-            suggestedConnectionsAdapter = new SuggestedConnectionsAdapter(getActivity());
+            suggestedConnectionsAdapter = new SuggestedConnectionsAdapter(getActivity(), false,
+                    CommonData.getInstance().getSuggestedUsers());
         }
         listView.setAdapter(suggestedConnectionsAdapter);
     }
