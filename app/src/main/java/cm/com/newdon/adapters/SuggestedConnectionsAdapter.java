@@ -1,6 +1,9 @@
 package cm.com.newdon.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +32,12 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
     private Context context;
     private boolean searchMode = false;
     private ArrayList<User> users;
+
+    private String searchStr = "";
+
+    public void setSearchStr(String searchStr) {
+        this.searchStr = searchStr;
+    }
 
     public SuggestedConnectionsAdapter(Context context, boolean searchMode, ArrayList<User> users) {
         this.context = context;
@@ -70,7 +79,17 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
             Picasso.with(context).load(user.getPictureUrl()).into(ivUser);
         }
         TextView        tvUserMail     = (TextView) layout.findViewById(R.id.tvUserMail);
-        tvUserMail.setText(user.getRealName());
+        String realName = user.getRealName();
+        tvUserMail.setText(realName);
+        if (searchMode) {
+            SpannableString spannableString = new SpannableString(realName);
+            Object blueSpan = new BackgroundColorSpan(Color.BLUE);
+            int indexOf = realName.indexOf(searchStr);
+            if (indexOf != -1) {
+                spannableString.setSpan(blueSpan, indexOf, indexOf + searchStr.length(), 0);
+                tvUserMail.setText(spannableString);
+            }
+        }
         TextView        tvFollowers    = (TextView) layout.findViewById(R.id.tvFollowers);
         tvFollowers.setText("" + user.getFollowersCount());
         ImageView       ivNotification = (ImageView) layout.findViewById(R.id.imFollow);

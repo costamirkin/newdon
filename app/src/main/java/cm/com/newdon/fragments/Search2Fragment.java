@@ -54,6 +54,7 @@ public class Search2Fragment extends Fragment implements DataLoadedIf {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String str = s.toString();
+                adapter.setSearchStr(str);
                 DataLoader.searchUsers(str);
 
 
