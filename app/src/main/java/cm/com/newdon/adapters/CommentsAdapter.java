@@ -14,9 +14,12 @@ import com.squareup.picasso.Picasso;
 import cm.com.newdon.EditDialogActivity;
 import cm.com.newdon.HideReportDialogActivity;
 import cm.com.newdon.R;
+import cm.com.newdon.ReportDialogActivity;
 import cm.com.newdon.classes.Comment;
+import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DateHandler;
+import cm.com.newdon.fragments.DeleteReportDialogActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -25,9 +28,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class CommentsAdapter extends BaseAdapter{
 
     Context context;
+    Post post;
 
-    public CommentsAdapter(Context context) {
+    public CommentsAdapter(Context context, Post post) {
         this.context = context;
+        this.post = post;
     }
 
     @Override
@@ -76,12 +81,19 @@ public class CommentsAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 Intent intent;
+                //it is my comment
                 if (comment.getUser().getId() == CommonData.getInstance().getCurrentUserId()) {
                     intent = new Intent(context, EditDialogActivity.class);
+                //another comment
                 } else {
-//                    // TODO: 30.01.2017
-                    //need to change dialog for comment
-                    intent = new Intent(context, HideReportDialogActivity.class);
+                    //another comment on my post
+                    if(post.getUser().getId() == CommonData.getInstance().getCurrentUserId()){
+                        intent = new Intent(context, DeleteReportDialogActivity.class);
+                    }
+                    else {
+                        //another comment on other post
+                        intent = new Intent(context, ReportDialogActivity.class);
+                    }
                 }
                 intent.putExtra("commentId", comment.getId());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

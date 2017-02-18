@@ -78,6 +78,16 @@ public class JsonHandler {
         post.setCreatedAt(date);
         post.setAction(action);
 
+        //check if the post already liked
+        JSONArray likesArray = item.getJSONArray("likes");
+        for (int i = 0; i < likesArray.length(); i++) {
+            JSONObject like = likesArray.getJSONObject(i);
+            if(like.getInt("id")==CommonData.getInstance().getCurrentUserId()){
+                post.setIsLiked(true);
+                break;
+            }
+        }
+
         return post;
     }
 

@@ -13,7 +13,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Report post"
+            android:id="@+id/tvReportScreenTitle"
+            android:text="Report comment"
             android:textColor="@color/expiredColor"
             android:textSize="20sp"/>
 

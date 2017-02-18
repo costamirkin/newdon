@@ -53,7 +53,7 @@ public class PostQuery {
         RestClient.post("posts/" + action.getValue(), params, handler);
     }
 
-    public static void reportPost(final Context context, final int entity_id, boolean isPost, String reason, String message) {
+    public static void report(final Context context, final int entity_id, boolean isPost, String reason, String message) {
 
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
 
@@ -195,7 +195,7 @@ public class PostQuery {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!!");
+                System.out.println("!!!!!!!!!Delete comment ERROR!!!!!!!!!!!!!");
                 System.out.println(new String(responseBody));
                 Toast.makeText(context, new String(responseBody), Toast.LENGTH_LONG).show();
             }
