@@ -104,6 +104,11 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/rectangle_46b"
                 android:text="Logout" />
+
+            <View
+                android:layout_width="match_parent"
+                android:background="#0000"
+                android:layout_height="80dp"/>
         </LinearLayout>
     </ScrollView>
 

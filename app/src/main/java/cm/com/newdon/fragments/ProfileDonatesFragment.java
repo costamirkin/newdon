@@ -56,9 +56,11 @@ public class ProfileDonatesFragment extends Fragment {
     private ImageView smallImage1;
     private ImageView smallImage2;
     private ImageView line;
+    private ImageView settingsIv;
     private ImageView changeImage;
     private ProfileFragment profileFragment = new ProfileFragment();
     private FollowFragment  followFragment  = new FollowFragment();
+    private SettingsFragment settingsFragment = new SettingsFragment();
 
 
     class FollowersListener implements View.OnClickListener {
@@ -138,6 +140,19 @@ public class ProfileDonatesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 line.setImageResource(R.drawable.lineopp);
+            }
+        });
+
+
+        settingsIv = (ImageView) v.findViewById(R.id.settingsIv);
+        settingsIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.fragmentContainer, settingsFragment);
+
+                ft.addToBackStack("This Fragment");
+                ft.commit();
             }
         });
 

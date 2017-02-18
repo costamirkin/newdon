@@ -53,7 +53,6 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
     SearchFragment searchFragment = new SearchFragment();
     ProfileDonatesFragment profileDonatesFragment = new ProfileDonatesFragment();
     NotificationFragment notificationFragment = new NotificationFragment();
-    SettingsFragment settingsFragment = new SettingsFragment();
     FoundationDonatesFragment foundationDonatesFragment = new FoundationDonatesFragment();
     ConnectionsFragment connectionsFragment = new ConnectionsFragment();
     CircleImageView profileImage;
