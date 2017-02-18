@@ -1,12 +1,10 @@
 package cm.com.newdon.adapters;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,6 +22,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class NotificationsAdapter extends BaseAdapter {
 
     Context context;
+
+    boolean isActivities;
+
+    public void setIsActivities(boolean isActivities) {
+        this.isActivities = isActivities;
+    }
 
     public NotificationsAdapter(Context context) {
         this.context = context;
@@ -64,10 +68,32 @@ public class NotificationsAdapter extends BaseAdapter {
         TextView tvUserName = (TextView) layout.findViewById(R.id.tvUserName);
         tvUserName.setText(notification.getUser().getRealName());
 
-        //TODO
         //change text of action
         TextView tvAction = (TextView) layout.findViewById(R.id.tvAction);
-        tvAction.setText(notification.getType());
+        String notificationText = "";
+        String whom = (isActivities ? "USER's" : "your");
+        String who = (isActivities ? "USER" : "you");
+        switch (notification.getType()) {
+            case DONATE:
+                notificationText = "donated through " + whom + " post";
+                break;
+            case SHARE:
+                notificationText = "shared " + whom + " post";
+                break;
+            case FOLLOW:
+                notificationText = "started following " + who;
+                break;
+            case UNFOLLOW:
+                notificationText = "unfollowed " + who;
+                break;
+            case LIKE:
+                notificationText = "liked " + whom + " post";
+                break;
+            case COMMENT:
+                notificationText = "commented on " + whom + " post";
+                break;
+        }
+        tvAction.setText(notificationText);
 
         TextView tvActionTime = (TextView) layout.findViewById(R.id.tvActionTime);
         tvActionTime.setText(DateHandler.howLongAgoWasDate(notification.getCreatedAt()));

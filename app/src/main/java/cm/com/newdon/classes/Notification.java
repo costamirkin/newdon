@@ -6,10 +6,16 @@ import java.util.Date;
  * Class represents notifiction item
  */
 public class Notification {
+
+    public enum Type{
+        DONATE,SHARE, FOLLOW, UNFOLLOW, LIKE,
+        COMMENT, FRIEND_APPROVE, FRIEND_REQUEST;
+    }
+
     private int id;
     private User user;
     private Date createdAt;
-    private String type;
+    private Type type;
     private String content;
 
     public int getId() {
@@ -36,11 +42,11 @@ public class Notification {
         this.createdAt = createdAt;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
