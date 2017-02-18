@@ -38,7 +38,7 @@ public class CommentsActivity extends Activity implements DataLoadedIf {
         setCommentsCount();
 
         lvComments = (ListView) findViewById(R.id.lvComments);
-        lvComments.setAdapter(new CommentsAdapter(getApplicationContext()));
+        lvComments.setAdapter(new CommentsAdapter(getApplicationContext(), post));
     }
 
     public void sendComment(View view) {

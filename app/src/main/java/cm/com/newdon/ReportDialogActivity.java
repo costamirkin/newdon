@@ -4,15 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +19,10 @@ public class ReportDialogActivity extends Activity {
     String[] reasons = {"It's annoying or not interesting", "I'm in this photo and I don't like it",
             "I don't think it should be on Donder", "It's spam"};
     String reason = null;
+    boolean isPost;
     int postId;
+    int commentId;
+    int entityId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +31,13 @@ public class ReportDialogActivity extends Activity {
 
         Intent intent = getIntent();
         postId = intent.getIntExtra("postId",0);
+        commentId = intent.getIntExtra("commentId",0);
+        if(postId>0){
+            isPost = true;
+            TextView tvTitle = (TextView) findViewById(R.id.tvReportScreenTitle);
+            tvTitle.setText("Report post");
+            entityId=postId;
+        }else entityId= commentId;
 
         adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_custom_item, reasons);
     }
@@ -64,8 +69,7 @@ public class ReportDialogActivity extends Activity {
             Toast.makeText(getApplicationContext(),"Please select reason!", Toast.LENGTH_SHORT).show();
         }else {
             EditText etMessage = (EditText) findViewById(R.id.etReportMessage);
-            boolean isPost = true;
-            PostQuery.reportPost(getApplicationContext(), postId, isPost, reason, etMessage.getText().toString());
+            PostQuery.report(getApplicationContext(), entityId, isPost, reason, etMessage.getText().toString());
             finish();
         }
     }
