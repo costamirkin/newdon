@@ -1,6 +1,9 @@
 package cm.com.newdon.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +17,10 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import cm.com.newdon.R;
 import cm.com.newdon.classes.User;
-import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -25,16 +29,26 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class SuggestedConnectionsAdapter extends BaseAdapter {
 
-    Context context;
+    private Context context;
+    private boolean searchMode = false;
+    private ArrayList<User> users;
 
-    public SuggestedConnectionsAdapter(Context context) {
+    private String searchStr = "";
+
+    public void setSearchStr(String searchStr) {
+        this.searchStr = searchStr;
+    }
+
+    public SuggestedConnectionsAdapter(Context context, boolean searchMode, ArrayList<User> users) {
         this.context = context;
+        this.searchMode = searchMode;
+        this.users = users;
     }
 
     @Override
     public int getCount() {
 
-        return CommonData.getInstance().getSuggestedUsers().size();
+        return users.size();
     }
 
     @Override
@@ -57,7 +71,7 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
             layout = (RelativeLayout) View.inflate(context, R.layout.suggested_connection_item, null);
         }
 
-        final User user = CommonData.getInstance().getSuggestedUsers().get(position);
+        final User user = users.get(position);
 
         CircleImageView ivUser         = (CircleImageView) layout.findViewById(R.id.ivUser);
         Log.e("sss", user.getPictureUrl());
@@ -65,7 +79,17 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
             Picasso.with(context).load(user.getPictureUrl()).into(ivUser);
         }
         TextView        tvUserMail     = (TextView) layout.findViewById(R.id.tvUserMail);
-        tvUserMail.setText(user.getEmail());
+        String realName = user.getRealName();
+        tvUserMail.setText(realName);
+        if (searchMode) {
+            SpannableString spannableString = new SpannableString(realName);
+            Object blueSpan = new BackgroundColorSpan(Color.BLUE);
+            int indexOf = realName.indexOf(searchStr);
+            if (indexOf != -1) {
+                spannableString.setSpan(blueSpan, indexOf, indexOf + searchStr.length(), 0);
+                tvUserMail.setText(spannableString);
+            }
+        }
         TextView        tvFollowers    = (TextView) layout.findViewById(R.id.tvFollowers);
         tvFollowers.setText("" + user.getFollowersCount());
         ImageView       ivNotification = (ImageView) layout.findViewById(R.id.imFollow);
