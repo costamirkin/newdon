@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import cm.com.newdon.R;
 import cm.com.newdon.SignAcitvity;
+import cm.com.newdon.common.CommonData;
 
 public class SettingsFragment extends Fragment {
 
@@ -87,6 +88,7 @@ public class SettingsFragment extends Fragment {
                 editor.remove("email");
                 editor.remove("password");
                 editor.commit();
+                CommonData.getInstance().isFirstStart = true;
                 Intent intent = new Intent(getActivity(), SignAcitvity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
