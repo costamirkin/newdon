@@ -168,7 +168,8 @@ public class JsonHandler {
     public static Notification parseNotificationFromJson(JSONObject item) throws JSONException {
         Notification notification = new Notification();
         int id = item.getInt("id");
-        String type = item.getString("type");
+        String typeString = item.getString("type");
+        Notification.Type type = Notification.Type.valueOf(typeString.toUpperCase());
         String content = item.getString("content");
         String createdAt = item.getString("createdAt");
         Date date = DateHandler.parseDateFromString(createdAt);

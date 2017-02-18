@@ -21,6 +21,8 @@ public class NotificationFragment extends Fragment implements DataLoadedIf {
 
     ListView listView;
     TextView tvNoNotifications;
+    NotificationsAdapter adapter;
+    boolean isActivities;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,7 +33,8 @@ public class NotificationFragment extends Fragment implements DataLoadedIf {
         DataLoader.getNotificationList(NOTIFICATIONS);
 
         listView = (ListView) view.findViewById(R.id.lvNotifications);
-        listView.setAdapter(new NotificationsAdapter(getActivity().getApplicationContext()));
+        adapter = new NotificationsAdapter(getActivity().getApplicationContext());
+        listView.setAdapter(adapter);
         listView.invalidateViews();
 
         tvNoNotifications = (TextView) view.findViewById(R.id.tvNoNotifications);
@@ -44,6 +47,7 @@ public class NotificationFragment extends Fragment implements DataLoadedIf {
             public void onClick(View v) {
                 changeTextViewColors(tvNotifications, tvActivity);
                 DataLoader.getNotificationList(NOTIFICATIONS);
+                isActivities = false;
             }
         });
         tvActivity.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +55,7 @@ public class NotificationFragment extends Fragment implements DataLoadedIf {
             public void onClick(View v) {
                 changeTextViewColors(tvActivity, tvNotifications);
                 DataLoader.getNotificationList(ACTIVITIES);
+                isActivities = true;
             }
         });
 
@@ -88,5 +93,6 @@ public class NotificationFragment extends Fragment implements DataLoadedIf {
             tvNoNotifications.setVisibility(View.INVISIBLE);
         }
         listView.invalidateViews();
+        adapter.setIsActivities(isActivities);
     }
 }
