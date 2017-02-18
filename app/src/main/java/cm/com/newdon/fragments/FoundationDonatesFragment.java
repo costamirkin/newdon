@@ -58,7 +58,7 @@ public class FoundationDonatesFragment extends Fragment {
         lv.setAdapter(adapter);
         StikkyHeaderBuilder.stickTo(lv)
                 .setHeader(R.id.header, (ViewGroup) v)
-                .minHeightHeader(200)
+                .minHeightHeader(70)
 //                .animator(new IconAnimator())
 
                 .build();
@@ -78,6 +78,9 @@ public class FoundationDonatesFragment extends Fragment {
         smallImage1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                smallImage1.setImageResource(R.drawable.don_icns);
+                smallImage2.setImageResource(R.drawable.shape_30);
+                smallImage3.setImageResource(R.drawable.tag_icn_grey);
                 lv.setAdapter(adapter);
                 lv.invalidateViews();
                 line.setImageResource(R.drawable.line);
@@ -88,6 +91,9 @@ public class FoundationDonatesFragment extends Fragment {
         smallImage2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                smallImage1.setImageResource(R.drawable.don_icns_grey);
+                smallImage2.setImageResource(R.drawable.shape_30);
+                smallImage3.setImageResource(R.drawable.tag_icn_grey);
                 line.setImageResource(R.drawable.linemid);
                 singleFoundationAdapter = new SingleFoundationAdapter(getActivity());
                 lv.setAdapter(singleFoundationAdapter);
@@ -100,6 +106,9 @@ public class FoundationDonatesFragment extends Fragment {
         smallImage3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                smallImage1.setImageResource(R.drawable.don_icns_grey);
+                smallImage2.setImageResource(R.drawable.shape_30);
+                smallImage3.setImageResource(R.drawable.tag_icn);
                 line.setImageResource(R.drawable.lineopp);
                 lv.setAdapter(adapter);
                 lv.invalidateViews();

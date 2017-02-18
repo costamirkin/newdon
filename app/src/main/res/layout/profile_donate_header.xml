@@ -15,7 +15,7 @@
             android:layout_height="30dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/circle"
             android:id="@+id/settingsIv"/>
@@ -140,7 +140,7 @@
                 android:layout_height="20dp"
                 android:layout_weight="6"
                 android:id="@+id/smallImage2"
-                android:src="@drawable/badges_icn" />
+                android:src="@drawable/tag_icn_grey" />
 
             <View
                 android:layout_width="0dp"

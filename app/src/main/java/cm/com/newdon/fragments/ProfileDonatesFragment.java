@@ -95,7 +95,7 @@ public class ProfileDonatesFragment extends Fragment {
         lv.setAdapter(adapter);
         StikkyHeaderBuilder.stickTo(lv)
                 .setHeader(R.id.header, (ViewGroup) v)
-                .minHeightHeader(200)
+                .minHeightHeader(100)
 //                .animator(new IconAnimator())
 
                 .build();
@@ -132,6 +132,8 @@ public class ProfileDonatesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 line.setImageResource(R.drawable.line);
+                smallImage1.setImageResource(R.drawable.don_icns);
+                smallImage2.setImageResource(R.drawable.tag_icn_grey);
 
             }
         });
@@ -140,6 +142,8 @@ public class ProfileDonatesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 line.setImageResource(R.drawable.lineopp);
+                smallImage1.setImageResource(R.drawable.don_icns_grey);
+                smallImage2.setImageResource(R.drawable.tag_icn);
             }
         });
 
