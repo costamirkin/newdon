@@ -8,12 +8,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.internal.Utility;
 import com.squareup.picasso.Picasso;
 
 import cm.com.newdon.R;
 import cm.com.newdon.classes.Notification;
+import cm.com.newdon.classes.Post;
+import cm.com.newdon.classes.User;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DateHandler;
+import cm.com.newdon.common.OnPostSelectedListener;
+import cm.com.newdon.common.PostQuery;
+import cm.com.newdon.common.Utils;
+import cm.com.newdon.fragments.HomeFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -21,16 +28,20 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class NotificationsAdapter extends BaseAdapter {
 
-    Context context;
+    private Context context;
+    private boolean isActivities;
+    public static boolean UNFOLLOW = true;
 
-    boolean isActivities;
+    //  we use mCallBack to say BottomBarActivity which fragment to commit
+    OnPostSelectedListener mCallBack;
 
     public void setIsActivities(boolean isActivities) {
         this.isActivities = isActivities;
     }
 
-    public NotificationsAdapter(Context context) {
+    public NotificationsAdapter(Context context, OnPostSelectedListener mCallBack) {
         this.context = context;
+        this.mCallBack = mCallBack;
     }
 
     @Override
@@ -59,20 +70,77 @@ public class NotificationsAdapter extends BaseAdapter {
         }
 
         Notification notification = CommonData.getInstance().getNotifications().get(position);
+        final User user = notification.getUser();
 
         CircleImageView ivUser = (CircleImageView) layout.findViewById(R.id.ivUser);
-        if (notification.getUser().getPictureUrl() != null && !notification.getUser().getPictureUrl().equals("")) {
+        if (user.getPictureUrl() != null && !user.getPictureUrl().equals("")) {
             Picasso.with(context).load(notification.getUser().getPictureUrl()).into(ivUser);
         }
+        ivUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonData.getInstance().setSelectedUser(user);
+                mCallBack.onUserSelected(user.getId());
+            }
+        });
 
         TextView tvUserName = (TextView) layout.findViewById(R.id.tvUserName);
-        tvUserName.setText(notification.getUser().getRealName());
+        tvUserName.setText(user.getRealName());
+
+        final CircleImageView ivNotification = (CircleImageView) layout.findViewById(R.id.imNotification);
+
+        //handle contentType
+        Post contentPost;
+        String otherUserName = "USER";
+        switch (notification.getContentType()) {
+            case POST:
+                contentPost = notification.getContentPost();
+                if (contentPost.getImageUrl() != null
+                        && !contentPost.getImageUrl().equals("")) {
+                    Picasso.with(context).load(contentPost.getImageUrl()).into(ivNotification);
+                }
+                otherUserName = contentPost.getUser().getRealName();
+                break;
+            case USER:
+                if (isActivities) {
+                    final User contentUser = notification.getContentUser();
+                    otherUserName = contentUser.getRealName();
+                    if (contentUser.getPictureUrl() != null
+                            && !contentUser.getPictureUrl().equals("")) {
+                        Picasso.with(context).load(contentUser.getPictureUrl()).into(ivNotification);
+                    }
+                    ivNotification.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            CommonData.getInstance().setSelectedUser(contentUser);
+                            mCallBack.onUserSelected(contentUser.getId());
+                        }
+                    });
+                } else {
+                    ivNotification.setImageResource(user.isFollowed() ? R.drawable.approve : R.drawable.add_user_btn);
+                    ivNotification.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (user.isFollowed()) {
+                                Utils.followUser(user.getId(), context, UNFOLLOW);
+                                ivNotification.setImageResource(R.drawable.add_user_btn);
+                                user.setIsFollowed(true);
+                            } else {
+                                Utils.followUser(user.getId(), context);
+                                ivNotification.setImageResource(R.drawable.approve);
+                                user.setIsFollowed(true);
+                            }
+                        }
+                    });
+                }
+                break;
+        }
 
         //change text of action
         TextView tvAction = (TextView) layout.findViewById(R.id.tvAction);
         String notificationText = "";
-        String whom = (isActivities ? "USER's" : "your");
-        String who = (isActivities ? "USER" : "you");
+        String whom = (isActivities ? otherUserName + "'s" : "your");
+        String who = (isActivities ? otherUserName : "you");
         switch (notification.getType()) {
             case DONATE:
                 notificationText = "donated through " + whom + " post";
@@ -97,9 +165,6 @@ public class NotificationsAdapter extends BaseAdapter {
 
         TextView tvActionTime = (TextView) layout.findViewById(R.id.tvActionTime);
         tvActionTime.setText(DateHandler.howLongAgoWasDate(notification.getCreatedAt()));
-
-        //TODO
-        ImageView ivNotification = (ImageView) layout.findViewById(R.id.imNotification);
 
         return layout;
     }

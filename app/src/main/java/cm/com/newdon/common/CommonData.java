@@ -76,10 +76,8 @@ public class CommonData {
             if (post.getFoundation().getId() == selectedFoundId) {
                 foundationPosts.add(post);
             }
-
         }
     }
-
 
     private List<Lottery> featuredLotteries;
 
@@ -185,6 +183,7 @@ public class CommonData {
         this.selectedFoundId = selectedFoundId;
     }
 
+    //why we use both selectedUserId and selected user???
     private int selectedUserId = -1;
 
     public int getSelectedUserId() {
