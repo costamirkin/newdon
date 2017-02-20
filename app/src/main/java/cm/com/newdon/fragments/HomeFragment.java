@@ -1,7 +1,6 @@
 package cm.com.newdon.fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -19,18 +18,13 @@ import cm.com.newdon.R;
 import cm.com.newdon.adapters.PostsAdapter;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoadedIf;
+import cm.com.newdon.common.OnPostSelectedListener;
 
 
 public class HomeFragment extends Fragment implements DataLoadedIf {
     ListView lv;
 
     OnPostSelectedListener mCallBack;
-
-    // Container Activity must implement this interface
-    public interface OnPostSelectedListener {
-        void onFoundationSelected(int foundId);
-        void onUserSelected(int userId);
-    }
 
     @Override
     public void onAttach(Activity activity) {

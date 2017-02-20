@@ -8,14 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.FoundationPostsAdapter;
-import cm.com.newdon.adapters.PostsAdapter;
 import cm.com.newdon.adapters.SingleFoundationAdapter;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.OnPostSelectedListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
@@ -27,7 +26,7 @@ public class FoundationDonatesFragment extends Fragment {
     private ImageView smallImage3;
     private ImageView line;
 
-    private HomeFragment.OnPostSelectedListener mCallBack;
+    private OnPostSelectedListener mCallBack;
     private FoundationPostsAdapter  adapter;
     private SingleFoundationAdapter singleFoundationAdapter;
 
@@ -37,7 +36,7 @@ public class FoundationDonatesFragment extends Fragment {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallBack = (HomeFragment.OnPostSelectedListener) activity;
+            mCallBack = (OnPostSelectedListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnPostSelectedListener");

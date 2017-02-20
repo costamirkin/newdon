@@ -20,7 +20,6 @@ import java.io.File;
 
 import cm.com.newdon.CommentsActivity;
 import cm.com.newdon.DonateActivity;
-import cm.com.newdon.EditDialogActivity;
 import cm.com.newdon.HideDeleteDialogActivity;
 import cm.com.newdon.HideReportDialogActivity;
 import cm.com.newdon.R;
@@ -29,8 +28,8 @@ import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DateHandler;
+import cm.com.newdon.common.OnPostSelectedListener;
 import cm.com.newdon.common.PostQuery;
-import cm.com.newdon.fragments.HomeFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
 
@@ -46,11 +45,11 @@ public class PostsAdapter extends BaseAdapter {
 
 
     //  we use mCallBack to say BottomBarActivity which fragment to commit
-    HomeFragment.OnPostSelectedListener mCallBack;
+    OnPostSelectedListener mCallBack;
 
     RelativeLayout layout;
 
-    public PostsAdapter(Context context, HomeFragment.OnPostSelectedListener mCallBack) {
+    public PostsAdapter(Context context, OnPostSelectedListener mCallBack) {
         this.context = context;
         this.mCallBack = mCallBack;
     }

@@ -168,20 +168,35 @@ public class JsonHandler {
     public static Notification parseNotificationFromJson(JSONObject item) throws JSONException {
         Notification notification = new Notification();
         int id = item.getInt("id");
-        String typeString = item.getString("type");
-        Notification.Type type = Notification.Type.valueOf(typeString.toUpperCase());
-        String content = item.getString("content");
+        Notification.Type type = Notification.Type.valueOf(item.getString("type").toUpperCase());
         String createdAt = item.getString("createdAt");
         Date date = DateHandler.parseDateFromString(createdAt);
 
         JSONObject userObj = item.getJSONObject("user");
         User user = parseUserFromJson(userObj);
 
+        Notification.ContentType contentType
+                = Notification.ContentType.valueOf(item.getString("contentType").toUpperCase());
+
+        JSONObject content = item.getJSONObject("content");
+        switch (contentType){
+            case USER:
+                User contentUser = parseUserFromJson(content);
+                notification.setContentUser(contentUser);
+                break;
+            case POST:
+                Post contentPost = parsePostFromJson(content);
+                notification.setContentPost(contentPost);
+                break;
+            default:
+                System.out.println("Notification error!!!!!!!!!! Unknown content type!");
+        }
+
         notification.setId(id);
         notification.setUser(user);
         notification.setType(type);
-        notification.setContent(content);
         notification.setCreatedAt(date);
+        notification.setContentType(contentType);
 
         return notification;
     }

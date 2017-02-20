@@ -1,25 +1,20 @@
 package cm.com.newdon;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -29,24 +24,20 @@ import java.io.File;
 
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoader;
-import cm.com.newdon.common.RestClient;
-import cm.com.newdon.common.Utils;
+import cm.com.newdon.common.OnPostSelectedListener;
 import cm.com.newdon.fragments.ConnectionsFragment;
 import cm.com.newdon.fragments.FoundationDonatesFragment;
 import cm.com.newdon.fragments.HomeFragment;
 import cm.com.newdon.fragments.NotificationFragment;
 import cm.com.newdon.fragments.ProfileDonatesFragment;
-import cm.com.newdon.fragments.ProfileFragment;
 import cm.com.newdon.fragments.SearchFragment;
-import cm.com.newdon.fragments.SettingsFragment;
-import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class BottomBarActivity extends AppCompatActivity implements HomeFragment.OnPostSelectedListener {
+public class BottomBarActivity extends AppCompatActivity implements OnPostSelectedListener {
 
     private BottomBar bottomBar;
 
-
+//// TODO: 20.02.2017  
     private int numberNewNotifications = 5;
 
     HomeFragment homeFragment = new HomeFragment();
@@ -169,6 +160,7 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
             }
         });
 
+        //TODO
         // Badge for the tab notification (index 3), with red background color.
         BottomBarTab notifications = bottomBar.getTabWithId(R.id.bottomBarNotification);
         notifications.setBadgeCount(numberNewNotifications);
@@ -191,12 +183,6 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
         fragmentTransaction.commit();
     }
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        CommonData.getInstance().imageLoadedIf = null;
-//    }
-
     public void startDonate(View view) {
         startActivity(new Intent(BottomBarActivity.this, FoundationGrid.class));
     }
@@ -217,7 +203,8 @@ public class BottomBarActivity extends AppCompatActivity implements HomeFragment
         CommonData.getInstance().setSelectedUserId(userId);
         commitFragment(profileDonatesFragment);
     }
-
+    
+    
     @Override
     public void onStart() {
         super.onStart();

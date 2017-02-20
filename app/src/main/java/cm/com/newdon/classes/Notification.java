@@ -12,11 +12,17 @@ public class Notification {
         COMMENT, FRIEND_APPROVE, FRIEND_REQUEST;
     }
 
+    public enum ContentType{
+        USER, POST, DONATION;
+    }
+
     private int id;
     private User user;
     private Date createdAt;
     private Type type;
-    private String content;
+    private ContentType contentType;
+    private User contentUser;
+    private Post contentPost;
 
     public int getId() {
         return id;
@@ -50,11 +56,27 @@ public class Notification {
         this.type = type;
     }
 
-    public String getContent() {
-        return content;
+    public ContentType getContentType() {
+        return contentType;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setContentType(ContentType contentType) {
+        this.contentType = contentType;
+    }
+
+    public User getContentUser() {
+        return contentUser;
+    }
+
+    public void setContentUser(User contentUser) {
+        this.contentUser = contentUser;
+    }
+
+    public Post getContentPost() {
+        return contentPost;
+    }
+
+    public void setContentPost(Post contentPost) {
+        this.contentPost = contentPost;
     }
 }

@@ -24,7 +24,7 @@ import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DateHandler;
-import cm.com.newdon.fragments.HomeFragment;
+import cm.com.newdon.common.OnPostSelectedListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -35,11 +35,11 @@ public class FoundationPostsAdapter extends BaseAdapter {
     private Context context;
 
     //  we use mCallBack to say BottomBarActivity which fragment to commit
-    HomeFragment.OnPostSelectedListener mCallBack;
+    OnPostSelectedListener mCallBack;
 
     RelativeLayout layout;
 
-    public FoundationPostsAdapter(Context context, HomeFragment.OnPostSelectedListener mCallBack) {
+    public FoundationPostsAdapter(Context context, OnPostSelectedListener mCallBack) {
         this.context = context;
         this.mCallBack = mCallBack;
     }

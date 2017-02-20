@@ -27,8 +27,8 @@ import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DateHandler;
+import cm.com.newdon.common.OnPostSelectedListener;
 import cm.com.newdon.common.PostQuery;
-import cm.com.newdon.fragments.HomeFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -42,11 +42,11 @@ public class UserPostsAdapter extends BaseAdapter {
     private Intent intent;
 
     //  we use mCallBack to say BottomBarActivity which fragment to commit
-    HomeFragment.OnPostSelectedListener mCallBack;
+    OnPostSelectedListener mCallBack;
 
     RelativeLayout layout;
 
-    public UserPostsAdapter(Context context, HomeFragment.OnPostSelectedListener mCallBack) {
+    public UserPostsAdapter(Context context, OnPostSelectedListener mCallBack) {
         this.context = context;
         this.mCallBack = mCallBack;
     }

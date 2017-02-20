@@ -1,5 +1,6 @@
 package cm.com.newdon.fragments;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import cm.com.newdon.adapters.NotificationsAdapter;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoadedIf;
 import cm.com.newdon.common.DataLoader;
+import cm.com.newdon.common.OnPostSelectedListener;
 
 public class NotificationFragment extends Fragment implements DataLoadedIf {
     final static boolean NOTIFICATIONS = false;
@@ -24,6 +26,21 @@ public class NotificationFragment extends Fragment implements DataLoadedIf {
     NotificationsAdapter adapter;
     boolean isActivities;
 
+    OnPostSelectedListener mCallBack;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallBack = (OnPostSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnPostSelectedListener");
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,7 +50,7 @@ public class NotificationFragment extends Fragment implements DataLoadedIf {
         DataLoader.getNotificationList(NOTIFICATIONS);
 
         listView = (ListView) view.findViewById(R.id.lvNotifications);
-        adapter = new NotificationsAdapter(getActivity().getApplicationContext());
+        adapter = new NotificationsAdapter(getActivity().getApplicationContext(),mCallBack);
         listView.setAdapter(adapter);
         listView.invalidateViews();
 

@@ -1,52 +1,34 @@
 package cm.com.newdon.fragments;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import java.io.File;
-
-import cm.com.newdon.BottomBarActivity;
 import cm.com.newdon.R;
-import cm.com.newdon.adapters.PostsAdapter;
 import cm.com.newdon.adapters.UserPostsAdapter;
 import cm.com.newdon.classes.User;
 import cm.com.newdon.common.CommonData;
-import cm.com.newdon.common.RestClient;
-import cz.msebera.android.httpclient.Header;
+import cm.com.newdon.common.OnPostSelectedListener;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 public class ProfileDonatesFragment extends Fragment {
 
     private ListView lv;
-    HomeFragment.OnPostSelectedListener mCallBack;
+    OnPostSelectedListener mCallBack;
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallBack = (HomeFragment.OnPostSelectedListener) activity;
+            mCallBack = (OnPostSelectedListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnPostSelectedListener");
