@@ -20,12 +20,12 @@ public class HideDeleteDialogActivity extends Activity {
     }
 
     public void hidePost(View view) {
-        PostQuery.managePost(getApplicationContext(),postId, PostQuery.PostAction.HIDE);
+        PostQuery.managePost(postId, PostQuery.PostAction.HIDE);
         finish();
     }
 
     public void deletePost(View view) {
-        PostQuery.managePost(getApplicationContext(),postId, PostQuery.PostAction.DELETE);
+        PostQuery.managePost(postId, PostQuery.PostAction.DELETE);
         finish();
     }
 }

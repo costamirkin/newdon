@@ -37,9 +37,6 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
 
     private BottomBar bottomBar;
 
-//// TODO: 20.02.2017  
-    private int numberNewNotifications = 5;
-
     HomeFragment homeFragment = new HomeFragment();
     SearchFragment searchFragment = new SearchFragment();
     ProfileDonatesFragment profileDonatesFragment = new ProfileDonatesFragment();
@@ -83,15 +80,13 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
 //            get posts for home screen
             DataLoader.getHomeScreenPosts(getApplicationContext());
 
-//            DataLoader.getSuggestedUsers(getApplicationContext());
-
-//            posts of current user
-//            DataLoader.getUserPosts(getApplicationContext(), CommonData.getInstance().getCurrentUserId());
+//            foundations
             DataLoader.getAllFoundations();
+
+//            lottery
             DataLoader.getFeaturedLotteries();
             CommonData.getInstance().isFirstStart = false;
         }
-
 
         final RelativeLayout layoutDonSuccess = (RelativeLayout) findViewById(R.id.layoutDonSuccessful);
         layoutDonSuccess.setVisibility(View.GONE);
@@ -159,14 +154,6 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
                 }
             }
         });
-
-        //TODO
-        // Badge for the tab notification (index 3), with red background color.
-        BottomBarTab notifications = bottomBar.getTabWithId(R.id.bottomBarNotification);
-        notifications.setBadgeCount(numberNewNotifications);
-
-        // Remove the badge when you're done with it.
-//        notifications.removeBadge();
     }
 
     public void commitFragment(Fragment fragment) {
@@ -243,5 +230,17 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+    public void changeNotificationBadge(){
+        // Badge for the tab notification (index 3), with red background color.
+        BottomBarTab notifications = bottomBar.getTabWithId(R.id.bottomBarNotification);
+        int notificationCounter = CommonData.getInstance().getNotificationCounter();
+        if (notificationCounter == 0) {
+            // Remove the badge when you're done with it.
+            notifications.removeBadge();
+        }else {
+            notifications.setBadgeCount(notificationCounter);
+        }
     }
 }

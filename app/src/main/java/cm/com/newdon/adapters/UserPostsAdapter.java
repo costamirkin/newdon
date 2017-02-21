@@ -163,13 +163,20 @@ public class UserPostsAdapter extends BaseAdapter {
         tvLikesBadge = (TextView) layout.findViewById(R.id.tvLikesBadge);
         changeLikesBadge(post);
         //            on click on Like icon
-        ImageView ivLike = (ImageView) layout.findViewById(R.id.ivLike);
+        final ImageView ivLike = (ImageView) layout.findViewById(R.id.ivLike);
+        if(post.isLiked()) ivLike.setImageResource(R.drawable.black_like);
+
         ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//// TODO: 27.01.2017
-//                    change icon
-                PostQuery.likePost(context, post.getId(), post.isLiked());
+//                   change icon
+                if(post.isLiked()) {
+                    ivLike.setImageResource(R.drawable.black_like);
+                }else {
+                    ivLike.setImageResource(R.drawable.layer_5);
+                }
+
+                PostQuery.likePost(post.getId(), post.isLiked());
                 post.setLikesCount(post.getLikesCount()+ (post.isLiked()? -1:1));
 //                    change amount on badge
                 changeLikesBadge(post);

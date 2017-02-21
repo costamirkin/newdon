@@ -548,4 +548,33 @@ public class DataLoader {
         params.put("postId", postId);
         RestClient.get("comments/list?post", params, handler);
     }
+
+    //    notification counter
+    public static void getNotificationCount() {
+
+        AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                System.out.println(new String(responseBody));
+                try {
+                    JSONObject jsonObject = new JSONObject(new String(responseBody));
+                    int notificationCount = jsonObject.getInt("notifications");
+                    CommonData.getInstance().setNotificationCounter(notificationCount);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
+            }
+        };
+        RequestParams params = new RequestParams();
+        RestClient.get("activity/count", params, handler);
+    }
 }

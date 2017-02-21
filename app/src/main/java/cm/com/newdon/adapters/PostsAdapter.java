@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 
 import cm.com.newdon.CommentsActivity;
@@ -93,8 +95,6 @@ public class PostsAdapter extends BaseAdapter {
             final Post post = CommonData.getInstance().getPosts().get(position - 1);
 
             CircleImageView ivUser = (CircleImageView) layout.findViewById(R.id.ivUser);
-//            // TODO: 20.01.2017
-//            for all users
 
 //          !!!! only for current user
             if (post.getUser().getId() == CommonData.getInstance().getCurrentUserId()) {
@@ -104,6 +104,11 @@ public class PostsAdapter extends BaseAdapter {
                     ivUser.setImageURI(null);
                     ivUser.setImageURI(Uri.fromFile(profileImageFile));
                 }
+                //            for all other users
+            }else {
+                String path =post.getUser().getPictureUrl();
+                if (path!=null && !path.equals(""))
+                Picasso.with(context).load(path).into(ivUser);
             }
 
 //          on click on User picture we should show profileDonatesFragment
@@ -173,7 +178,7 @@ public class PostsAdapter extends BaseAdapter {
                         ivLike.setImageResource(R.drawable.layer_5);
                     }
 
-                    PostQuery.likePost(context,post.getId(),post.isLiked());
+                    PostQuery.likePost(post.getId(),post.isLiked());
                     post.setLikesCount(post.getLikesCount()+ (post.isLiked()? -1:1));
 //                    change amount on badge
                     changeLikesBadge(post);

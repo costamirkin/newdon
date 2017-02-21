@@ -96,8 +96,6 @@ public class MakeDonActivity extends AppCompatActivity {
             }
         }
 
-//        params.put("postId", 1111111);
-
         RestClient.post("foundations/donate", params, handler);
 
     }

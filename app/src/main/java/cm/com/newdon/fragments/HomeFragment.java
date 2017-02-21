@@ -14,10 +14,12 @@ import android.widget.RelativeLayout;
 
 import java.io.File;
 
+import cm.com.newdon.BottomBarActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.PostsAdapter;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoadedIf;
+import cm.com.newdon.common.DataLoader;
 import cm.com.newdon.common.OnPostSelectedListener;
 
 
@@ -48,6 +50,8 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
         lv.setAdapter(new PostsAdapter(getActivity().getApplicationContext(), mCallBack));
         lv.invalidateViews();
 
+        //to get notification counter
+        DataLoader.getNotificationCount();
         return view;
     }
 
@@ -87,5 +91,6 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
     @Override
     public void dataLoaded() {
         lv.invalidateViews();
+        ((BottomBarActivity)getActivity()).changeNotificationBadge();
     }
 }
