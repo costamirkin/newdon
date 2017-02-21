@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class ProfileDonatesFragment extends Fragment {
     private FollowFragment  followFragment  = new FollowFragment();
     private SettingsFragment settingsFragment = new SettingsFragment();
     private CircleImageView profileImage;
+    private ImageView backBtn;
 
 
     class FollowersListener implements View.OnClickListener {
@@ -156,15 +158,26 @@ public class ProfileDonatesFragment extends Fragment {
         });
 
 
+        backBtn      = (ImageView) v.findViewById(R.id.backBtn);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().remove(ProfileDonatesFragment.this).commit();
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
         changeImage  = (ImageView) v.findViewById(R.id.edit_btn);
         if (!selectedUser.equals(CommonData.getInstance().getCurrentUser())) {
             changeImage.setVisibility(View.INVISIBLE);
             settingsIv.setVisibility(View.INVISIBLE);
+            backBtn.setVisibility(View.VISIBLE);
         }
         else {
             changeImage.setVisibility(View.VISIBLE);
             settingsIv.setVisibility(View.VISIBLE);
-
+            backBtn.setVisibility(View.INVISIBLE);
 
             changeImage.setOnClickListener(new View.OnClickListener() {
                 @Override
