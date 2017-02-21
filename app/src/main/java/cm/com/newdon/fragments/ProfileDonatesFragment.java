@@ -1,7 +1,9 @@
 package cm.com.newdon.fragments;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -11,11 +13,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
+
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.UserPostsAdapter;
 import cm.com.newdon.classes.User;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.OnPostSelectedListener;
+import de.hdodenhof.circleimageview.CircleImageView;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 public class ProfileDonatesFragment extends Fragment {
@@ -43,6 +48,7 @@ public class ProfileDonatesFragment extends Fragment {
     private ProfileFragment profileFragment = new ProfileFragment();
     private FollowFragment  followFragment  = new FollowFragment();
     private SettingsFragment settingsFragment = new SettingsFragment();
+    private CircleImageView profileImage;
 
 
     class FollowersListener implements View.OnClickListener {
@@ -72,6 +78,13 @@ public class ProfileDonatesFragment extends Fragment {
         View v =inflater.inflate(R.layout.fragment_profile_donates,container,false);
 
         lv = (ListView) v.findViewById(R.id.listView);
+        profileImage = (CircleImageView) v.findViewById(R.id.profile_image);
+        File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+                CommonData.profileImageName);
+        if (profileImageFile.exists()) {
+            profileImage.setImageURI(null);
+            profileImage.setImageURI(Uri.fromFile(profileImageFile));
+        }
         CommonData.getInstance().copyUserPosts();
         UserPostsAdapter adapter = new UserPostsAdapter(getActivity().getApplicationContext(),mCallBack);
         lv.setAdapter(adapter);
@@ -146,9 +159,12 @@ public class ProfileDonatesFragment extends Fragment {
         changeImage  = (ImageView) v.findViewById(R.id.edit_btn);
         if (!selectedUser.equals(CommonData.getInstance().getCurrentUser())) {
             changeImage.setVisibility(View.INVISIBLE);
+            settingsIv.setVisibility(View.INVISIBLE);
         }
         else {
             changeImage.setVisibility(View.VISIBLE);
+            settingsIv.setVisibility(View.VISIBLE);
+
 
             changeImage.setOnClickListener(new View.OnClickListener() {
                 @Override

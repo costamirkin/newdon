@@ -1,8 +1,13 @@
 package cm.com.newdon.common;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
@@ -33,7 +38,7 @@ public class Utils {
     public static void followUser(int userId, final Context context, boolean unFollow) {
         RequestParams params = new RequestParams();
         params.put("userId", userId);
-        RestClient.put("connections/" + (unFollow? "unfollow" : "follow"), params, new AsyncHttpResponseHandler() {
+        RestClient.put("connections/" + (unFollow ? "unfollow" : "follow"), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 System.out.println(new String(responseBody));
@@ -67,5 +72,20 @@ public class Utils {
 
         // show it
         alertDialog.show();
+    }
+
+    public static String getRealPathFromURI(Uri contentURI, ContentResolver resolver) {
+        String result;
+        Cursor cursor = resolver.query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        System.out.println("VAR2!!!!!!!!!!!!!!!!" + result);
+        return result;
     }
 }

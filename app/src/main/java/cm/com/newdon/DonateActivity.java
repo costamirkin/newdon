@@ -33,6 +33,7 @@ import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoadedIf;
 import cm.com.newdon.common.DataLoader;
 import cm.com.newdon.common.GalleryHelper;
+import cm.com.newdon.common.Utils;
 
 public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
 
@@ -119,20 +120,7 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
         }
     }
 
-    private String getRealPathFromURI(Uri contentURI) {
-        String result;
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) { // Source is Dropbox or other similar local file path
-            result = contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
-            cursor.close();
-        }
-        System.out.println("VAR2!!!!!!!!!!!!!!!!" + result);
-        return result;
-    }
+
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -162,7 +150,7 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
         if (currentBitmap != null) {
             Uri uri = getImageUri(getApplicationContext(), currentBitmap);
             if (uri != null) {
-                CommonData.getInstance().getTempPost().setUri(getRealPathFromURI(uri));
+                CommonData.getInstance().getTempPost().setUri(Utils.getRealPathFromURI(uri, getContentResolver()));
             }
         }
 

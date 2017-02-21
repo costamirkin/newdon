@@ -11,13 +11,22 @@
     android:layout_width="match_parent"
     android:layout_height="300dp">
         <ImageView
+            android:layout_width="28dp"
+            android:layout_height="24dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/shape_22"
+            android:layout_marginTop="23dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="26dp"
+            android:id="@+id/backBtn"/>
+        <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/circle"
+            android:src="@drawable/layer_13"
             android:id="@+id/settingsIv"/>
         <TextView
             android:layout_width="wrap_content"

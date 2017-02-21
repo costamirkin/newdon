@@ -23,6 +23,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import cm.com.newdon.R;
 import cm.com.newdon.common.CommonData;
@@ -48,7 +49,7 @@ public class ProfileFragment extends Fragment {
 
     private CircleImageView profileImage;
 
-    private Uri profileImageUri; // Profile image uri
+    private Uri profileImageUri = null; // Profile image uri
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,8 +60,11 @@ public class ProfileFragment extends Fragment {
         newPswdEd    = (EditText) v.findViewById(R.id.newPswd);
         new1PswdEd   = (EditText) v.findViewById(R.id.newPswd1);
         nameEt       = (EditText) v.findViewById(R.id.nameEt);
+        nameEt.setText(CommonData.getInstance().getCurrentUser().getUserName());
         nameRealEt   = (EditText) v.findViewById(R.id.nameRealEt);
+        nameRealEt.setText(CommonData.getInstance().getCurrentUser().getRealName());
         emailEt      = (EditText) v.findViewById(R.id.emailEt);
+        emailEt.setText(CommonData.getInstance().getCurrentUser().getEmail());
         toggleButton = (ToggleButton) v.findViewById(R.id.privacyToggle);
         profileImage = (CircleImageView) v.findViewById(R.id.profile_image);
         changeImage  = (ImageView) v.findViewById(R.id.edit_btn);
@@ -70,7 +74,8 @@ public class ProfileFragment extends Fragment {
                 CommonData.profileImageName);
         if (profileImageFile.exists()) {
             profileImage.setImageURI(null);
-            profileImage.setImageURI(Uri.fromFile(profileImageFile));
+            profileImageUri = Uri.fromFile(profileImageFile);
+            profileImage.setImageURI(profileImageUri);
         }
 
         saveButton = (Button) v.findViewById(R.id.saveButton);
@@ -78,8 +83,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 RequestParams params = new RequestParams();
-                params.put("username", "Costa");
-                params.put("firstName", nameEt.getText().toString());
+                params.put("username", nameEt.getText().toString());
+                params.put("firstName", nameRealEt.getText().toString());
                 params.put("lastName", nameRealEt.getText().toString());
                 params.put("email", emailEt.getText().toString());
                 params.put("isPrivate", toggleButton.isChecked());
@@ -99,11 +104,36 @@ public class ProfileFragment extends Fragment {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        Utils.showAlertDialog("DETAILS CHANGED " + responseBody!= null ? new String(responseBody):"", getActivity());
+                        Utils.showAlertDialog("DETAILS CHANGED " + responseBody != null ? new String(responseBody) : "", getActivity());
 
 
                     }
                 });
+
+                // profile image
+                if (profileImageUri != null) {
+                    RequestParams imageParams = new RequestParams();
+                    try {
+                        String str = Utils.getRealPathFromURI(profileImageUri, getActivity().getContentResolver());
+                        imageParams.put("image", new File(str));
+                        RestClient.post("account/connect", imageParams, new AsyncHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                Utils.showAlertDialog("IMAGE CHANGED", getActivity());
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                Utils.showAlertDialog("IMAGE CHANGED " + responseBody != null ? new String(responseBody) : "", getActivity());
+
+                            }
+                        });
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+
 
             }
         });
