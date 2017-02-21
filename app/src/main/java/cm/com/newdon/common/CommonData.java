@@ -248,4 +248,14 @@ public class CommonData {
     public List<Comment> getComments() {
         return comments;
     }
+
+    private int notificationCounter;
+
+    public int getNotificationCounter() {
+        return notificationCounter;
+    }
+
+    public void setNotificationCounter(int notificationCounter) {
+        this.notificationCounter = notificationCounter;
+    }
 }

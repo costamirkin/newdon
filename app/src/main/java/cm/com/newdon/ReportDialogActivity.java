@@ -69,7 +69,7 @@ public class ReportDialogActivity extends Activity {
             Toast.makeText(getApplicationContext(),"Please select reason!", Toast.LENGTH_SHORT).show();
         }else {
             EditText etMessage = (EditText) findViewById(R.id.etReportMessage);
-            PostQuery.report(getApplicationContext(), entityId, isPost, reason, etMessage.getText().toString());
+            PostQuery.report(entityId, isPost, reason, etMessage.getText().toString());
             finish();
         }
     }
