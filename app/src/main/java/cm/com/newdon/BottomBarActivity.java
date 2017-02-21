@@ -166,7 +166,9 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
         }
         else {
             fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+            fragmentTransaction.addToBackStack("This Fragment");
         }
+
         fragmentTransaction.commit();
     }
 
