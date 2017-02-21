@@ -8,14 +8,14 @@
     <TextView
         android:id="@+id/tvExplore"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="23dp"
         android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="Explore"
         android:textColor="@color/blueLottery"
-        android:textSize="15sp" />
+        android:textSize="20sp" />
 
     <ImageView
         android:layout_width="20dp"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:id="@+id/blueLine"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="18dp"
         android:layout_below="@+id/tvExplore"
         android:background="@drawable/keyline">
     </View>
@@ -43,7 +43,7 @@
         android:verticalSpacing="1dp"
         android:horizontalSpacing="1dp"
         android:layout_below="@+id/blueLine"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@color/lightgrey"
         android:numColumns="2"/>
 </RelativeLayout>

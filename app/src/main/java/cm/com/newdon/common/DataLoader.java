@@ -14,6 +14,7 @@ import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Lottery;
 import cm.com.newdon.classes.Notification;
 import cm.com.newdon.classes.Post;
+import cm.com.newdon.classes.User;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -216,7 +217,11 @@ public class DataLoader {
                     CommonData.getInstance().getSearchUsers().clear();
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject item = array.getJSONObject(i);
-                        CommonData.getInstance().getSearchUsers().add(JsonHandler.parseUserFromJson(item));
+                        User user = JsonHandler.parseUserFromJson(item);
+                        // Add all users except the current user
+                        if (!user.getUserName().equals(CommonData.getInstance().getCurrentUser().getUserName())) {
+                            CommonData.getInstance().getSearchUsers().add(user);
+                        }
                     }
                     if (CommonData.getInstance().imageLoadedIf != null) {
                         CommonData.getInstance().imageLoadedIf.dataLoaded();
