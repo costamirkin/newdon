@@ -72,6 +72,8 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
 
     @Override
     public void imageLoaded(int postId) {
+
+        //the old code if we don't use Picasso
 //        int position = CommonData.getInstance().findPostIndexById(postId);
 //
 //        if (position >= lv.getFirstVisiblePosition() &&

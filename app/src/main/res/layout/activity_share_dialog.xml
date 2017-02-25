@@ -88,15 +88,101 @@
         android:layout_marginRight="30dp"
         android:background="@color/lightgrey" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <Button
-            android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_below="@+id/tvShare"
+        android:id="@+id/shareLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingTop="5dp"
+        android:weightSum="100">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="13"
+            android:layout_height="match_parent">
+        </View>
+
+        <RelativeLayout
+            android:onClick="shareFacebook"
+            android:layout_width="0dp"
+            android:layout_weight="14"
             android:layout_height="wrap_content"
-            android:text="Share buttons" />
+            android:background="@drawable/rectangle_50_copy_2">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/facebook_logo" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:layout_height="match_parent">
+        </View>
+
+        <RelativeLayout
+            android:onClick="shareTwitter"
+            android:id="@+id/twitter"
+            android:layout_width="0dp"
+            android:layout_weight="14"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_50_copy_2">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/twitter_logo" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:layout_height="match_parent">
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/instagram"
+            android:onClick="shareOther"
+            android:layout_width="0dp"
+            android:layout_weight="14"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_50_copy_2">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:layout_height="match_parent">
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/other"
+            android:onClick="shareOther"
+            android:layout_width="0dp"
+            android:layout_weight="14"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_50_copy_2">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
     </LinearLayout>
+
 
 
 </LinearLayout>

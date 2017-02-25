@@ -22,6 +22,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 import java.io.File;
 
+import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoader;
 import cm.com.newdon.common.OnPostSelectedListener;
@@ -108,7 +109,9 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
             });
             layoutDonSuccess.postDelayed(new Runnable() {
                 public void run() {
-                    layoutDonSuccess.setVisibility(View.GONE); } }, 3000);
+                    layoutDonSuccess.setVisibility(View.GONE);
+                }
+            }, 3000);
         }
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -116,7 +119,6 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
     }
-
 
 
     private void setupBottomBar() {
@@ -165,8 +167,7 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
         if (currentFragment != null && currentFragment.equals(fragment)) {
             fragmentTransaction.detach(currentFragment);
             fragmentTransaction.attach(currentFragment);
-        }
-        else {
+        } else {
             fragmentTransaction.replace(R.id.fragmentContainer, fragment);
             fragmentTransaction.addToBackStack("This Fragment");
         }
@@ -241,15 +242,31 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
         client.disconnect();
     }
 
-    public void changeNotificationBadge(){
+    public void changeNotificationBadge() {
         // Badge for the tab notification (index 3), with red background color.
         BottomBarTab notifications = bottomBar.getTabWithId(R.id.bottomBarNotification);
         int notificationCounter = CommonData.getInstance().getNotificationCounter();
         if (notificationCounter == 0) {
             // Remove the badge when you're done with it.
             notifications.removeBadge();
-        }else {
+        } else {
             notifications.setBadgeCount(notificationCounter);
+        }
+    }
+
+    public void shareDonation(View view) {
+        Post tempPost = CommonData.getInstance().getTempPost();
+        if (tempPost.getUri() != null) {
+            File file = new File(tempPost.getUri());
+            Uri uri = Uri.fromFile(file);
+            String text = CommonData.getInstance().getCurrentUser().getRealName() + " made donation to "
+                    + tempPost.getFoundation().getTitle() + " through Altru app";
+            final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("image/*");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(Intent.createChooser(shareIntent, "Share to"));
         }
     }
 }
