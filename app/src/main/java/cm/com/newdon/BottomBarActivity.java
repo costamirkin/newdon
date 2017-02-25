@@ -64,6 +64,10 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
         if (signup == null) {
             bottomBar.setDefaultTabPosition(0);
         }
+        else {
+            bottomBar.setDefaultTabPosition(2);
+
+        }
         profileImage = (CircleImageView) findViewById(R.id.profileImage);
         File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
                 CommonData.profileImageName);
