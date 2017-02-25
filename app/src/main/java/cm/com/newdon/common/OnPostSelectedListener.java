@@ -8,4 +8,6 @@ public interface OnPostSelectedListener {
     void onFoundationSelected(int foundId);
 
     void onUserSelected(int userId);
+
+    void onPostSelected();
 }

@@ -70,7 +70,7 @@ public class NotificationsAdapter extends BaseAdapter {
             layout = (RelativeLayout) View.inflate(context, R.layout.notification_item_for_lv, null);
         }
 
-        Notification notification = CommonData.getInstance().getNotifications().get(position);
+        final Notification notification = CommonData.getInstance().getNotifications().get(position);
         final User user = notification.getUser();
 
         CircleImageView ivUser = (CircleImageView) layout.findViewById(R.id.ivUser);
@@ -100,6 +100,17 @@ public class NotificationsAdapter extends BaseAdapter {
                         && !contentPost.getImageUrl().equals("")) {
                     Picasso.with(context).load(contentPost.getImageUrl()).into(ivNotification);
                 }
+
+                ivNotification.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //clear the ArrayList and put only one post there
+                        CommonData.getInstance().getUserPosts().clear();
+                        CommonData.getInstance().getUserPosts().add(notification.getContentPost());
+                        mCallBack.onPostSelected();
+                    }
+                });
+
                 otherUserName = contentPost.getUser().getRealName();
                 break;
             case USER:

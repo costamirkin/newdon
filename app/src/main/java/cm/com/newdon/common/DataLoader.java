@@ -25,7 +25,7 @@ public class DataLoader {
 //    get data ot current user
 //    for now we use only id from it
 //    could get more info
-    public static void getUserId(final Context context){
+    public static void getUserId(){
         AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -35,8 +35,6 @@ public class DataLoader {
                     int userId = object.getInt("id");
                     CommonData.getInstance().setCurrentUserId(userId);
                     CommonData.getInstance().setCurrentUser(JsonHandler.parseUserFromJson(object));
-//                    ? do we need posts here?
-//                    getUserPosts(context, userId);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -280,6 +278,7 @@ public class DataLoader {
         RestClient.get("connections/list", params, handler);
     }
 
+    //get data about foundation by foundationId
     public static void getFoundationData(final int foundationId) {
         AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
             @Override
@@ -413,10 +412,13 @@ public class DataLoader {
                     for (int i = 0; i < array.length(); i++) {
                         Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
                         System.out.println(post);
-                        if(!post.getImageUrl().equals("null")){
-                            new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
-                                    ImageLoaderToBitmap.DownloadOption.POST).execute();
-                        }
+
+                        //the old code if we don't use picasso
+//                        if(!post.getImageUrl().equals("null")){
+//                            new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
+//                                    ImageLoaderToBitmap.DownloadOption.POST).execute();
+//                        }
+
 //                        for now we are not showing shared post
                         if(!post.getAction().equals("share")) {
                             CommonData.getInstance().getPosts().add(post);

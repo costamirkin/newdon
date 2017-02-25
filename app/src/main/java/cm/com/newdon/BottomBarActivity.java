@@ -29,6 +29,7 @@ import cm.com.newdon.fragments.ConnectionsFragment;
 import cm.com.newdon.fragments.FoundationDonatesFragment;
 import cm.com.newdon.fragments.HomeFragment;
 import cm.com.newdon.fragments.NotificationFragment;
+import cm.com.newdon.fragments.OnePostFragment;
 import cm.com.newdon.fragments.ProfileDonatesFragment;
 import cm.com.newdon.fragments.SearchFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -43,6 +44,7 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
     NotificationFragment notificationFragment = new NotificationFragment();
     FoundationDonatesFragment foundationDonatesFragment = new FoundationDonatesFragment();
     ConnectionsFragment connectionsFragment = new ConnectionsFragment();
+    OnePostFragment onePostFragment = new OnePostFragment();
     CircleImageView profileImage;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -75,7 +77,7 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
 
         if (CommonData.getInstance().isFirstStart) {
 //            get userID (and download posts?)
-            DataLoader.getUserId(getApplicationContext());
+            DataLoader.getUserId();
 
 //            get posts for home screen
             DataLoader.getHomeScreenPosts(getApplicationContext());
@@ -192,8 +194,13 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
         CommonData.getInstance().setSelectedUserId(userId);
         commitFragment(profileDonatesFragment);
     }
-    
-    
+
+    @Override
+    public void onPostSelected() {
+        commitFragment(onePostFragment);
+    }
+
+
     @Override
     public void onStart() {
         super.onStart();

@@ -68,24 +68,23 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
         if(CommonData.getInstance().imageLoadedIf==this) {
             CommonData.getInstance().imageLoadedIf = null;
         }
-
     }
 
     @Override
     public void imageLoaded(int postId) {
-        int position = CommonData.getInstance().findPostIndexById(postId);
-
-        if (position >= lv.getFirstVisiblePosition() &&
-                position < lv.getLastVisiblePosition() ) {
-            RelativeLayout layout = (RelativeLayout) lv.getChildAt(position + 1);
-            ImageView imageView = (ImageView) layout.findViewById(R.id.ivPost);
-            File imgFile = new File(CommonData.getInstance().getPosts().get(position).getLocalImagePath());
-            if(imgFile.exists()){
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                imageView.setImageBitmap(myBitmap);
-                imageView.setVisibility(View.VISIBLE);
-            }
-        }
+//        int position = CommonData.getInstance().findPostIndexById(postId);
+//
+//        if (position >= lv.getFirstVisiblePosition() &&
+//                position < lv.getLastVisiblePosition() ) {
+//            RelativeLayout layout = (RelativeLayout) lv.getChildAt(position + 1);
+//            ImageView imageView = (ImageView) layout.findViewById(R.id.ivPost);
+//            File imgFile = new File(CommonData.getInstance().getPosts().get(position).getLocalImagePath());
+//            if(imgFile.exists()){
+//                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+//                imageView.setImageBitmap(myBitmap);
+//                imageView.setVisibility(View.VISIBLE);
+//            }
+//        }
     }
 
     @Override

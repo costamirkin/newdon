@@ -45,22 +45,16 @@ public class PostsAdapter extends BasePostsAdapter {
         super(context, mCallBack, posts);
     }
 
-
     @Override
     protected int count() {
         // One for lottery
         return  posts.size() + 1;
     }
 
-
-
-
     @Override
     public View getView(final int position, final View convertView, ViewGroup parent) {
 
         if (position == 0) {
-            LayoutInflater inflater = (LayoutInflater)
-                    context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             layout = (RelativeLayout) View.inflate(context, R.layout.lottery_view_pager, null);
             ViewPager viewPager = (ViewPager) layout.findViewById(R.id.viewpager);
             CircleIndicator indicator = (CircleIndicator) layout.findViewById(R.id.indicator);
@@ -72,6 +66,7 @@ public class PostsAdapter extends BasePostsAdapter {
             viewPagerAdapter.registerDataSetObserver(indicator.getDataSetObserver());
 
         } else {
+            //            I use -1 because in the first item we put lottery view pager
             Post post = posts.get(position - 1);
             createLayout(post, parent);
         }

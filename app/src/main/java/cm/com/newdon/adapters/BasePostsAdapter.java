@@ -42,7 +42,7 @@ import me.relex.circleindicator.CircleIndicator;
 public abstract class BasePostsAdapter extends BaseAdapter {
 
     protected Context context;
-    private   Intent intent;
+    private Intent intent;
     protected TextView tvLikesBadge;
     protected TextView tvCommentsBadge;
 
@@ -57,7 +57,7 @@ public abstract class BasePostsAdapter extends BaseAdapter {
     public BasePostsAdapter(Context context, OnPostSelectedListener mCallBack, List<Post> posts) {
         this.context = context;
         this.mCallBack = mCallBack;
-        this.posts     = posts;
+        this.posts = posts;
     }
 
     protected abstract int count();
@@ -83,8 +83,6 @@ public abstract class BasePostsAdapter extends BaseAdapter {
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         layout = (RelativeLayout) inflater.inflate(R.layout.post, parent, false);
 
-        //            I use -1 because in the first item we put lottery view pager
-
         CircleImageView ivUser = (CircleImageView) layout.findViewById(R.id.ivUser);
 
 //          !!!! only for current user
@@ -96,9 +94,9 @@ public abstract class BasePostsAdapter extends BaseAdapter {
                 ivUser.setImageURI(Uri.fromFile(profileImageFile));
             }
             //            for all other users
-        }else {
-            String path =post.getUser().getPictureUrl();
-            if (path!=null && !path.equals(""))
+        } else {
+            String path = post.getUser().getPictureUrl();
+            if (path != null && !path.equals(""))
                 Picasso.with(context).load(path).into(ivUser);
         }
 
@@ -148,7 +146,7 @@ public abstract class BasePostsAdapter extends BaseAdapter {
         }
 
         TextView tvDonated = (TextView) layout.findViewById(R.id.tvDonated);
-        if(post.getDonatorCount()>0) {
+        if (post.getDonatorCount() > 0) {
             tvDonated.setText(post.getDonatorCount() + " donated");
         }
 
@@ -157,21 +155,27 @@ public abstract class BasePostsAdapter extends BaseAdapter {
 
         //            on click on Like icon
         final ImageView ivLike = (ImageView) layout.findViewById(R.id.ivLike);
-        if(post.isLiked()) ivLike.setImageResource(R.drawable.black_like);
+        if (post.isLiked()) ivLike.setImageResource(R.drawable.black_like);
         ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 //                    change icon
-                if(post.isLiked()) {
+                if (post.isLiked()) {
                     ivLike.setImageResource(R.drawable.black_like);
-                }else {
+                } else {
                     ivLike.setImageResource(R.drawable.layer_5);
                 }
 
-                PostQuery.likePost(post.getId(),post.isLiked());
-                post.setLikesCount(post.getLikesCount()+ (post.isLiked()? -1:1));
-//                    change amount on badge
+                PostQuery.likePost(post.getId(), post.isLiked());
+
+                //change isLiked to opposite
+                post.setIsLiked(!post.isLiked());
+
+                //chane amount of likes
+                post.setLikesCount(post.getLikesCount() + (post.isLiked() ? 1 : -1));
+
+//             change amount on badge
                 changeLikesBadge(post);
             }
         });
@@ -231,40 +235,46 @@ public abstract class BasePostsAdapter extends BaseAdapter {
             }
         });
 
-        if (post.getLocalImagePath() != null) {
+//        with Picasso
+        if (post.getImageUrl() != null && !post.getImageUrl().equals("")) {
             ImageView imageView = (ImageView) layout.findViewById(R.id.ivPost);
-            File imgFile = new File(post.getLocalImagePath());
-            if (imgFile.exists()) {
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                imageView.setImageBitmap(myBitmap);
-                imageView.setVisibility(View.VISIBLE);
-            }
+            Picasso.with(context).load(post.getImageUrl()).into(imageView);
+            imageView.setVisibility(View.VISIBLE);
         }
+
+        //old way with downloaded images
+//        if (post.getLocalImagePath() != null) {
+//            ImageView imageView = (ImageView) layout.findViewById(R.id.ivPost);
+//            File imgFile = new File(post.getLocalImagePath());
+//            if (imgFile.exists()) {
+//                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+//                imageView.setImageBitmap(myBitmap);
+//                imageView.setVisibility(View.VISIBLE);
+//            }
+//        }
 
     }
 
     @Override
     public View getView(final int position, final View convertView, ViewGroup parent) {
-
-
         return layout;
     }
 
-    private void changeLikesBadge(Post post){
-        if(post.getLikesCount()==0){
+    private void changeLikesBadge(Post post) {
+        if (post.getLikesCount() == 0) {
             tvLikesBadge.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             tvLikesBadge.setVisibility(View.VISIBLE);
-            tvLikesBadge.setText(post.getLikesCount()+"");
+            tvLikesBadge.setText(post.getLikesCount() + "");
         }
     }
 
-    private void changeCommentsBadge(Post post){
-        if(post.getCommentsCount()==0){
+    private void changeCommentsBadge(Post post) {
+        if (post.getCommentsCount() == 0) {
             tvCommentsBadge.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             tvCommentsBadge.setVisibility(View.VISIBLE);
-            tvCommentsBadge.setText(post.getCommentsCount()+"");
+            tvCommentsBadge.setText(post.getCommentsCount() + "");
         }
     }
 }
