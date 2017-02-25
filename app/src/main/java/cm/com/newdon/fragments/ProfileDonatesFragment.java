@@ -31,6 +31,7 @@ public class ProfileDonatesFragment extends Fragment {
 
     private ListView lv;
     OnPostSelectedListener mCallBack;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -51,7 +52,7 @@ public class ProfileDonatesFragment extends Fragment {
     private ImageView changeImage;
     private ImageView followButton;
     private ProfileFragment profileFragment = new ProfileFragment();
-    private FollowFragment  followFragment  = new FollowFragment();
+    private FollowFragment followFragment = new FollowFragment();
     private SettingsFragment settingsFragment = new SettingsFragment();
     private CircleImageView profileImage;
     private ImageView backBtn;
@@ -81,7 +82,7 @@ public class ProfileDonatesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.fragment_profile_donates,container,false);
+        View v = inflater.inflate(R.layout.fragment_profile_donates, container, false);
 
         lv = (ListView) v.findViewById(R.id.listView);
         CommonData.getInstance().copyUserPosts();
@@ -156,7 +157,7 @@ public class ProfileDonatesFragment extends Fragment {
         });
 
 
-        backBtn      = (ImageView) v.findViewById(R.id.backBtn);
+        backBtn = (ImageView) v.findViewById(R.id.backBtn);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,15 +168,14 @@ public class ProfileDonatesFragment extends Fragment {
         });
 
         profileImage = (CircleImageView) v.findViewById(R.id.profile_image);
-        changeImage  = (ImageView) v.findViewById(R.id.edit_btn);
+        changeImage = (ImageView) v.findViewById(R.id.edit_btn);
         followButton = (ImageView) v.findViewById(R.id.follow_btn);
         if (!selectedUser.equals(CommonData.getInstance().getCurrentUser())) {
             changeImage.setVisibility(View.INVISIBLE);
             followButton.setVisibility(View.VISIBLE);
             if (selectedUser.isFollowed()) {
                 followButton.setImageResource(R.drawable.follow_btn1);
-            }
-            else {
+            } else {
                 followButton.setImageResource(R.drawable.follow_btn2);
                 followButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -188,11 +188,10 @@ public class ProfileDonatesFragment extends Fragment {
             }
             settingsIv.setVisibility(View.INVISIBLE);
             backBtn.setVisibility(View.VISIBLE);
-            if (selectedUser.getPictureUrl()!=null) {
+            if (selectedUser.getPictureUrl() != null && !selectedUser.getPictureUrl().equals("")) {
                 Picasso.with(getActivity()).load(selectedUser.getPictureUrl()).into(profileImage);
             }
-        }
-        else {
+        } else {
             File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
                     CommonData.profileImageName);
             if (profileImageFile.exists()) {
