@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.List;
 
 import cm.com.newdon.CommentsActivity;
 import cm.com.newdon.DonateActivity;
@@ -34,219 +35,29 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * adapter for posts
  */
-public class UserPostsAdapter extends BaseAdapter {
+public class UserPostsAdapter extends BasePostsAdapter {
 
-    private Context context;
-    private TextView tvLikesBadge;
-    private TextView tvCommentsBadge;
-    private Intent intent;
 
-    //  we use mCallBack to say BottomBarActivity which fragment to commit
-    OnPostSelectedListener mCallBack;
+    public UserPostsAdapter(Context context, OnPostSelectedListener mCallBack, List<Post> posts) {
+        super(context, mCallBack, posts);
+    }
 
-    RelativeLayout layout;
-
-    public UserPostsAdapter(Context context, OnPostSelectedListener mCallBack) {
-        this.context = context;
-        this.mCallBack = mCallBack;
+    @Override
+    protected int count() {
+        return posts.size();
     }
 
     @Override
     public int getCount() {
-        return CommonData.getInstance().getUserPosts().size();
+        return posts.size();
     }
 
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-
-    private void changeLikesBadge(Post post){
-        if(post.getLikesCount()==0){
-            tvLikesBadge.setVisibility(View.INVISIBLE);
-        }else {
-            tvLikesBadge.setVisibility(View.VISIBLE);
-            tvLikesBadge.setText(post.getLikesCount()+"");
-        }
-    }
-
-    private void changeCommentsBadge(Post post){
-        if(post.getCommentsCount()==0){
-            tvCommentsBadge.setVisibility(View.INVISIBLE);
-        }else {
-            tvCommentsBadge.setVisibility(View.VISIBLE);
-            tvCommentsBadge.setText(post.getCommentsCount()+"");
-        }
-    }
 
     @Override
     public View getView(int position, final View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = (LayoutInflater)
-                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        layout = (RelativeLayout) inflater.inflate(R.layout.post, parent, false);
-
-        //            I use -1 because in the first item we put lottery view pager
-        final Post post = CommonData.getInstance().getUserPosts().get(position);
-
-        CircleImageView ivUser = (CircleImageView) layout.findViewById(R.id.ivUser);
-//            // TODO: 20.01.2017
-//            for all users
-
-//          !!!! only for current user
-        if (post.getUser().getId() == CommonData.getInstance().getCurrentUserId()) {
-            File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                    CommonData.profileImageName);
-            if (profileImageFile.exists()) {
-                ivUser.setImageURI(null);
-                ivUser.setImageURI(Uri.fromFile(profileImageFile));
-            }
-        }
-
-//          on click on User picture we should show profileDonatesFragment
-        ivUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CommonData.getInstance().setSelectedUser(post.getUser());
-                mCallBack.onUserSelected(post.getUser().getId());
-            }
-        });
-
-        ImageView imFoundation = (ImageView) layout.findViewById(R.id.imFound);
-        TextView tvFoundationTitle = (TextView) layout.findViewById(R.id.tvFoundTitle);
-        Foundation foundation = CommonData.getInstance().findFoundById(post.getFoundation().getId());
-        if (foundation != null) {
-            if (foundation.getLogo() != null) {
-                imFoundation.setImageBitmap(foundation.getLogo());
-            }
-            //            on click on FoundationLogo we should show foundationDonatesFragment
-            imFoundation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mCallBack.onFoundationSelected(post.getFoundation().getId());
-                }
-            });
-
-            tvFoundationTitle.setText(foundation.getTitle());
-
-            TextView tvCategory = (TextView) layout.findViewById(R.id.tvCategory);
-            tvCategory.setText(post.getFoundation().getCategory().getName());
-            tvCategory.setTextColor(Color.parseColor(post.getFoundation().getCategory().getColor()));
-
-        }
-
-        TextView tvDate = (TextView) layout.findViewById(R.id.tvDate);
-        tvDate.setText(DateHandler.howLongAgoWasDate(post.getCreatedAt()));
-
-        TextView tvUser = (TextView) layout.findViewById(R.id.tvUserName);
-        tvUser.setText(post.getUser().getRealName());
-
-        TextView tvComment = (TextView) layout.findViewById(R.id.tvComment);
-        try {
-            tvComment.setText(post.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        TextView tvDonated = (TextView) layout.findViewById(R.id.tvDonated);
-        if(post.getDonatorCount()>0) {
-            tvDonated.setText(post.getDonatorCount() + " donated");
-        }
-
-        tvLikesBadge = (TextView) layout.findViewById(R.id.tvLikesBadge);
-        changeLikesBadge(post);
-        //            on click on Like icon
-        final ImageView ivLike = (ImageView) layout.findViewById(R.id.ivLike);
-        if(post.isLiked()) ivLike.setImageResource(R.drawable.black_like);
-
-        ivLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                   change icon
-                if(post.isLiked()) {
-                    ivLike.setImageResource(R.drawable.black_like);
-                }else {
-                    ivLike.setImageResource(R.drawable.layer_5);
-                }
-
-                PostQuery.likePost(post.getId(), post.isLiked());
-                post.setLikesCount(post.getLikesCount()+ (post.isLiked()? -1:1));
-//                    change amount on badge
-                changeLikesBadge(post);
-            }
-        });
-
-        tvCommentsBadge = (TextView) layout.findViewById(R.id.tvCommentsBadge);
-        changeCommentsBadge(post);
-
-        //            on click on Comment icon CommentsActivity will open
-        ImageView ivComment = (ImageView) layout.findViewById(R.id.ivComment);
-        ivComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, CommentsActivity.class);
-                intent.putExtra("postId", post.getId());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        });
-
-//            on click on Share icon dialog will open
-        ImageView ivShare = (ImageView) layout.findViewById(R.id.ivShare);
-        ivShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ShareDialogActivity.class);
-                intent.putExtra("postId", post.getId());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        });
-
-        //            on click on options icon dialog will be open
-        ImageView ivOptions = (ImageView) layout.findViewById(R.id.ivOptions);
-        ivOptions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (post.getUser().getId() == CommonData.getInstance().getCurrentUserId()) {
-                    intent = new Intent(context, HideDeleteDialogActivity.class);
-                } else {
-                    intent = new Intent(context, HideReportDialogActivity.class);
-                }
-                intent.putExtra("postId", post.getId());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        });
-
-//            on click on Coin we open Donate activity and transfer foundation ID
-        ImageView ivCoin = (ImageView) layout.findViewById(R.id.ivCoin);
-        ivCoin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(context, DonateActivity.class);
-                intent.putExtra("foundationId", post.getFoundation().getId());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        });
-
-        if (post.getLocalImagePath() != null) {
-            ImageView imageView = (ImageView) layout.findViewById(R.id.ivPost);
-            File imgFile = new File(post.getLocalImagePath());
-            if (imgFile.exists()) {
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                imageView.setImageBitmap(myBitmap);
-                imageView.setVisibility(View.VISIBLE);
-            }
-        }
+        Post post = posts.get(position);
+        createLayout(post, parent);
         return layout;
     }
 

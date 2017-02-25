@@ -52,7 +52,8 @@ public class FoundationDonatesFragment extends Fragment {
 
         lv = (ListView) v.findViewById(R.id.listView);
         CommonData.getInstance().copyFoundationPosts();
-        adapter = new FoundationPostsAdapter(getActivity().getApplicationContext(), mCallBack);
+        adapter = new FoundationPostsAdapter(getActivity().getApplicationContext(),
+                mCallBack, CommonData.getInstance().getFoundationPosts());
 
         lv.setAdapter(adapter);
         StikkyHeaderBuilder.stickTo(lv)

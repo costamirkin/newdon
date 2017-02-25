@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
         lv = (ListView) view.findViewById(R.id.lvPosts);
-        lv.setAdapter(new PostsAdapter(getActivity().getApplicationContext(), mCallBack));
+        lv.setAdapter(new PostsAdapter(getActivity().getApplicationContext(), mCallBack, CommonData.getInstance().getPosts()));
         lv.invalidateViews();
 
         //to get notification counter

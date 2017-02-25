@@ -88,7 +88,8 @@ public class ProfileDonatesFragment extends Fragment {
             profileImage.setImageURI(Uri.fromFile(profileImageFile));
         }
         CommonData.getInstance().copyUserPosts();
-        UserPostsAdapter adapter = new UserPostsAdapter(getActivity().getApplicationContext(),mCallBack);
+        UserPostsAdapter adapter = new UserPostsAdapter(getActivity().getApplicationContext(),
+                mCallBack, CommonData.getInstance().getUserPosts());
         lv.setAdapter(adapter);
         StikkyHeaderBuilder.stickTo(lv)
                 .setHeader(R.id.header, (ViewGroup) v)
