@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import cz.msebera.android.httpclient.Header;
@@ -74,6 +76,15 @@ public class Utils {
         alertDialog.show();
     }
 
+    //return Uri from Bitmap
+    public static Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    //return String realpath from Uri
     public static String getRealPathFromURI(Uri contentURI, ContentResolver resolver) {
         String result;
         Cursor cursor = resolver.query(contentURI, null, null, null, null);
@@ -85,7 +96,6 @@ public class Utils {
             result = cursor.getString(idx);
             cursor.close();
         }
-        System.out.println("VAR2!!!!!!!!!!!!!!!!" + result);
         return result;
     }
 }

@@ -39,4 +39,24 @@
             android:id="@+id/backBtn"/>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- for bottom bar-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height"
+            android:id="@+id/emptyView"
+            android:layout_alignParentBottom="true"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listViewPost"
+            android:layout_above="@id/emptyView">
+        </ListView>
+    </RelativeLayout>
+
+
 </LinearLayout>

@@ -120,16 +120,6 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
         }
     }
 
-
-
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        System.out.println("VAR1!!!!!!!!!!!!!!!!" + path);
-        return Uri.parse(path);
-    }
-
     /*go to the next step - make a Don
     need to transfer foundation, comment and image
     */
@@ -145,10 +135,8 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
 
         CommonData.getInstance().setTempPost(tempPost);
 
-// TODO: 13.01.2017
-// save image!!!!
         if (currentBitmap != null) {
-            Uri uri = getImageUri(getApplicationContext(), currentBitmap);
+            Uri uri = Utils.getImageUri(getApplicationContext(), currentBitmap);
             if (uri != null) {
                 CommonData.getInstance().getTempPost().setUri(Utils.getRealPathFromURI(uri, getContentResolver()));
             }

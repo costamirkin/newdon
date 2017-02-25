@@ -6,7 +6,7 @@ import com.loopj.android.http.RequestParams;
 import cz.msebera.android.httpclient.Header;
 
 /**
- * Created by Marina on 21.01.2017.
+ * class for post and put queries
  */
 public class PostQuery {
     public enum PostAction {
@@ -28,8 +28,6 @@ public class PostQuery {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//                for testing
-//                Toast.makeText(context, "You successfully " + action.getValue() + " the post!", Toast.LENGTH_LONG).show();
                 CommonData.getInstance().getPosts().remove(CommonData.getInstance().findPostById(postId));
                 if (CommonData.getInstance().imageLoadedIf != null) {
                     CommonData.getInstance().imageLoadedIf.dataLoaded();
@@ -55,8 +53,6 @@ public class PostQuery {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//                for testing
-//                Toast.makeText(context, "You successfully report the post!", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -81,13 +77,11 @@ public class PostQuery {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//                for testing
-//                Toast.makeText(context, "You successfully shared the post!", Toast.LENGTH_LONG).show();
+
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                Toast.makeText(context, new String(responseBody), Toast.LENGTH_LONG).show();
                 System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!!");
                 System.out.println(new String(responseBody));
             }
@@ -106,8 +100,6 @@ public class PostQuery {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//                for testing
-//                Toast.makeText(context, "You created new comment!", Toast.LENGTH_LONG).show();
                 System.out.println(responseBody);
                 DataLoader.getComments(postId);
             }
@@ -132,9 +124,6 @@ public class PostQuery {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//                for testing
-//                Toast.makeText(context, "You successfully " + (unLike? "un":"") + "liked the post!", Toast.LENGTH_LONG).show();
-                CommonData.getInstance().findPostById(postId).setIsLiked(!unLike);
                 if (CommonData.getInstance().imageLoadedIf != null) {
                     CommonData.getInstance().imageLoadedIf.dataLoaded();
                 }
@@ -183,8 +172,6 @@ public class PostQuery {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//                for testing
-//                Toast.makeText(context, "You successfully deleted the post!", Toast.LENGTH_LONG).show();
                 CommonData.getInstance().getPosts().remove(CommonData.getInstance().findPostById(commentId));
                 if (CommonData.getInstance().imageLoadedIf != null) {
                     CommonData.getInstance().imageLoadedIf.dataLoaded();
