@@ -93,7 +93,7 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
                             try {
                                 JSONArray rawName = response.getJSONObject().getJSONArray("data");
                                 System.out.println(rawName.length());
-                            } catch (JSONException e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
 

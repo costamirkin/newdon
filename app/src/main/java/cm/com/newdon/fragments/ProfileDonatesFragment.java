@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 
 import cm.com.newdon.R;
@@ -21,6 +23,7 @@ import cm.com.newdon.adapters.UserPostsAdapter;
 import cm.com.newdon.classes.User;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.OnPostSelectedListener;
+import cm.com.newdon.common.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
@@ -46,6 +49,7 @@ public class ProfileDonatesFragment extends Fragment {
     private ImageView line;
     private ImageView settingsIv;
     private ImageView changeImage;
+    private ImageView followButton;
     private ProfileFragment profileFragment = new ProfileFragment();
     private FollowFragment  followFragment  = new FollowFragment();
     private SettingsFragment settingsFragment = new SettingsFragment();
@@ -80,13 +84,6 @@ public class ProfileDonatesFragment extends Fragment {
         View v =inflater.inflate(R.layout.fragment_profile_donates,container,false);
 
         lv = (ListView) v.findViewById(R.id.listView);
-        profileImage = (CircleImageView) v.findViewById(R.id.profile_image);
-        File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                CommonData.profileImageName);
-        if (profileImageFile.exists()) {
-            profileImage.setImageURI(null);
-            profileImage.setImageURI(Uri.fromFile(profileImageFile));
-        }
         CommonData.getInstance().copyUserPosts();
         UserPostsAdapter adapter = new UserPostsAdapter(getActivity().getApplicationContext(),
                 mCallBack, CommonData.getInstance().getUserPosts());
@@ -99,7 +96,7 @@ public class ProfileDonatesFragment extends Fragment {
                 .build();
 
 
-        User selectedUser = CommonData.getInstance().getSelectedUser();
+        final User selectedUser = CommonData.getInstance().getSelectedUser();
 
         TextView nameTv = (TextView) v.findViewById(R.id.name);
         nameTv.setText(selectedUser.getUserName());
@@ -169,16 +166,41 @@ public class ProfileDonatesFragment extends Fragment {
             }
         });
 
+        profileImage = (CircleImageView) v.findViewById(R.id.profile_image);
         changeImage  = (ImageView) v.findViewById(R.id.edit_btn);
+        followButton = (ImageView) v.findViewById(R.id.follow_btn);
         if (!selectedUser.equals(CommonData.getInstance().getCurrentUser())) {
             changeImage.setVisibility(View.INVISIBLE);
+            followButton.setVisibility(View.VISIBLE);
+            if (selectedUser.isFollowed()) {
+                followButton.setImageResource(R.drawable.follow_btn1);
+            }
+            else {
+                followButton.setImageResource(R.drawable.follow_btn2);
+                followButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Utils.followUser(selectedUser.getId(), getActivity());
+                        followButton.setImageResource(R.drawable.follow_btn1);
+                    }
+                });
+
+            }
             settingsIv.setVisibility(View.INVISIBLE);
             backBtn.setVisibility(View.VISIBLE);
+            Picasso.with(getActivity()).load(selectedUser.getPictureUrl()).into(profileImage);
         }
         else {
+            File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+                    CommonData.profileImageName);
+            if (profileImageFile.exists()) {
+                profileImage.setImageURI(null);
+                profileImage.setImageURI(Uri.fromFile(profileImageFile));
+            }
             changeImage.setVisibility(View.VISIBLE);
             settingsIv.setVisibility(View.VISIBLE);
             backBtn.setVisibility(View.INVISIBLE);
+            followButton.setVisibility(View.INVISIBLE);
 
             changeImage.setOnClickListener(new View.OnClickListener() {
                 @Override
