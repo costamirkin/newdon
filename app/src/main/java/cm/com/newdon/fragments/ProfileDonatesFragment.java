@@ -188,7 +188,9 @@ public class ProfileDonatesFragment extends Fragment {
             }
             settingsIv.setVisibility(View.INVISIBLE);
             backBtn.setVisibility(View.VISIBLE);
-            Picasso.with(getActivity()).load(selectedUser.getPictureUrl()).into(profileImage);
+            if (selectedUser.getPictureUrl()!=null) {
+                Picasso.with(getActivity()).load(selectedUser.getPictureUrl()).into(profileImage);
+            }
         }
         else {
             File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
