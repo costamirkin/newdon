@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:padding="@dimen/activity_horizontal_margin">
+    android:background="@color/white">
 
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -79,25 +78,29 @@
         android:textColor="@color/black"
         android:textSize="20sp" />
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/frameLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/tvComment"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="2dp">
 
 
         <ImageView
             android:id="@+id/ivPost"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:visibility="gone" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/imFound"
             android:layout_width="39dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
             android:layout_height="39dp" />
 
         <TextView
@@ -113,7 +116,7 @@
             android:text="Title"
             android:textSize="15.6dp" />
 
-    </FrameLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

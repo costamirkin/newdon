@@ -18,6 +18,7 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
 
 import cm.com.newdon.BottomBarActivity;
+import cm.com.newdon.ChooseImageActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.RestClient;
@@ -77,8 +78,7 @@ public class SignFragment extends Fragment {
                             editor.putString("email", emailEt.getText().toString());
                             editor.putString("password", pswdEt.getText().toString());
                             editor.commit();
-                            Intent intent = new Intent(getActivity(), BottomBarActivity.class);
-                            intent.putExtra("signup","signup");
+                            Intent intent = new Intent(getActivity(), ChooseImageActivity.class);
                             startActivity(intent);
 
 

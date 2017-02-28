@@ -47,10 +47,6 @@ public class UserPostsAdapter extends BasePostsAdapter {
         return posts.size();
     }
 
-    @Override
-    public int getCount() {
-        return posts.size();
-    }
 
 
     @Override

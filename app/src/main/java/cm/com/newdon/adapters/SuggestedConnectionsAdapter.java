@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,7 +84,7 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
         tvUserMail.setText(realName);
         if (searchMode) {
             SpannableString spannableString = new SpannableString(realName);
-            Object blueSpan = new BackgroundColorSpan(Color.BLUE);
+            Object blueSpan = new ForegroundColorSpan(Color.BLUE);
             int indexOf = realName.indexOf(searchStr);
             if (indexOf != -1) {
                 spannableString.setSpan(blueSpan, indexOf, indexOf + searchStr.length(), 0);
@@ -92,11 +93,12 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
         }
         TextView        tvFollowers    = (TextView) layout.findViewById(R.id.tvFollowers);
         tvFollowers.setText("" + user.getFollowersCount());
-        ImageView       ivNotification = (ImageView) layout.findViewById(R.id.imFollow);
+        final ImageView       ivNotification = (ImageView) layout.findViewById(R.id.imFollow);
         ivNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Utils.followUser(user.getId(), context);
+                ivNotification.setImageResource(R.drawable.following_btn);
             }
         });
 

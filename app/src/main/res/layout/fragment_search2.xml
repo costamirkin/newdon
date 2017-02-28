@@ -28,15 +28,7 @@
        android:layout_marginLeft="15dp"
        android:layout_toLeftOf="@+id/tvCancel"
        android:background="@drawable/rectangle_40">
-       <ImageView
-           android:layout_width="16dp"
-           android:layout_height="16dp"
-           android:layout_centerVertical="true"
-           android:layout_alignParentRight="true"
-           android:layout_marginRight="20dp"
-           android:id="@+id/ivClose"
-           android:src="@drawable/shape_x"/>
-       <ImageView
+        <ImageView
            android:layout_width="21dp"
            android:layout_height="21dp"
            android:layout_centerVertical="true"
@@ -55,6 +47,14 @@
            android:hint="Type what you want to find"
            android:textSize="16dp"
            android:textColor="#000"/>
+       <ImageView
+           android:layout_width="16dp"
+           android:layout_height="16dp"
+           android:layout_centerVertical="true"
+           android:layout_alignParentRight="true"
+           android:layout_marginRight="20dp"
+           android:id="@+id/ivClose"
+           android:src="@drawable/shape_x"/>
 
 
    </RelativeLayout>
@@ -65,7 +65,67 @@
         android:layout_below="@+id/headerRl"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:visibility="invisible"
         android:id="@+id/listView"></ListView>
+    <RelativeLayout
+        android:layout_below="@+id/headerRl"
+        android:layout_width="match_parent"
+        android:id="@+id/beforeSearchRl"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="104dp"
+            android:layout_height="104dp"
+            android:src="@drawable/magnifier"
+            android:layout_centerInParent="true"
+            android:id="@+id/searchMagnifier"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/searchMagnifier"
+            android:textColor="@color/lightgrey"
+            android:textSize="21dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="Search for users, foundations\nor #hashtags"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/headerRl"
+        android:layout_width="match_parent"
+        android:id="@+id/notFoundRl"
+        android:visibility="invisible"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="104dp"
+            android:layout_height="104dp"
+            android:src="@drawable/shape_266"
+            android:layout_centerInParent="true"
+            android:id="@+id/shape_266"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/shape_266"
+            android:textColor="@color/lightgrey"
+            android:textSize="21dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:id="@+id/nothingfound"
+            android:text="Nothing found :("/>
+       <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/nothingfound"
+            android:textColor="@color/lightgrey"
+            android:textSize="17dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="Try to search for users, foundations\nor #hashtags"/>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

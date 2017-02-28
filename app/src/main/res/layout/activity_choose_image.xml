@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cm.com.newdon.ChooseImageActivity">
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="67dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/editmeandsave"
+        android:id="@+id/logo"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="@color/blueLottery"
+        android:text="Hello "
+        android:id="@+id/helloTv"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:textColor="@color/greyLottery"
+        android:text="Personalize your profile with image."
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/helloTv"
+        android:id="@+id/personalize"
+        android:layout_marginTop="5dp"
+        />
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:id="@+id/image"
+        android:onClick="changeImage"
+        android:src="@drawable/add_picture_btn"
+        android:layout_centerInParent="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Skip"
+        android:clickable="true"
+        android:onClick="skip"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:textSize="19dp"
+        android:id="@+id/skip"
+        android:textColor="@color/greyLottery"
+
+        />
+    
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_above="@+id/skip"
+        android:textColor="#FFF"
+        android:text="Save"
+        android:background="#5d9bff"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="23dp"
+        android:onClick="save"/>
+
+</RelativeLayout>

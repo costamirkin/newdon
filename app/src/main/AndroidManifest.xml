@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cm.com.newdon">
 
@@ -17,14 +17,21 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.Design.NoActionBar" />
+            android:theme="@style/Theme.Design.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -41,12 +48,19 @@
 
         <activity
             android:name=".SignAcitvity"
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".BottomBarActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Splash"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,18 +70,26 @@
         </activity>
         <activity
             android:name=".FoundationGrid"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".DonateActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".MakeDonActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".LotteryActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".LotteryListActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".CardActivity" />
         <activity
@@ -78,18 +100,28 @@
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".HideDeleteDialogActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".EditDialogActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".HideReportDialogActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".ReportDialogActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".CommentsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -101,9 +133,13 @@
 
         <activity
             android:name=".DeleteDialogActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity android:name=".fragments.DeleteReportDialogActivity"
+        <activity
+            android:name=".fragments.DeleteReportDialogActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity android:name=".ChooseImageActivity"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package cm.com.newdon;
 
+import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -46,9 +47,10 @@ public class SignAcitvity extends ActionBarActivity {
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.colorAccent);
+                return Color.WHITE;
             }
         });
+
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);

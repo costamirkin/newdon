@@ -22,15 +22,19 @@ import cm.com.newdon.R;
 import cm.com.newdon.adapters.UserPostsAdapter;
 import cm.com.newdon.classes.User;
 import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.DataLoadedIf;
+import cm.com.newdon.common.DataLoader;
 import cm.com.newdon.common.OnPostSelectedListener;
 import cm.com.newdon.common.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
-public class ProfileDonatesFragment extends Fragment {
+public class ProfileDonatesFragment extends Fragment  implements DataLoadedIf {
 
     private ListView lv;
     OnPostSelectedListener mCallBack;
+    private UserPostsAdapter adapter;
+    private UserPostsAdapter adapterDonation;
 
     @Override
     public void onAttach(Activity activity) {
@@ -56,6 +60,19 @@ public class ProfileDonatesFragment extends Fragment {
     private SettingsFragment settingsFragment = new SettingsFragment();
     private CircleImageView profileImage;
     private ImageView backBtn;
+
+    @Override
+    public void imageLoaded(int postId) {
+
+    }
+
+    @Override
+    public void dataLoaded() {
+        if (lv != null) {
+            lv.invalidateViews();
+        }
+
+    }
 
 
     class FollowersListener implements View.OnClickListener {
@@ -86,8 +103,10 @@ public class ProfileDonatesFragment extends Fragment {
 
         lv = (ListView) v.findViewById(R.id.listView);
         CommonData.getInstance().copyUserPosts();
-        UserPostsAdapter adapter = new UserPostsAdapter(getActivity().getApplicationContext(),
+        adapter = new UserPostsAdapter(getActivity().getApplicationContext(),
                 mCallBack, CommonData.getInstance().getUserPosts());
+        adapterDonation = new UserPostsAdapter(getActivity().getApplicationContext(),
+                mCallBack, CommonData.getInstance().getUserPostsWithDonations());
         lv.setAdapter(adapter);
         StikkyHeaderBuilder.stickTo(lv)
                 .setHeader(R.id.header, (ViewGroup) v)
@@ -98,6 +117,9 @@ public class ProfileDonatesFragment extends Fragment {
 
 
         final User selectedUser = CommonData.getInstance().getSelectedUser();
+
+        DataLoader.getUserPosts(getActivity(), selectedUser.getId());
+        DataLoader.getUserPostsWithDonations(getActivity(), selectedUser.getId());
 
         TextView nameTv = (TextView) v.findViewById(R.id.name);
         nameTv.setText(selectedUser.getUserName());
@@ -130,6 +152,8 @@ public class ProfileDonatesFragment extends Fragment {
                 line.setImageResource(R.drawable.line);
                 smallImage1.setImageResource(R.drawable.don_icns);
                 smallImage2.setImageResource(R.drawable.tag_icn_grey);
+                lv.setAdapter(adapter);
+                lv.invalidateViews();
 
             }
         });
@@ -140,6 +164,8 @@ public class ProfileDonatesFragment extends Fragment {
                 line.setImageResource(R.drawable.lineopp);
                 smallImage1.setImageResource(R.drawable.don_icns_grey);
                 smallImage2.setImageResource(R.drawable.tag_icn);
+                lv.setAdapter(adapterDonation);
+                lv.invalidateViews();
             }
         });
 
@@ -219,4 +245,21 @@ public class ProfileDonatesFragment extends Fragment {
 
         return v;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        CommonData.getInstance().imageLoadedIf =  this;
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(CommonData.getInstance().imageLoadedIf==this) {
+            CommonData.getInstance().imageLoadedIf = null;
+        }
+    }
+
+
 }

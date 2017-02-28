@@ -15,7 +15,7 @@
     </style>
     <style name="FacebookLoginButton">
         <item name="android:background">@drawable/layer_1</item>
-        <item name="android:paddingTop">10sp</item>
-        <item name="android:paddingBottom">10sp</item>
+        <item name="android:paddingTop">20sp</item>
+        <item name="android:paddingBottom">20sp</item>
     </style>
 </resources>

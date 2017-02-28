@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import cm.com.newdon.R;
@@ -25,6 +27,9 @@ public class Search2Fragment extends Fragment implements DataLoadedIf {
     private EditText searchEt;
     private TextView tvCancel;
     private ListView listView;
+    private ImageView ivClose;
+    private RelativeLayout beforeSearchRl;
+    private RelativeLayout notFoundRl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,9 +37,25 @@ public class Search2Fragment extends Fragment implements DataLoadedIf {
 
         View v = inflater.inflate(R.layout.fragment_search2, container, false);
 
+        beforeSearchRl = (RelativeLayout) v.findViewById(R.id.beforeSearchRl);
+        notFoundRl     = (RelativeLayout) v.findViewById(R.id.notFoundRl);
+
+
         listView = (ListView) v.findViewById(R.id.listView);
         adapter =  new SuggestedConnectionsAdapter(getActivity(), true, CommonData.getInstance().getSearchUsers());
         listView.setAdapter(adapter);
+
+        ivClose = (ImageView) v.findViewById(R.id.ivClose);
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchEt.setText("");
+                beforeSearchRl.setVisibility(View.VISIBLE);
+                notFoundRl.setVisibility(View.INVISIBLE);
+
+
+            }
+        });
 
         tvCancel = (TextView) v.findViewById(R.id.tvCancel);
         tvCancel.setOnClickListener(new View.OnClickListener() {
@@ -54,8 +75,17 @@ public class Search2Fragment extends Fragment implements DataLoadedIf {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String str = s.toString();
-                adapter.setSearchStr(str);
-                DataLoader.searchUsers(str);
+                if (!str.equals("")) {
+                    beforeSearchRl.setVisibility(View.INVISIBLE);
+                    listView.setVisibility(View.VISIBLE);
+                    adapter.setSearchStr(str);
+                    DataLoader.searchUsers(str);
+                }
+                else {
+                    beforeSearchRl.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.INVISIBLE);
+
+                }
 
 
 
@@ -91,7 +121,15 @@ public class Search2Fragment extends Fragment implements DataLoadedIf {
 
     @Override
     public void dataLoaded() {
-        listView.invalidateViews();
+        if (CommonData.getInstance().getSearchUsers().size() == 0) {
+            listView.setVisibility(View.INVISIBLE);
+            notFoundRl.setVisibility(View.VISIBLE);
+        }
+        else {
+            listView.setVisibility(View.VISIBLE);
+            notFoundRl.setVisibility(View.INVISIBLE);
+            listView.invalidateViews();
+        }
     }
 
 

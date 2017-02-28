@@ -132,7 +132,7 @@ public class DataLoader {
     //    get posts of user by User ID
    public static void getUserPosts(final Context context, int userID) {
 
-        CommonData.getInstance().getPosts().clear();
+        CommonData.getInstance().getUserPosts().clear();
         AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -142,11 +142,7 @@ public class DataLoader {
                     for (int i = 0; i < array.length(); i++) {
                         Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
                         System.out.println(post);
-                        if(!post.getImageUrl().equals("null")){
-                            new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
-                                    ImageLoaderToBitmap.DownloadOption.POST).execute();
-                        }
-                        CommonData.getInstance().getPosts().add(post);
+                        CommonData.getInstance().getUserPosts().add(post);
                         if (CommonData.getInstance().imageLoadedIf != null) {
                             CommonData.getInstance().imageLoadedIf.dataLoaded();
                         }
@@ -166,6 +162,40 @@ public class DataLoader {
         params.put("userId", userID);
 
         RestClient.get("users/posts", params, handler);
+    }
+
+   public static void getUserPostsWithDonations(final Context context, int userID) {
+
+        CommonData.getInstance().getUserPostsWithDonations().clear();
+        AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+                    JSONObject object = new JSONObject(new String(responseBody));
+                    JSONArray array = object.getJSONArray("items");
+                    for (int i = 0; i < array.length(); i++) {
+                        Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
+                        System.out.println(post);
+                        CommonData.getInstance().getUserPostsWithDonations().add(post);
+                        if (CommonData.getInstance().imageLoadedIf != null) {
+                            CommonData.getInstance().imageLoadedIf.dataLoaded();
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
+                System.out.println(new String(responseBody));
+            }
+        };
+
+        RequestParams params = new RequestParams();
+        params.put("userId", userID);
+
+        RestClient.get("users/donation-posts", params, handler);
     }
 
     public static void getFollowUsers(String type, int userId) {

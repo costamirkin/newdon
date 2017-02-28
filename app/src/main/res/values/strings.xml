@@ -2,7 +2,8 @@
     <string name="app_name">newdon</string>
     <string name="facebook_app_id">1778789672443710</string>
     <string name="fb_login_protocol_scheme">fb1778789672443710</string>
-
+    <string name="com_facebook_loginview_log_in_button"></string>
+    <string name="com_facebook_loginview_log_out_button"></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

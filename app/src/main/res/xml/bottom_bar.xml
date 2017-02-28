@@ -5,7 +5,7 @@
         icon="@drawable/shape_3" />
     <tab
         id="@+id/bottomBarSearch"
-        icon="@drawable/shape_4" />
+        icon="@drawable/magnifier" />
     <tab
         id="@+id/bottomBarDonate"
         icon="@android:drawable/ic_dialog_info" />

@@ -67,13 +67,19 @@ public class FollowAdapter extends BaseAdapter {
         tvUserMail.setText(user.getEmail());
         TextView        tvFollowers    = (TextView) layout.findViewById(R.id.tvFollowers);
         tvFollowers.setText("" + user.getFollowersCount());
-        ImageView       ivNotification = (ImageView) layout.findViewById(R.id.imFollow);
-        ivNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.followUser(user.getId(), context);
-            }
-        });
+        final ImageView       ivNotification = (ImageView) layout.findViewById(R.id.imFollow);
+        if (user.isFollowed()) {
+            ivNotification.setImageResource(R.drawable.following_btn);
+        }
+        else {
+            ivNotification.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.followUser(user.getId(), context);
+                    ivNotification.setImageResource(R.drawable.following_btn);
+                }
+            });
+        }
 
         return layout;
     }
