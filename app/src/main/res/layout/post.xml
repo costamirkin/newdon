@@ -4,88 +4,91 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/ivUser"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="7dp"
-        android:layout_marginTop="7dp"
-        android:src="@drawable/profile"
-        app:civ_border_color="#0fff" />
-
-    <TextView
-        android:id="@+id/tvUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="14dp"
-        android:layout_toEndOf="@+id/ivUser"
-        android:layout_toRightOf="@+id/ivUser"
-        android:text="User"
-        android:textColor="@color/black"
-        android:textSize="18.7sp" />
-
-    <TextView
-        android:id="@+id/txMadeDon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvUserName"
-        android:layout_alignStart="@+id/tvUserName"
-        android:layout_below="@+id/tvUserName"
-        android:text="made a Don"
-        android:textColor="@color/black"
-        android:textSize="18.7sp" />
-
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/grey"
-        android:text="Yesterday"
-        android:textSize="13.3sp"
-        android:layout_alignBottom="@+id/txMadeDon"
-        android:layout_toRightOf="@+id/txMadeDon"
-        android:layout_marginLeft="3dp"/>
-
-    <ImageView
-        android:id="@+id/ivOptions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/options_btn" />
-
-    <TextView
-        android:id="@+id/tvCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvUserName"
-        android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@+id/ivOptions"
-        android:text="Category" />
-
-    <TextView
-        android:id="@+id/tvComment"
+    <RelativeLayout
+        android:id="@+id/headLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivUser"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="10dp"
-        android:text="Comment"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:padding="16dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ivUser"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/profile"
+            app:civ_border_color="#0fff" />
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="14dp"
+            android:layout_toEndOf="@+id/ivUser"
+            android:layout_toRightOf="@+id/ivUser"
+            android:text="User"
+            android:textColor="@color/black"
+            android:textSize="18.7sp" />
+
+        <TextView
+            android:id="@+id/txMadeDon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tvUserName"
+            android:layout_alignStart="@+id/tvUserName"
+            android:layout_below="@+id/tvUserName"
+            android:text="made a Don"
+            android:textColor="@color/black"
+            android:textSize="18.7sp" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/txMadeDon"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/txMadeDon"
+            android:text="Yesterday"
+            android:textColor="@color/grey"
+            android:textSize="13.3sp" />
+
+        <ImageView
+            android:id="@+id/ivOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/options_btn" />
+
+        <TextView
+            android:id="@+id/tvCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tvUserName"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/ivOptions"
+            android:text="Category" />
+
+        <TextView
+            android:id="@+id/tvComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivUser"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:text="Comment"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tvComment"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="2dp">
-
+        android:layout_below="@+id/headLayout">
 
         <ImageView
             android:id="@+id/ivPost"
@@ -95,25 +98,24 @@
             android:scaleType="fitCenter"
             android:visibility="gone" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/imFound"
             android:layout_width="39dp"
-            android:layout_alignParentTop="true"
+            android:layout_height="39dp"
             android:layout_alignParentLeft="true"
-            android:layout_height="39dp" />
+            android:layout_alignParentTop="true" />
 
         <TextView
             android:id="@+id/tvFoundTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-            android:textColor="@color/white"
             android:shadowColor="@color/black"
             android:shadowDx="-2"
             android:shadowDy="2"
             android:shadowRadius="0.01"
             android:text="Title"
+            android:textColor="@color/white"
             android:textSize="15.6dp" />
 
     </RelativeLayout>
@@ -121,7 +123,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_below="@+id/frameLayout">
+        android:layout_below="@+id/frameLayout"
+        android:layout_margin="16dp">
 
         <ImageView
             android:id="@+id/ivLike"
@@ -131,16 +134,16 @@
             android:src="@drawable/layer_5" />
 
         <TextView
+            android:id="@+id/tvLikesBadge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
-            android:textSize="10sp"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:id="@+id/tvLikesBadge"
-            android:background="@drawable/circle"
             android:layout_alignTop="@+id/ivCoin"
-            android:layout_toRightOf="@+id/ivLike" />
+            android:layout_toRightOf="@+id/ivLike"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
         <ImageView
             android:id="@+id/ivComment"
@@ -152,16 +155,16 @@
             android:src="@drawable/layer_4" />
 
         <TextView
+            android:id="@+id/tvCommentsBadge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
-            android:textSize="10sp"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:id="@+id/tvCommentsBadge"
-            android:background="@drawable/circle"
             android:layout_alignTop="@+id/ivCoin"
-            android:layout_toRightOf="@+id/ivComment" />
+            android:layout_toRightOf="@+id/ivComment"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
         <ImageView
             android:id="@+id/ivShare"

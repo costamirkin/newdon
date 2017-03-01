@@ -25,11 +25,13 @@ import cm.com.newdon.CommentsActivity;
 import cm.com.newdon.DonateActivity;
 import cm.com.newdon.HideDeleteDialogActivity;
 import cm.com.newdon.HideReportDialogActivity;
+import cm.com.newdon.MakeDonActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.ShareDialogActivity;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.DataLoadedIf;
 import cm.com.newdon.common.DateHandler;
 import cm.com.newdon.common.OnPostSelectedListener;
 import cm.com.newdon.common.PostQuery;
@@ -177,6 +179,9 @@ public abstract class BasePostsAdapter extends BaseAdapter {
 
 //             change amount on badge
                 changeLikesBadge(post);
+                if (CommonData.getInstance().imageLoadedIf != null) {
+                    CommonData.getInstance().imageLoadedIf.dataLoaded();
+                }
             }
         });
 
@@ -228,8 +233,9 @@ public abstract class BasePostsAdapter extends BaseAdapter {
         ivCoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(context, DonateActivity.class);
+                intent = new Intent(context, MakeDonActivity.class);
                 intent.putExtra("foundationId", post.getFoundation().getId());
+                intent.putExtra("postId", post.getId());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
