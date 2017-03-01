@@ -34,13 +34,24 @@ public class MakeDonActivity extends AppCompatActivity {
     private Post post;
     private Foundation foundation;
 
+    int postId = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_don);
 
-        post = CommonData.getInstance().getTempPost();
-        foundation = post.getFoundation();
+        //in case of redonation
+        Intent intent = getIntent();
+        int foundationId = intent.getIntExtra("foundationId", 0);
+        postId = intent.getIntExtra("postId", 0);
+        if(foundationId!=0) {
+            foundation = CommonData.getInstance().findFoundById(foundationId);
+        }
+        else {
+            post = CommonData.getInstance().getTempPost();
+            foundation = post.getFoundation();
+        }
 
         TextView tvFound = (TextView) findViewById(R.id.tvFoundTitle);
         tvFound.setText(foundation.getTitle());
@@ -87,17 +98,21 @@ public class MakeDonActivity extends AppCompatActivity {
         RequestParams params = new RequestParams();
         params.put("foundationId", foundation.getId());
         params.put("amount", getAmount());
-        params.put("comment", post.getMessage());
-        if(post.getUri()!=null) {
-            try {
-                params.put("image", new File(post.getUri()));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+        if (postId==0) {
+            params.put("comment", post.getMessage());
+            if (post.getUri() != null) {
+                try {
+                    params.put("image", new File(post.getUri()));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
+        }else {
+            //redonate
+            params.put("postId", postId);
         }
 
         RestClient.post("foundations/donate", params, handler);
-
     }
 
     private int getAmount(){
