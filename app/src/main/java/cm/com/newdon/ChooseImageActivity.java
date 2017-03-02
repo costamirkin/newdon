@@ -9,9 +9,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.RestClient;
+import cm.com.newdon.common.Utils;
+import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChooseImageActivity extends AppCompatActivity {
@@ -46,11 +53,31 @@ public class ChooseImageActivity extends AppCompatActivity {
     }
 
     public void save(View view) {
-        if (profileImageUri != null) {
-
-        }
         Intent intent = new Intent(getApplicationContext(), BottomBarActivity.class);
         intent.putExtra("signup","signup");
+        if (profileImageUri != null) {
+            RequestParams imageParams = new RequestParams();
+            try {
+                String str = Utils.getRealPathFromURI(profileImageUri, getApplicationContext().getContentResolver());
+                imageParams.put("image", new File(str));
+                RestClient.post("account/photo", imageParams, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        Utils.showAlertDialog("IMAGE CHANGED", ChooseImageActivity.this);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        Utils.showAlertDialog("IMAGE CHANGED " + responseBody != null ? new String(responseBody) : "", ChooseImageActivity.this);
+
+                    }
+                });
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
         startActivity(intent);
     }
 

@@ -67,6 +67,7 @@ public class SettingsFragment extends Fragment {
         findFriendsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CommonData.bottomBarActivity.changeToConnectionsFragment();
 
             }
         });

@@ -58,6 +58,9 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottombar);
 
+        // Used for go to ConnectionsFragment
+        CommonData.bottomBarActivity = this;
+
         setupBottomBar();
         Intent intent = getIntent();
         String signup = intent.getStringExtra("signup");
@@ -124,6 +127,11 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
 
     }
 
+
+    public void changeToConnectionsFragment() {
+        bottomBar.setDefaultTabPosition(2);
+
+    }
 
     private void setupBottomBar() {
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);

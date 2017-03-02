@@ -5,6 +5,7 @@ import android.net.Uri;
 import java.util.ArrayList;
 import java.util.List;
 
+import cm.com.newdon.BottomBarActivity;
 import cm.com.newdon.classes.Comment;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Lottery;
@@ -265,4 +266,6 @@ public class CommonData {
     public void setNotificationCounter(int notificationCounter) {
         this.notificationCounter = notificationCounter;
     }
+
+    public static BottomBarActivity bottomBarActivity = null;
 }

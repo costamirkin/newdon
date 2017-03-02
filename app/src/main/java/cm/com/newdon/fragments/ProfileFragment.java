@@ -116,7 +116,7 @@ public class ProfileFragment extends Fragment {
                     try {
                         String str = Utils.getRealPathFromURI(profileImageUri, getActivity().getContentResolver());
                         imageParams.put("image", new File(str));
-                        RestClient.post("account/connect", imageParams, new AsyncHttpResponseHandler() {
+                        RestClient.post("account/photo", imageParams, new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                                 Utils.showAlertDialog("IMAGE CHANGED", getActivity());
