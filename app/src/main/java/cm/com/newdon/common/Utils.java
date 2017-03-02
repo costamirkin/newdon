@@ -37,6 +37,10 @@ public class Utils {
         followUser(userId, context, false);
     }
 
+    public static void unfollowUser(int userId, final Context context) {
+        followUser(userId, context, true);
+    }
+
     public static void followUser(int userId, final Context context, boolean unFollow) {
         RequestParams params = new RequestParams();
         params.put("userId", userId);

@@ -273,7 +273,42 @@ public class DataLoader {
         RestClient.get("users?query=" + search, params, handler);
     }
 
-   public static void getSuggestedUsers() {
+   public static void getPostDonateUsers(int postId) {
+
+        AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+                    JSONObject object = new JSONObject(new String(responseBody));
+                    JSONArray array = object.getJSONArray("items");
+                    CommonData.getInstance().getPostDonateUsers().clear();
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject item = array.getJSONObject(i);
+                        CommonData.getInstance().getPostDonateUsers().add(JsonHandler.parseUserFromJson(item));
+                    }
+                    if (CommonData.getInstance().imageLoadedIf != null) {
+                        CommonData.getInstance().imageLoadedIf.dataLoaded();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
+            }
+        };
+
+        RequestParams params = new RequestParams();
+        params.put("postId", postId);
+
+        RestClient.get("posts/donators", params, handler);
+    }
+
+  public static void getSuggestedUsers() {
 
         AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
             @Override

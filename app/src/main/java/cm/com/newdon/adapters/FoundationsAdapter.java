@@ -20,6 +20,7 @@ import java.util.Locale;
 import cm.com.newdon.R;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.common.CommonData;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Adapter for foundation grid
@@ -60,7 +61,7 @@ public class FoundationsAdapter extends BaseAdapter {
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.foundation, parent, false);
         Foundation foundation = foundationsAfterSearch.get(position);
 
-        ImageView imLogo = (ImageView) layout.findViewById(R.id.imFoundLogo);
+        CircleImageView imLogo = (CircleImageView) layout.findViewById(R.id.imFoundLogo);
         imLogo.setImageBitmap(foundation.getLogo());
 
         TextView tvTitle = (TextView) layout.findViewById(R.id.tvFoundTitle);

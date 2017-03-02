@@ -235,6 +235,12 @@ public class CommonData {
         return searchUsers;
     }
 
+    private ArrayList<User> postDonateUsers = new ArrayList<>();
+    public ArrayList<User> getPostDonateUsers() {
+        return postDonateUsers;
+    }
+
+
     // Following
     private ArrayList<User> followUsers = new ArrayList<>();
 

@@ -94,13 +94,28 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
         TextView        tvFollowers    = (TextView) layout.findViewById(R.id.tvFollowers);
         tvFollowers.setText("" + user.getFollowersCount());
         final ImageView       ivNotification = (ImageView) layout.findViewById(R.id.imFollow);
-        ivNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.followUser(user.getId(), context);
-                ivNotification.setImageResource(R.drawable.following_btn);
-            }
-        });
+        if (user.isFollowed()) {
+            ivNotification.setImageResource(R.drawable.following_btn);
+            ivNotification.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.unfollowUser(user.getId(), context);
+                    ivNotification.setImageResource(R.drawable.follow_btn);
+                }
+            });
+
+        }
+        else {
+            ivNotification.setImageResource(R.drawable.follow_btn);
+            ivNotification.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.followUser(user.getId(), context);
+                    ivNotification.setImageResource(R.drawable.following_btn);
+                }
+            });
+
+        }
 
         return layout;
     }
