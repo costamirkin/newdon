@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.FoundationPostsAdapter;
@@ -15,6 +16,7 @@ import cm.com.newdon.adapters.SingleFoundationAdapter;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.OnPostSelectedListener;
+import cm.com.newdon.common.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
@@ -64,14 +66,17 @@ public class FoundationDonatesFragment extends Fragment {
                 .build();
 
         CircleImageView image = (CircleImageView) v.findViewById(R.id.found_image);
-        int foundationId = CommonData.getInstance().getSelectedFoundId();
+        TextView fullName = (TextView) v.findViewById(R.id.fullName);
+        final int foundationId = CommonData.getInstance().getSelectedFoundId();
         if (foundationId != -1) {
             Foundation f = CommonData.getInstance().findFoundById(foundationId);
             if (f != null && f.getLogo() != null) {
                 image.setImageBitmap(f.getLogo());
+                fullName.setText(f.getTitle());
             }
 
         }
+
 
         line = (ImageView) v.findViewById(R.id.niceLine);
         smallImage1 = (ImageView) v.findViewById(R.id.smallImage1);
@@ -115,6 +120,15 @@ public class FoundationDonatesFragment extends Fragment {
             }
         });
 
+
+        ImageView followFound = (ImageView) v.findViewById(R.id.followFound);
+        followFound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.followFoundation(foundationId, getActivity());
+
+            }
+        });
 
         return v;
     }

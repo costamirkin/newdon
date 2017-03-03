@@ -41,6 +41,24 @@ public class Utils {
         followUser(userId, context, true);
     }
 
+    public static void followFoundation(int foundationId, final Context context) {
+        RequestParams params = new RequestParams();
+//        params.put("userId", userId);
+        RestClient.put("foundations/subscribe?foundationId=" + foundationId , params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                System.out.println(new String(responseBody));
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                String strErr = responseBody == null ? "" : new String(responseBody);
+                System.out.println(new String(responseBody));
+
+            }
+        });
+    }
+
     public static void followUser(int userId, final Context context, boolean unFollow) {
         RequestParams params = new RequestParams();
         params.put("userId", userId);
