@@ -67,15 +67,25 @@ public class FoundationDonatesFragment extends Fragment {
 
         CircleImageView image = (CircleImageView) v.findViewById(R.id.found_image);
         TextView fullName = (TextView) v.findViewById(R.id.fullName);
+        TextView tvCategory  = (TextView) v.findViewById(R.id.tvCategory);
         final int foundationId = CommonData.getInstance().getSelectedFoundId();
         if (foundationId != -1) {
             Foundation f = CommonData.getInstance().findFoundById(foundationId);
             if (f != null && f.getLogo() != null) {
                 image.setImageBitmap(f.getLogo());
                 fullName.setText(f.getTitle());
+                tvCategory.setText(f.getCategory().getName());
+                // Followers following
+                TextView followersTv = (TextView) v.findViewById(R.id.followers);
+                followersTv.setText("" + f.getFollowersCount() + " followers");
+
+                TextView followingTv = (TextView) v.findViewById(R.id.following);
+                //followingTv.setText("" + f.getFollowingCount() + " following");
             }
 
         }
+
+
 
 
         line = (ImageView) v.findViewById(R.id.niceLine);

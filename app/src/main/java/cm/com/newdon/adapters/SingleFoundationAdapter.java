@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,22 +59,34 @@ public class SingleFoundationAdapter extends BaseAdapter {
     @Override
     public View getView(int position, final View convertView, ViewGroup parent) {
 
-        TextView tv = new TextView(context);
-        tv.setTextSize(20);
-        tv.setTextColor(Color.BLACK);
+
+        RelativeLayout rl = (RelativeLayout) View.inflate(context, R.layout.foundation_desc_item, null);
+
+        TextView year       = (TextView) rl.findViewById(R.id.year);
+        TextView country    = (TextView) rl.findViewById(R.id.country);
+        TextView headquater = (TextView) rl.findViewById(R.id.headquater);
+        TextView number     = (TextView) rl.findViewById(R.id.number);
+        TextView desciption = (TextView) rl.findViewById(R.id.desciption);
+
+
 
         int foundationId = CommonData.getInstance().getSelectedFoundId();
+        Log.e("aaa", "" + foundationId);
         if (foundationId != -1) {
             Foundation f = CommonData.getInstance().findFoundById(foundationId);
-            if (f != null && f.getDescription() != null) {
+            if (f != null) {
 
-                tv.setText(f.getDescription());
+                year.setText("" + f.getYearFounded());
+                country.setText(f.getAddress());
+                number.setText("" + f.getNumber());
+                headquater.setText(f.getHeadquarter());
+
+                desciption.setText(f.getDescription());
             }
-            else {
-                tv.setText("dddd");
-            }
+
 
         }
-        return tv;
+
+        return rl;
     }
 }

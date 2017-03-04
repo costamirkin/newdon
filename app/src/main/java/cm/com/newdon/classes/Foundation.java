@@ -14,8 +14,11 @@ public class Foundation {
     private String number;
     private int yearFounded;
     private String address;
+    private int followersCount;
+    private String headquarter;
 
-//    ???
+
+    //    ???
     private String logoUrl;
     private Bitmap logo;
 
@@ -25,12 +28,29 @@ public class Foundation {
     public int[] defaultPicsId = new int[5];
     public String[] defaultPicsUrl = new String[5];
 
-    public Foundation(int id, String title, FoundCategory category, String address, String logoUrl) {
+    public Foundation(
+            int id,
+            String title,
+            String description,
+            String number,
+            int yearFounded,
+            String address,
+            int followersCount,
+            String headquarter,
+            String logoUrl,
+            int donatorCount,
+            FoundCategory category) {
         this.id = id;
         this.title = title;
-        this.category = category;
+        this.description = description;
+        this.number = number;
+        this.yearFounded = yearFounded;
         this.address = address;
+        this.followersCount = followersCount;
+        this.headquarter = headquarter;
         this.logoUrl = logoUrl;
+        this.donatorCount = donatorCount;
+        this.category = category;
     }
 
     public int getId() {
@@ -122,5 +142,21 @@ public class Foundation {
                 ", logoUrl='" + logoUrl + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    public int getFollowersCount() {
+        return followersCount;
+    }
+
+    public void setFollowersCount(int followersCount) {
+        this.followersCount = followersCount;
+    }
+
+    public String getHeadquarter() {
+        return headquarter;
+    }
+
+    public void setHeadquarter(String headquarter) {
+        this.headquarter = headquarter;
     }
 }

@@ -25,9 +25,12 @@ public class JsonHandler {
         String title = item.getString("title");
         String description = item.getString("description");
         String nubmer = item.getString("number");
+        int followersCount = item.getInt("followersCount");
+        String headquarter  = item.getString("headquarter");
 
         String address = item.getString("address");
         String logoUrl = item.getString("logo");
+        int  yearFounded = 0; // item.getInt("yearFounded");
         int donatorCount = 0;
         try {
             donatorCount = item.getInt("donatorCount");
@@ -40,7 +43,18 @@ public class JsonHandler {
         String categoryName = categotyObj.getString("name");
         String color = categotyObj.getString("color");
 
-        Foundation foundation = new Foundation(id,title,new FoundCategory(categoryName,color), address, logoUrl);
+        Foundation foundation = new Foundation(
+                id,
+                title,
+                description,
+                nubmer,
+                yearFounded,
+                address,
+                followersCount,
+                headquarter,
+                logoUrl,
+                donatorCount,
+                new FoundCategory(categoryName,color));
 
 //        System.out.println("**************************************");
 //        System.out.println(foundation.getCategory().getName());

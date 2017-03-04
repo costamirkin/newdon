@@ -1,0 +1,108 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/homeLayout"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blueLottery"
+        android:text="Year:"
+        android:id="@+id/yearBlue"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/greyLottery"
+        android:text=""
+        android:id="@+id/year"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/yearBlue"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blueLottery"
+        android:text="Country:"
+        android:id="@+id/countryBlue"
+        android:layout_below="@+id/yearBlue"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/yearBlue"
+        android:textColor="@color/greyLottery"
+        android:text=""
+        android:id="@+id/country"
+        android:layout_toRightOf="@+id/countryBlue"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"/>
+
+   <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blueLottery"
+        android:text="Headquater:"
+        android:id="@+id/headquaterBlue"
+        android:layout_below="@+id/countryBlue"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/greyLottery"
+        android:text=""
+        android:id="@+id/headquater"
+        android:layout_below="@+id/countryBlue"
+        android:layout_toRightOf="@+id/headquaterBlue"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"/>
+
+   <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blueLottery"
+        android:text="Foundation number:"
+        android:id="@+id/numberBlue"
+        android:layout_below="@+id/headquaterBlue"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/greyLottery"
+        android:text=""
+        android:id="@+id/number"
+        android:layout_below="@+id/headquaterBlue"
+        android:layout_toRightOf="@+id/numberBlue"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/greyLottery"
+        android:text=""
+        android:id="@+id/desciption"
+        android:layout_below="@+id/numberBlue"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="15dp"/>
+
+
+</RelativeLayout>
