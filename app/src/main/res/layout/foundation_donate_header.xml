@@ -43,34 +43,15 @@
             android:id="@+id/fullName"
             android:layout_below="@+id/found_image"
             android:layout_centerHorizontal="true"/>
-        <View
-            android:layout_width="2dp"
-            android:layout_height="25dp"
-            android:layout_below="@+id/fullName"
-            android:layout_centerHorizontal="true"
-            android:background="@color/blueLottery"
-            android:id="@+id/follCenter"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:textColor="@color/blueLottery"
             android:textSize="20dp"
-            android:text="2 donates"
-            android:id="@+id/following"
-            android:layout_below="@+id/fullName"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/follCenter"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:textColor="@color/blueLottery"
-            android:textSize="20dp"
-            android:text="2 donates"
+            android:text="0 followers"
             android:id="@+id/followers"
             android:layout_below="@+id/fullName"
-            android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@+id/follCenter" />
+            android:layout_centerHorizontal="true"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,7 +63,7 @@
             android:paddingRight="10dp"
             android:background="@drawable/tv_round_bck"
             android:id="@+id/tvCategory"
-            android:layout_below="@+id/follCenter"
+            android:layout_below="@+id/followers"
             android:layout_centerHorizontal="true"/>
         <ImageView
             android:layout_width="match_parent"

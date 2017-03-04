@@ -31,6 +31,7 @@ import cm.com.newdon.fragments.FoundationDonatesFragment;
 import cm.com.newdon.fragments.HomeFragment;
 import cm.com.newdon.fragments.NotificationFragment;
 import cm.com.newdon.fragments.OnePostFragment;
+import cm.com.newdon.fragments.PostDonationsFragment;
 import cm.com.newdon.fragments.ProfileDonatesFragment;
 import cm.com.newdon.fragments.SearchFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -46,6 +47,7 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
     FoundationDonatesFragment foundationDonatesFragment = new FoundationDonatesFragment();
     ConnectionsFragment connectionsFragment = new ConnectionsFragment();
     OnePostFragment onePostFragment = new OnePostFragment();
+    PostDonationsFragment postDonationsFragment = new PostDonationsFragment();
     CircleImageView profileImage;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -130,6 +132,12 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
 
     public void changeToConnectionsFragment() {
         bottomBar.setDefaultTabPosition(2);
+
+    }
+
+    public void changePostDonationsFragment(int postId) {
+        postDonationsFragment.setPostId(postId);
+        commitFragment(postDonationsFragment);
 
     }
 

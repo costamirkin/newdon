@@ -28,12 +28,17 @@ public class PostDonationsFragment extends Fragment implements DataLoadedIf {
     private ImageView ivClose;
     private RelativeLayout beforeSearchRl;
     private RelativeLayout notFoundRl;
+    private int postId;
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        DataLoader.getPostDonateUsers(1);
+        DataLoader.getPostDonateUsers(postId);
         View v = inflater.inflate(R.layout.fragment_post_donations, container, false);
         listView = (ListView) v.findViewById(R.id.listView);
         adapter =  new SuggestedConnectionsAdapter(getActivity(), true, CommonData.getInstance().getPostDonateUsers());

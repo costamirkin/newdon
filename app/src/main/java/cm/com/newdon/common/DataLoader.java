@@ -284,7 +284,8 @@ public class DataLoader {
                     CommonData.getInstance().getPostDonateUsers().clear();
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject item = array.getJSONObject(i);
-                        CommonData.getInstance().getPostDonateUsers().add(JsonHandler.parseUserFromJson(item));
+                        JSONObject userObj = item.getJSONObject("user");
+                        CommonData.getInstance().getPostDonateUsers().add(JsonHandler.parseUserFromJson(userObj));
                     }
                     if (CommonData.getInstance().imageLoadedIf != null) {
                         CommonData.getInstance().imageLoadedIf.dataLoaded();

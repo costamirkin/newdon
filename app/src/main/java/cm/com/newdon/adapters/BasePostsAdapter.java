@@ -150,6 +150,15 @@ public abstract class BasePostsAdapter extends BaseAdapter {
         TextView tvDonated = (TextView) layout.findViewById(R.id.tvDonated);
         if (post.getDonatorCount() > 0) {
             tvDonated.setText(post.getDonatorCount() + " donated");
+            tvDonated.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (CommonData.bottomBarActivity != null) {
+                        CommonData.bottomBarActivity.changePostDonationsFragment(post.getId());
+                    }
+
+                }
+            });
         }
 
         tvLikesBadge = (TextView) layout.findViewById(R.id.tvLikesBadge);
