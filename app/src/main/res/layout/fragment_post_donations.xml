@@ -5,11 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/header"
+        android:textSize="16dp"
+        android:textColor="@color/blueLottery"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:id="@+id/donator"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="27dp"
+        android:textColor="@color/greyLottery"
+        android:layout_centerHorizontal="true"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profileImage"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/header"
+        android:layout_toLeftOf="@+id/donator"
+        android:layout_marginRight="15dp"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/donator"
+        android:layout_marginTop="27dp"
+        android:src="@drawable/keyline"
+        android:id="@+id/keyline"
+        />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="16dp"
+        android:layout_below="@+id/keyline"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="16dp"
         android:id="@+id/listView"></ListView>
 

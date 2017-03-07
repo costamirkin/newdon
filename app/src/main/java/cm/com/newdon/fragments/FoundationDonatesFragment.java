@@ -131,11 +131,12 @@ public class FoundationDonatesFragment extends Fragment {
         });
 
 
-        ImageView followFound = (ImageView) v.findViewById(R.id.followFound);
+        final ImageView followFound = (ImageView) v.findViewById(R.id.followFound);
         followFound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Utils.followFoundation(foundationId, getActivity());
+                followFound.setImageResource(R.drawable.follow_btn_brown);
 
             }
         });

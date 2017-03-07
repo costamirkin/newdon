@@ -13,33 +13,42 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.SuggestedConnectionsAdapter;
+import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoadedIf;
 import cm.com.newdon.common.DataLoader;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class PostDonationsFragment extends Fragment implements DataLoadedIf {
     private SuggestedConnectionsAdapter adapter;
-    private EditText searchEt;
-    private TextView tvCancel;
+    private TextView donator;
+    private TextView header;
     private ListView listView;
-    private ImageView ivClose;
-    private RelativeLayout beforeSearchRl;
-    private RelativeLayout notFoundRl;
-    private int postId;
+    private CircleImageView profileImage;
 
-    public void setPostId(int postId) {
-        this.postId = postId;
+    private Post post;
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        DataLoader.getPostDonateUsers(postId);
+        DataLoader.getPostDonateUsers(post.getId());
         View v = inflater.inflate(R.layout.fragment_post_donations, container, false);
+        donator = (TextView) v.findViewById(R.id.donator);
+        donator.setText(post.getUser().getUserName() + "'s don");
+        header = (TextView) v.findViewById(R.id.header);
+        header.setText(post.getFoundation().getTitle());
+        profileImage = (CircleImageView) v.findViewById(R.id.profileImage);
+        Picasso.with(getActivity()).load(post.getUser().getPictureUrl()).into(profileImage);
         listView = (ListView) v.findViewById(R.id.listView);
         adapter =  new SuggestedConnectionsAdapter(getActivity(), true, CommonData.getInstance().getPostDonateUsers());
         listView.setAdapter(adapter);

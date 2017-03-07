@@ -135,8 +135,8 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
 
     }
 
-    public void changePostDonationsFragment(int postId) {
-        postDonationsFragment.setPostId(postId);
+    public void changePostDonationsFragment(Post post) {
+        postDonationsFragment.setPost(post);
         commitFragment(postDonationsFragment);
 
     }

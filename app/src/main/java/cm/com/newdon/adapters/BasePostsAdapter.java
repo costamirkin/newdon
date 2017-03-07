@@ -92,8 +92,7 @@ public abstract class BasePostsAdapter extends BaseAdapter {
             File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
                     CommonData.profileImageName);
             if (profileImageFile.exists()) {
-                ivUser.setImageURI(null);
-                ivUser.setImageURI(Uri.fromFile(profileImageFile));
+                Picasso.with(context).load(Uri.fromFile(profileImageFile)).into(ivUser);
             }
             //            for all other users
         } else {
@@ -154,7 +153,7 @@ public abstract class BasePostsAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     if (CommonData.bottomBarActivity != null) {
-                        CommonData.bottomBarActivity.changePostDonationsFragment(post.getId());
+                        CommonData.bottomBarActivity.changePostDonationsFragment(post);
                     }
 
                 }
