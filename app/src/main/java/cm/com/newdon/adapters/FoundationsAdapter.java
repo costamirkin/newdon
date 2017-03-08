@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import cm.com.newdon.BottomBarActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.common.CommonData;
@@ -59,7 +60,14 @@ public class FoundationsAdapter extends BaseAdapter {
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.foundation, parent, false);
-        Foundation foundation = foundationsAfterSearch.get(position);
+        final Foundation foundation = foundationsAfterSearch.get(position);
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonData.bottomBarActivity.onFoundationSelected(foundation.getId());
+            }
+        });
 
         CircleImageView imLogo = (CircleImageView) layout.findViewById(R.id.imFoundLogo);
         imLogo.setImageBitmap(foundation.getLogo());

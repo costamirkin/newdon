@@ -118,30 +118,33 @@ public class ProfileDonatesFragment extends Fragment  implements DataLoadedIf {
 
         final User selectedUser = CommonData.getInstance().getSelectedUser();
 
-        DataLoader.getUserPosts(getActivity(), selectedUser.getId());
-        DataLoader.getUserPostsWithDonations(getActivity(), selectedUser.getId());
+        if (selectedUser != null) {
 
-        TextView nameTv = (TextView) v.findViewById(R.id.name);
-        nameTv.setText(selectedUser.getUserName());
-        TextView fullNameTv = (TextView) v.findViewById(R.id.fullName);
-        fullNameTv.setText(selectedUser.getRealName());
+            DataLoader.getUserPosts(getActivity(), selectedUser.getId());
+            DataLoader.getUserPostsWithDonations(getActivity(), selectedUser.getId());
 
-        // Followers following
-        TextView followersTv = (TextView) v.findViewById(R.id.followers);
-        followersTv.setText("" + selectedUser.getFollowersCount() + " followers");
+            TextView nameTv = (TextView) v.findViewById(R.id.name);
+            nameTv.setText(selectedUser.getUserName());
+            TextView fullNameTv = (TextView) v.findViewById(R.id.fullName);
+            fullNameTv.setText(selectedUser.getRealName());
 
-        TextView followingTv = (TextView) v.findViewById(R.id.following);
-        followingTv.setText("" + selectedUser.getFollowingCount() + " following");
+            // Followers following
+            TextView followersTv = (TextView) v.findViewById(R.id.followers);
+            followersTv.setText("" + selectedUser.getFollowersCount() + " followers");
 
-        FollowersListener followersListener = new FollowersListener("followers");
-        followersTv.setOnClickListener(followersListener);
+            TextView followingTv = (TextView) v.findViewById(R.id.following);
+            followingTv.setText("" + selectedUser.getFollowingCount() + " following");
 
-        FollowersListener followingListener = new FollowersListener("following");
-        followingTv.setOnClickListener(followingListener);
+            FollowersListener followersListener = new FollowersListener("followers");
+            followersTv.setOnClickListener(followersListener);
 
-        // Donations
-        TextView donationsTv = (TextView) v.findViewById(R.id.donations);
-        donationsTv.setText("" + selectedUser.getDonCount() + " donates");
+            FollowersListener followingListener = new FollowersListener("following");
+            followingTv.setOnClickListener(followingListener);
+
+            // Donations
+            TextView donationsTv = (TextView) v.findViewById(R.id.donations);
+            donationsTv.setText("" + selectedUser.getDonCount() + " donates");
+        }
 
 
         line = (ImageView) v.findViewById(R.id.niceLine);
@@ -196,51 +199,53 @@ public class ProfileDonatesFragment extends Fragment  implements DataLoadedIf {
         profileImage = (CircleImageView) v.findViewById(R.id.profile_image);
         changeImage = (ImageView) v.findViewById(R.id.edit_btn);
         followButton = (ImageView) v.findViewById(R.id.follow_btn);
-        if (!selectedUser.equals(CommonData.getInstance().getCurrentUser())) {
-            changeImage.setVisibility(View.INVISIBLE);
-            followButton.setVisibility(View.VISIBLE);
-            if (selectedUser.isFollowed()) {
-                followButton.setImageResource(R.drawable.follow_btn1);
-            } else {
-                followButton.setImageResource(R.drawable.follow_btn2);
-                followButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Utils.followUser(selectedUser.getId(), getActivity());
-                        followButton.setImageResource(R.drawable.follow_btn1);
-                    }
-                });
-
-            }
-            settingsIv.setVisibility(View.INVISIBLE);
-            backBtn.setVisibility(View.VISIBLE);
-            if (selectedUser.getPictureUrl() != null && !selectedUser.getPictureUrl().equals("")) {
-                Picasso.with(getActivity()).load(selectedUser.getPictureUrl()).into(profileImage);
-            }
-        } else {
-            File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                    CommonData.profileImageName);
-            if (profileImageFile.exists()) {
-                profileImage.setImageURI(null);
-                profileImage.setImageURI(Uri.fromFile(profileImageFile));
-            }
-            changeImage.setVisibility(View.VISIBLE);
-            settingsIv.setVisibility(View.VISIBLE);
-            backBtn.setVisibility(View.INVISIBLE);
-            followButton.setVisibility(View.INVISIBLE);
-
-            changeImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.fragmentContainer, profileFragment);
-
-                    ft.addToBackStack("This Fragment");
-                    ft.commit();
+        if (selectedUser != null) {
+            if (!selectedUser.equals(CommonData.getInstance().getCurrentUser())) {
+                changeImage.setVisibility(View.INVISIBLE);
+                followButton.setVisibility(View.VISIBLE);
+                if (selectedUser.isFollowed()) {
+                    followButton.setImageResource(R.drawable.follow_btn1);
+                } else {
+                    followButton.setImageResource(R.drawable.follow_btn2);
+                    followButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Utils.followUser(selectedUser.getId(), getActivity());
+                            followButton.setImageResource(R.drawable.follow_btn1);
+                        }
+                    });
 
                 }
+                settingsIv.setVisibility(View.INVISIBLE);
+                backBtn.setVisibility(View.VISIBLE);
+                if (selectedUser.getPictureUrl() != null && !selectedUser.getPictureUrl().equals("")) {
+                    Picasso.with(getActivity()).load(selectedUser.getPictureUrl()).into(profileImage);
+                }
+            } else {
+                File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+                        CommonData.profileImageName);
+                if (profileImageFile.exists()) {
+                    profileImage.setImageURI(null);
+                    profileImage.setImageURI(Uri.fromFile(profileImageFile));
+                }
+                changeImage.setVisibility(View.VISIBLE);
+                settingsIv.setVisibility(View.VISIBLE);
+                backBtn.setVisibility(View.INVISIBLE);
+                followButton.setVisibility(View.INVISIBLE);
 
-            });
+                changeImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.fragmentContainer, profileFragment);
+
+                        ft.addToBackStack("This Fragment");
+                        ft.commit();
+
+                    }
+
+                });
+            }
         }
 
         return v;

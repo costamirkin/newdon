@@ -55,6 +55,7 @@
             android:layout_marginLeft="16dp"
             android:text="Allow push notification"
             android:id="@+id/allowPushTv"
+            android:textColor="@color/greyLottery"
             android:layout_alignParentLeft="true"/>
 
     </RelativeLayout>
@@ -75,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:textColor="@color/greyLottery"
             android:layout_marginLeft="16dp"
             android:text="Enable sound for notification"
             android:id="@+id/enableSoundTv"

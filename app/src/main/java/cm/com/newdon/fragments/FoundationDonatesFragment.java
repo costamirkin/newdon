@@ -78,9 +78,14 @@ public class FoundationDonatesFragment extends Fragment {
                 // Followers following
                 TextView followersTv = (TextView) v.findViewById(R.id.followers);
                 followersTv.setText("" + f.getFollowersCount() + " followers");
+                followersTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                TextView followingTv = (TextView) v.findViewById(R.id.following);
-                //followingTv.setText("" + f.getFollowingCount() + " following");
+                    }
+                });
+
+
             }
 
         }
