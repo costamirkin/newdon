@@ -1,20 +1,15 @@
 package cm.com.newdon.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.SpannableString;
-import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,7 +18,6 @@ import java.util.ArrayList;
 import cm.com.newdon.R;
 import cm.com.newdon.classes.User;
 import cm.com.newdon.common.CommonData;
-import cm.com.newdon.common.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -93,7 +87,7 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
         tvUserMail.setText(realName);
         if (searchMode) {
             SpannableString spannableString = new SpannableString(realName);
-            Object blueSpan = new ForegroundColorSpan(Color.BLUE);
+            Object blueSpan = new ForegroundColorSpan(0xff5d9bff);
             int indexOf = realName.indexOf(searchStr);
             if (indexOf != -1) {
                 spannableString.setSpan(blueSpan, indexOf, indexOf + searchStr.length(), 0);
@@ -105,28 +99,13 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
         final ImageView       ivNotification = (ImageView) layout.findViewById(R.id.imFollow);
         if (user.isFollowed()) {
             ivNotification.setImageResource(R.drawable.following_btn);
-            ivNotification.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    user.setIsFollowed(false);
-                    Utils.unfollowUser(user.getId(), context);
-                    ivNotification.setImageResource(R.drawable.follow_btn);
-                }
-            });
 
         }
         else {
             ivNotification.setImageResource(R.drawable.follow_btn);
-            ivNotification.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    user.setIsFollowed(false);
-                    Utils.followUser(user.getId(), context);
-                    ivNotification.setImageResource(R.drawable.following_btn);
-                }
-            });
-
         }
+
+        ivNotification.setOnClickListener(new FollowListener(ivNotification, user, context));
 
         return layout;
     }

@@ -17,7 +17,7 @@ public class SignAcitvity extends ActionBarActivity {
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"SIGNUP","LOGIN", "FACEBOOK"};
+    CharSequence Titles[]={"LOGIN", "SIGNUP","FACEBOOK"};
     int Numboftabs = 3;
 
     @Override

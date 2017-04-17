@@ -31,11 +31,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         if (position == 0)
         {
-            return new SignFragment();
+            return new LoginFragment();
         }
         else if (position == 1)
         {
-            return new LoginFragment();
+            return new SignFragment();
         }
         else if (position == 2)
         {

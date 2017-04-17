@@ -136,7 +136,7 @@ public class NotificationsAdapter extends BaseAdapter {
                             if (user.isFollowed()) {
                                 Utils.followUser(user.getId(), context, UNFOLLOW);
                                 ivNotification.setImageResource(R.drawable.add_user_btn);
-                                user.setIsFollowed(true);
+                                user.setIsFollowed(false);
                             } else {
                                 Utils.followUser(user.getId(), context);
                                 ivNotification.setImageResource(R.drawable.approve);

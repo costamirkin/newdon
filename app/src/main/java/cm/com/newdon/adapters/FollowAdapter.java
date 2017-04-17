@@ -68,18 +68,16 @@ public class FollowAdapter extends BaseAdapter {
         TextView        tvFollowers    = (TextView) layout.findViewById(R.id.tvFollowers);
         tvFollowers.setText("" + user.getFollowersCount());
         final ImageView       ivNotification = (ImageView) layout.findViewById(R.id.imFollow);
+
         if (user.isFollowed()) {
             ivNotification.setImageResource(R.drawable.following_btn);
+
         }
         else {
-            ivNotification.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Utils.followUser(user.getId(), context);
-                    ivNotification.setImageResource(R.drawable.following_btn);
-                }
-            });
+            ivNotification.setImageResource(R.drawable.follow_btn);
         }
+
+        ivNotification.setOnClickListener(new FollowListener(ivNotification, user, context));
 
         return layout;
     }

@@ -13,7 +13,7 @@
         android:paddingLeft="48dp"
         android:paddingBottom="15dp"
         android:hint="Email"
-        android:text="europe@wizit.com"
+        android:text="wizit@europe.com"
         android:id="@+id/email"
         android:layout_alignParentTop="true" />
     
