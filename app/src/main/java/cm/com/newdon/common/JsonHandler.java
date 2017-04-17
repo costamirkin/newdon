@@ -163,6 +163,8 @@ public class JsonHandler {
             String ticketNumber = ticketObj.getString("number");
             String ticketStatus = ticketObj.getString("status");
             Ticket ticket = new Ticket(ticketNumber,ticketStatus);
+            int postId = ticketObj.getInt("postId");
+            ticket.setPostId(postId);
             lottery.getTickets().add(ticket);
         }
 

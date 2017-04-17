@@ -69,11 +69,9 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
         String signup = intent.getStringExtra("signup");
         if (signup == null) {
             bottomBar.setDefaultTabPosition(0);
-
         }
         else {
             bottomBar.setDefaultTabPosition(2);
-
         }
         profileImage = (CircleImageView) findViewById(R.id.profileImage);
         File profileImageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
@@ -97,8 +95,9 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
 //            foundations
             DataLoader.getAllFoundations();
 
-//            lottery
+            //            lottery
             DataLoader.getFeaturedLotteries();
+
             CommonData.getInstance().isFirstStart = false;
         }
 
@@ -129,6 +128,12 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
         int foundId = intent.getIntExtra("foundId", 0);
         if (foundId != 0) {
             onFoundationSelected(foundId);
+        }
+
+        //when we return from lottery activity after press on ticket
+        int postId = intent.getIntExtra("postId", 0);
+        if (postId != 0) {
+            onPostSelected();
         }
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
