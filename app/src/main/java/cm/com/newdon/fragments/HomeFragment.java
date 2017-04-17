@@ -24,9 +24,10 @@ import cm.com.newdon.common.OnPostSelectedListener;
 
 
 public class HomeFragment extends Fragment implements DataLoadedIf {
-    ListView lv;
+    private ListView lv;
 
-    OnPostSelectedListener mCallBack;
+    private OnPostSelectedListener mCallBack;
+    private ImageView altruImage;
 
     @Override
     public void onAttach(Activity activity) {
@@ -50,6 +51,14 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
         lv.setAdapter(new PostsAdapter(getActivity().getApplicationContext(), mCallBack, CommonData.getInstance().getPosts()));
         lv.invalidateViews();
 
+        altruImage = (ImageView) view.findViewById(R.id.altruImage);
+        altruImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lv.setSelectionAfterHeaderView();
+            }
+        });
+
         //to get notification counter
         DataLoader.getNotificationCount();
         return view;
@@ -60,6 +69,9 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
         super.onStart();
         CommonData.getInstance().imageLoadedIf =  this;
 
+        if (lv != null) {
+            lv.setSelectionAfterHeaderView();
+        }
     }
 
     @Override

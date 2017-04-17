@@ -12,8 +12,9 @@ import cm.com.newdon.common.PostQuery;
 import cm.com.newdon.common.Utils;
 
 public class HideReportDialogActivity extends Activity {
-    int postId;
-    User user;
+    private int postId;
+    private User user;
+    private TextView tvFollowUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class HideReportDialogActivity extends Activity {
         postId = intent.getIntExtra("postId", 0);
 
         user = CommonData.getInstance().findPostById(postId).getUser();
-        TextView tvFollowUser = (TextView) findViewById(R.id.tvFollowUser);
+        tvFollowUser = (TextView) findViewById(R.id.tvFollowUser);
         if(user.isFollowed()){
             tvFollowUser.setText("Unfollow this user");
         }
@@ -36,7 +37,7 @@ public class HideReportDialogActivity extends Activity {
     }
 
     public void hidePost(View view) {
-        PostQuery.managePost(postId, PostQuery.PostAction.HIDE);
+        PostQuery.managePost(postId, PostQuery.PostAction.HIDE, this);
         finish();
     }
 
@@ -46,9 +47,11 @@ public class HideReportDialogActivity extends Activity {
             boolean unFollow = true;
             Utils.followUser(user.getId(), getApplicationContext(), unFollow);
             user.setIsFollowed(false);
+
         }else {
             Utils.followUser(user.getId(), getApplicationContext());
             user.setIsFollowed(true);
+
         }
         finish();
     }

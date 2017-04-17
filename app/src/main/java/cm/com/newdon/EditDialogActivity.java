@@ -43,7 +43,7 @@ public class EditDialogActivity extends Activity {
     public void save(View view) {
         String text = etComment.getText().toString();
         comment.setText(text);
-        PostQuery.updateComment(commentId,text);
+        PostQuery.updateComment(commentId,text, this);
         finish();
     }
 }

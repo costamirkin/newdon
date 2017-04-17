@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,8 +53,10 @@ public class ReportDialogActivity extends Activity {
                         reason = reasons[which];
 
 //                        to check
-                        TextView tvReason = (TextView) findViewById(R.id.tvReason);
-                        tvReason.setText(reason);
+                        //TextView tvReason = (TextView) findViewById(R.id.tvReason);
+                        Button reasonBtn = (Button) findViewById(R.id.reasonBtn);
+                        reasonBtn.setTextSize(15);
+                        reasonBtn.setText(reason);
 
                         dialog.dismiss();
                     }
@@ -69,7 +72,7 @@ public class ReportDialogActivity extends Activity {
             Toast.makeText(getApplicationContext(),"Please select reason!", Toast.LENGTH_SHORT).show();
         }else {
             EditText etMessage = (EditText) findViewById(R.id.etReportMessage);
-            PostQuery.report(entityId, isPost, reason, etMessage.getText().toString());
+            PostQuery.report(entityId, isPost, reason, etMessage.getText().toString(), this);
             finish();
         }
     }

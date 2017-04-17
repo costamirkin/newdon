@@ -69,6 +69,7 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
         String signup = intent.getStringExtra("signup");
         if (signup == null) {
             bottomBar.setDefaultTabPosition(0);
+
         }
         else {
             bottomBar.setDefaultTabPosition(2);
@@ -121,7 +122,13 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
                 public void run() {
                     layoutDonSuccess.setVisibility(View.GONE);
                 }
-            }, 3000);
+            }, 5000);
+        }
+
+
+        int foundId = intent.getIntExtra("foundId", 0);
+        if (foundId != 0) {
+            onFoundationSelected(foundId);
         }
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -130,6 +137,11 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
 
     }
 
+
+    public void goHome() {
+        bottomBar.setDefaultTabPosition(0);
+
+    }
 
     public void changeToConnectionsFragment() {
         bottomBar.setDefaultTabPosition(2);
@@ -193,7 +205,8 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
             fragmentTransaction.addToBackStack("This Fragment");
         }
 
-        fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
+
     }
 
     public void startDonate(View view) {
@@ -277,18 +290,22 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
 
     public void shareDonation(View view) {
         Post tempPost = CommonData.getInstance().getTempPost();
+        String text = CommonData.getInstance().getCurrentUser().getRealName() + " made donation to "
+                + tempPost.getFoundation().getTitle() + " through Altru app";
+        final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         if (tempPost.getUri() != null) {
             File file = new File(tempPost.getUri());
             Uri uri = Uri.fromFile(file);
-            String text = CommonData.getInstance().getCurrentUser().getRealName() + " made donation to "
-                    + tempPost.getFoundation().getTitle() + " through Altru app";
-            final Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("image/*");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, text);
             shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(Intent.createChooser(shareIntent, "Share to"));
         }
+        else {
+            shareIntent.setType("text/plain");
+
+        }
+        startActivity(Intent.createChooser(shareIntent, "Share to"));
     }
 
     @Override

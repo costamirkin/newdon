@@ -33,7 +33,7 @@ public class DeleteDialogActivity extends Activity {
     }
 
     public void delete(View view) {
-        PostQuery.deleteComment(commentId);
+        PostQuery.deleteComment(commentId, this);
         CommonData.getInstance().getComments().remove(CommonData.getInstance().findCommentById(commentId));
         finish();
     }

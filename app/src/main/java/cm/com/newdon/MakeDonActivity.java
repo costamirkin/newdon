@@ -78,6 +78,7 @@ public class MakeDonActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Toast.makeText(getApplicationContext(),"YOU made a DON!", Toast.LENGTH_LONG).show();
+                CommonData.getInstance().getCurrentUser().setDonCount(CommonData.getInstance().getCurrentUser().getDonCount()+1);
                 Intent intent = new Intent(getApplicationContext(),BottomBarActivity.class);
                 intent.putExtra("success", 1);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

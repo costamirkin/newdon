@@ -177,7 +177,7 @@ public abstract class BasePostsAdapter extends BaseAdapter {
                     ivLike.setImageResource(R.drawable.layer_5);
                 }
 
-                PostQuery.likePost(post.getId(), post.isLiked());
+                PostQuery.likePost(post.getId(), post.isLiked(), context);
 
                 //change isLiked to opposite
                 post.setIsLiked(!post.isLiked());

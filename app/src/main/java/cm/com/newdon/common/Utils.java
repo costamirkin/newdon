@@ -44,7 +44,7 @@ public class Utils {
     public static void followFoundation(int foundationId, final Context context) {
         RequestParams params = new RequestParams();
 //        params.put("userId", userId);
-        RestClient.put("foundations/subscribe?foundationId=" + foundationId , params, new AsyncHttpResponseHandler() {
+        RestClient.put("foundations/subscribe?foundationId=" + foundationId, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 System.out.println(new String(responseBody));
@@ -73,7 +73,6 @@ public class Utils {
                 String strErr = responseBody == null ? "" : new String(responseBody);
                 Toast.makeText(context,
                         "Follow failed. " + strErr, Toast.LENGTH_LONG).show();
-                System.out.println(new String(responseBody));
 
             }
         });
@@ -119,5 +118,14 @@ public class Utils {
             cursor.close();
         }
         return result;
+    }
+
+    public static String createErrorStr(String message, byte[] responseBody ) {
+        if (responseBody == null) {
+            return message;
+        }
+        else {
+            return  message + new String(responseBody);
+        }
     }
 }

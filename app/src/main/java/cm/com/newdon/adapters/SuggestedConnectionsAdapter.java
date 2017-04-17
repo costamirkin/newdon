@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import cm.com.newdon.R;
 import cm.com.newdon.classes.User;
+import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -78,6 +79,14 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
         Log.e("sss", user.getPictureUrl());
         if (!user.getPictureUrl().equals("")) {
             Picasso.with(context).load(user.getPictureUrl()).into(ivUser);
+            ivUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CommonData.getInstance().setSelectedUser(user);
+
+                    CommonData.bottomBarActivity.onUserSelected(user.getId());
+                }
+            });
         }
         TextView        tvUserMail     = (TextView) layout.findViewById(R.id.tvUserMail);
         String realName = user.getRealName();
@@ -99,6 +108,7 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
             ivNotification.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    user.setIsFollowed(false);
                     Utils.unfollowUser(user.getId(), context);
                     ivNotification.setImageResource(R.drawable.follow_btn);
                 }
@@ -110,6 +120,7 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
             ivNotification.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    user.setIsFollowed(false);
                     Utils.followUser(user.getId(), context);
                     ivNotification.setImageResource(R.drawable.following_btn);
                 }

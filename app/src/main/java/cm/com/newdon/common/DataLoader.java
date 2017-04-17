@@ -154,7 +154,9 @@ public class DataLoader {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
             }
         };
 
@@ -188,7 +190,9 @@ public class DataLoader {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
             }
         };
 
@@ -471,7 +475,7 @@ public class DataLoader {
         AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                System.out.println(responseBody);
+                //System.out.println(responseBody);
                 try {
                     JSONObject object = new JSONObject(new String(responseBody));
                     JSONArray array = object.getJSONArray("items");
@@ -541,7 +545,9 @@ public class DataLoader {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
             }
         };
 
@@ -574,7 +580,9 @@ public class DataLoader {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                if (responseBody  != null) {
+                    System.out.println(new String(responseBody));
+                }
             }
         };
 

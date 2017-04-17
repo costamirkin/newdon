@@ -61,6 +61,7 @@ public class SignFragment extends Fragment {
                 RequestParams params = new RequestParams();
                 params.put("username", name.getText().toString());
                 params.put("name", fullName.getText().toString());
+                CommonData.myName = fullName.getText().toString();
                 params.put("email", emailEt.getText().toString());
                 params.put("password", pswdEt.getText().toString());
                 params.put("confirmedPassword", pswd2Et.getText().toString());
@@ -68,8 +69,8 @@ public class SignFragment extends Fragment {
                 RestClient.loginSignup("signup", params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        Toast.makeText(getActivity().getApplicationContext(),
-                                new String(responseBody), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity().getApplicationContext(),
+//                                new String(responseBody), Toast.LENGTH_LONG).show();
                         try {
                             JSONObject object = new JSONObject(new String(responseBody));
                             CommonData.getInstance().setToken(object.getString("token"));
@@ -90,8 +91,9 @@ public class SignFragment extends Fragment {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        String answer =  (responseBody == null ? "" : new String(responseBody));
                         Toast.makeText(getActivity().getApplicationContext(),
-                                "Login failed: " + new String(responseBody), Toast.LENGTH_LONG).show();
+                                "Login failed " + answer, Toast.LENGTH_LONG).show();
 
                     }
                 });

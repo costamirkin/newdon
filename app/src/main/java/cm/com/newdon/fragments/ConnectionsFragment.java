@@ -5,12 +5,14 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +38,7 @@ import cm.com.newdon.common.DataLoader;
 public class ConnectionsFragment extends Fragment implements DataLoadedIf {
 
     ListView listView;
+    private boolean isContactsFirst = true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,6 +54,14 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
         final TextView tvSuggested = (TextView) view.findViewById(R.id.tvSuggested);
         final TextView tvFacebook = (TextView) view.findViewById(R.id.tvFacebook);
         final TextView tvContacts = (TextView) view.findViewById(R.id.tvContacts);
+
+        ImageView finishbtn = (ImageView) view.findViewById(R.id.finishbtn);
+        finishbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonData.bottomBarActivity.goHome();
+            }
+        });
 
         tvSuggested.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,10 +81,21 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
             @Override
             public void onClick(View v) {
                 changeTextViewColors(tvContacts, tvFacebook, tvSuggested);
+                progressDialog = ProgressDialog.show(getActivity(),
+                        "Please wait ...", "Reading Contacts ...", true);
+                progressDialog.setCancelable(false);
+
                 showContacts();
             }
         });
 
+        contacts = new ArrayList<PhoneContact>();
+        contactsAdapter = new ContactsAdapter(getActivity(), contacts);
+
+        if (isContactsFirst) {
+            isContactsFirst = false;
+            new GetContactsThread().start();
+        }
         return view;
     }
 
@@ -134,26 +156,32 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
     private ProgressDialog          progressDialog;
 
     private void showContacts() {
-        if (contactsAdapter == null) {
-            progressDialog = ProgressDialog.show(getActivity(),
-                    "Please wait ...", "Reading Contacts ...", true);
-            progressDialog.setCancelable(true);
+        new TimerThread().start();
+        listView.setAdapter(contactsAdapter);
 
-            new GetContactsThread().start();
-
-
-        }
-        else {
-            listView.setAdapter(contactsAdapter);
-        }
     }
 
+    private boolean stopLoad = false;
+    class TimerThread extends Thread {
+        @Override
+        public void run() {
+            SystemClock.sleep(3000);
+            stopLoad = true;
+
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    progressDialog.cancel();
+                }
+            });
+
+        }
+    }
 
     class GetContactsThread extends Thread {
         @Override
         public void run() {
             super.run();
-            contacts = new ArrayList<PhoneContact>();
             ContentResolver cr = getActivity().getContentResolver();
             Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null,
                     null, null, null);
@@ -197,23 +225,23 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
                         }
                     }
                     cur1.close();
+                    if (stopLoad) {
+                        return;
+                    }
                     contacts.add(new PhoneContact(name, email, phoneNumber));
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            contactsAdapter.notifyDataSetChanged();
+                        }
+                    });
 
                 }
             }
 
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    contactsAdapter = new ContactsAdapter(getActivity(), contacts);
-                    listView.setAdapter(contactsAdapter);
-
-                    progressDialog.dismiss();
-
-                }
-            });
-        }
+         }
     }
+
 
 
     @Override

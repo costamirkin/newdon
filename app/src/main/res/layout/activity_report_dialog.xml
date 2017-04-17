@@ -33,6 +33,7 @@
         android:text="Select reason"
         android:textSize="20sp"
         android:onClick="showSpinner"
+        android:id="@+id/reasonBtn"
         android:textAllCaps="false"
         android:gravity="center"
         android:textColor="@color/black"

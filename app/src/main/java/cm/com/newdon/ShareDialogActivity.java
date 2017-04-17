@@ -61,7 +61,7 @@ public class ShareDialogActivity extends Activity {
 
     public void sharePost(View view) {
         EditText etMessage = (EditText) findViewById(R.id.etShareComment);
-        PostQuery.sharePost(postId, etMessage.getText().toString());
+        PostQuery.sharePost(postId, etMessage.getText().toString(), this);
         finish();
     }
 

@@ -14,6 +14,7 @@
             android:layout_width="103dp"
             android:src="@drawable/editmeandsave"
             android:layout_height="wrap_content"
+            android:id="@+id/altruImage"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
 
@@ -28,6 +29,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
         android:id="@+id/lvPosts"
         android:divider="@null"
         android:layout_gravity="center_horizontal" />

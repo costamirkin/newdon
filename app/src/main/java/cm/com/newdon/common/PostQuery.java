@@ -1,5 +1,8 @@
 package cm.com.newdon.common;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -22,7 +25,8 @@ public class PostQuery {
         }
     }
 
-    public static void managePost(final int postId, final PostAction action) {
+
+    public static void managePost(final int postId, final PostAction action, final Context context) {
 
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
 
@@ -36,8 +40,8 @@ public class PostQuery {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                Toast.makeText(context,
+                        Utils.createErrorStr(action + " failed", responseBody), Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -47,7 +51,7 @@ public class PostQuery {
         RestClient.post("posts/" + action.getValue(), params, handler);
     }
 
-    public static void report(final int entity_id, boolean isPost, String reason, String message) {
+    public static void report(final int entity_id, boolean isPost, String reason, String message, final Context context) {
 
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
 
@@ -57,8 +61,8 @@ public class PostQuery {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                Toast.makeText(context,
+                        Utils.createErrorStr("Report failed", responseBody), Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -71,7 +75,7 @@ public class PostQuery {
         RestClient.post("posts/report", params, handler);
     }
 
-    public static void sharePost(final int postId, String message) {
+    public static void sharePost(final int postId, String message, final Context context) {
 
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
 
@@ -82,8 +86,8 @@ public class PostQuery {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                Toast.makeText(context,
+                        Utils.createErrorStr("Share failed", responseBody), Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -94,7 +98,7 @@ public class PostQuery {
         RestClient.post("posts/share", params, handler);
     }
 
-    public static void createComment(final int postId, String text) {
+    public static void createComment(final int postId, String text, final Context context) {
 
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
 
@@ -106,8 +110,8 @@ public class PostQuery {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                Toast.makeText(context,
+                        Utils.createErrorStr("Comment failed", responseBody), Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -118,7 +122,7 @@ public class PostQuery {
         RestClient.post("comments/create", params, handler);
     }
 
-    public static void likePost(final int postId, final boolean unLike) {
+    public static void likePost(final int postId, final boolean unLike, final Context context) {
 
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
 
@@ -131,8 +135,8 @@ public class PostQuery {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                Toast.makeText(context,
+                        Utils.createErrorStr("Like failed", responseBody), Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -142,7 +146,7 @@ public class PostQuery {
         RestClient.put("posts/" + (unLike ? "unlike" : "like"), params, handler);
     }
 
-    public static void updateComment(int commentId, String text){
+    public static void updateComment(int commentId, String text, final Context context){
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
 
             @Override
@@ -154,8 +158,8 @@ public class PostQuery {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                Toast.makeText(context,
+                        Utils.createErrorStr("Update comment failed", responseBody), Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -166,7 +170,7 @@ public class PostQuery {
         RestClient.put("comments/edit", params, handler);
     }
 
-    public static void deleteComment(final int commentId) {
+    public static void deleteComment(final int commentId, final Context context) {
 
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
 
@@ -180,8 +184,8 @@ public class PostQuery {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("!!!!!!!!!Delete comment ERROR!!!!!!!!!!!!!");
-                System.out.println(new String(responseBody));
+                Toast.makeText(context,
+                        Utils.createErrorStr("Delete omment failed", responseBody), Toast.LENGTH_SHORT).show();
             }
         };
 

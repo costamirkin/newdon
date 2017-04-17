@@ -42,7 +42,7 @@ public class FoundationGrid extends AppCompatActivity {
 //        to hide keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        adapter = new FoundationsAdapter(getApplicationContext());
+        adapter = new FoundationsAdapter(getApplicationContext(), true);
         gv = (GridView) findViewById(R.id.gvFounds);
         gv.setAdapter(adapter);
         gv.invalidate();

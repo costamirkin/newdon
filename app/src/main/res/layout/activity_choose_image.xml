@@ -39,7 +39,7 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:id="@+id/image"
-        android:onClick="changeImage"
+        android:onClick="attachImage"
         android:src="@drawable/add_picture_btn"
         android:layout_centerInParent="true"/>
     <TextView

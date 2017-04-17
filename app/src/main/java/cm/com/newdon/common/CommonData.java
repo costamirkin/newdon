@@ -274,4 +274,6 @@ public class CommonData {
     }
 
     public static BottomBarActivity bottomBarActivity = null;
+
+    public static String myName = "";
 }

@@ -92,7 +92,7 @@ public class ProfileFragment extends Fragment {
                 RestClient.post("account/profile", params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        Utils.showAlertDialog("DETAILS CHANGED", getActivity());
+                        //Utils.showAlertDialog("DETAILS CHANGED", getActivity());
                         SharedPreferences settings = getActivity().getSharedPreferences("settings", 0);
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putString("firstName", nameEt.getText().toString());
@@ -119,7 +119,7 @@ public class ProfileFragment extends Fragment {
                         RestClient.post("account/photo", imageParams, new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                                Utils.showAlertDialog("IMAGE CHANGED", getActivity());
+                                Utils.showAlertDialog("DETAILS CHANGED", getActivity());
                             }
 
                             @Override
