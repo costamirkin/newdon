@@ -89,6 +89,7 @@ public class LotteryViewPagerAdapter extends PagerAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(context, LotteryActivity.class);
                 intent.putExtra("position", position);
+                intent.putExtra("isFeatured", true);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
