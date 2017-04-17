@@ -55,7 +55,7 @@ public class DateHandler {
 
 //    returns Date from String "yyyy-mm-dd hh:mm:ss"
     public static Date parseDateFromString(String stringDate){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Date date = null;
         try {
             date = formatter.parse(stringDate);

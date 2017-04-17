@@ -2,8 +2,6 @@ package cm.com.newdon.common;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;

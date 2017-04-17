@@ -54,6 +54,7 @@ public class CommentsActivity extends Activity implements DataLoadedIf {
 
     @Override
     public void dataLoaded() {
+        setCommentsCount();
         lvComments.invalidateViews();
     }
 
@@ -64,8 +65,10 @@ public class CommentsActivity extends Activity implements DataLoadedIf {
     }
 
     private void setCommentsCount(){
-        int commentsCount = post.getCommentsCount();
-        if(commentsCount!=1){
+        int commentsCount =  CommonData.getInstance().getComments().size();
+        if(commentsCount==1) {
+            tvHeader.setText("1 Comment");
+        }else{
             tvHeader.setText(commentsCount+ " Comments");
         }
     }
