@@ -15,22 +15,28 @@ import cm.com.newdon.adapters.FoundationPostsAdapter;
 import cm.com.newdon.adapters.SingleFoundationAdapter;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.DataLoadedIf;
+import cm.com.newdon.common.DataLoader;
 import cm.com.newdon.common.OnPostSelectedListener;
 import cm.com.newdon.common.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
-public class FoundationDonatesFragment extends Fragment {
+public class FoundationDonatesFragment extends Fragment implements DataLoadedIf {
 
     private ListView lv;
     private ImageView smallImage1;
     private ImageView smallImage2;
     private ImageView smallImage3;
+    private ImageView vsign;
     private ImageView line;
 
     private OnPostSelectedListener mCallBack;
     private FoundationPostsAdapter  adapter;
+    private FoundationPostsAdapter  donationAdapter;
     private SingleFoundationAdapter singleFoundationAdapter;
+
+    private TextView postsTv;
 
     @Override
     public void onAttach(Activity activity) {
@@ -51,11 +57,20 @@ public class FoundationDonatesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.fragment_foundation_donates,container,false);
+        final int foundationId = CommonData.getInstance().getSelectedFoundId();
+        postsTv = (TextView) v.findViewById(R.id.posts);
+
+        vsign = (ImageView) v.findViewById(R.id.vsign);
 
         lv = (ListView) v.findViewById(R.id.listView);
-        CommonData.getInstance().copyFoundationPosts();
+        DataLoader.getFoundationPosts(getActivity(), foundationId);
+        DataLoader.getFoundationDonationPosts(getActivity(), foundationId);
+        //CommonData.getInstance().copyFoundationPosts();
         adapter = new FoundationPostsAdapter(getActivity().getApplicationContext(),
                 mCallBack, CommonData.getInstance().getFoundationPosts());
+
+        donationAdapter = new FoundationPostsAdapter(getActivity().getApplicationContext(),
+                mCallBack, CommonData.getInstance().getFoundationDonationPosts());
 
         lv.setAdapter(adapter);
         StikkyHeaderBuilder.stickTo(lv)
@@ -68,13 +83,23 @@ public class FoundationDonatesFragment extends Fragment {
         CircleImageView image = (CircleImageView) v.findViewById(R.id.found_image);
         TextView fullName = (TextView) v.findViewById(R.id.fullName);
         TextView tvCategory  = (TextView) v.findViewById(R.id.tvCategory);
-        final int foundationId = CommonData.getInstance().getSelectedFoundId();
         if (foundationId != -1) {
             Foundation f = CommonData.getInstance().findFoundById(foundationId);
             if (f != null && f.getLogo() != null) {
+
+                if (f.isFeatured()) {
+                    vsign.setVisibility(View.VISIBLE);
+                }
+                else {
+                    vsign.setVisibility(View.INVISIBLE);
+
+                }
                 image.setImageBitmap(f.getLogo());
                 fullName.setText(f.getTitle());
                 tvCategory.setText(f.getCategory().getName());
+                // Donates
+                //postsTv.setText("" + CommonData.getInstance().getFoundationPosts().size() + " posts");
+
                 // Followers following
                 TextView followersTv = (TextView) v.findViewById(R.id.followers);
                 followersTv.setText("" + f.getFollowersCount() + " followers");
@@ -84,6 +109,18 @@ public class FoundationDonatesFragment extends Fragment {
 
                     }
                 });
+
+                final ImageView followFound = (ImageView) v.findViewById(R.id.followFound);
+                if (f.isSubscribed()) {
+                    followFound.setImageResource(R.drawable.follow_btn_brown);
+
+                }
+                else {
+
+                    followFound.setImageResource(R.drawable.follow_found);
+                }
+                followFound.setOnClickListener(new FoundFollowListener(followFound, f, getActivity()));
+
 
 
             }
@@ -130,22 +167,42 @@ public class FoundationDonatesFragment extends Fragment {
                 smallImage2.setImageResource(R.drawable.shape_30);
                 smallImage3.setImageResource(R.drawable.tag_icn);
                 line.setImageResource(R.drawable.lineopp);
-                lv.setAdapter(adapter);
+                lv.setAdapter(donationAdapter);
                 lv.invalidateViews();
             }
         });
 
 
-        final ImageView followFound = (ImageView) v.findViewById(R.id.followFound);
-        followFound.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.followFoundation(foundationId, getActivity());
-                followFound.setImageResource(R.drawable.follow_btn_brown);
-
-            }
-        });
 
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        CommonData.getInstance().imageLoadedIf =  this;
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(CommonData.getInstance().imageLoadedIf==this) {
+            CommonData.getInstance().imageLoadedIf = null;
+        }
+    }
+
+    @Override
+    public void imageLoaded(int postId) {
+
+    }
+
+    @Override
+    public void dataLoaded() {
+        if (lv != null) {
+            lv.invalidateViews();
+            postsTv.setText("" + CommonData.getInstance().getFoundationPosts().size() + " posts");
+        }
+
     }
 }

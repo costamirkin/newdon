@@ -38,20 +38,22 @@
             android:layout_height="25dp"
             android:textColor="#00f"
             android:textSize="20dp"
-            android:text="Full Name"
-            android:layout_marginTop="20dp"
+            android:text="Name"
+            android:layout_marginTop="10dp"
             android:id="@+id/fullName"
             android:layout_below="@+id/found_image"
             android:layout_centerHorizontal="true"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:textColor="@color/blueLottery"
-            android:textSize="20dp"
-            android:text="0 followers"
-            android:id="@+id/followers"
-            android:layout_below="@+id/fullName"
-            android:layout_centerHorizontal="true"/>
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:src="@drawable/shape_28"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/vsign"
+            android:visibility="invisible"
+            android:layout_below="@+id/found_image"
+
+            android:layout_toRightOf="@+id/fullName"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,6 +65,26 @@
             android:paddingRight="10dp"
             android:background="@drawable/tv_round_bck"
             android:id="@+id/tvCategory"
+            android:layout_below="@+id/fullName"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:textColor="@color/blueLottery"
+            android:textSize="18dp"
+            android:text="0 followers"
+            android:id="@+id/followers"
+            android:layout_below="@+id/tvCategory"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="@color/blueLottery"
+            android:layout_height="20dp"
+            android:textSize="18dp"
+            android:text=""
+            android:id="@+id/posts"
             android:layout_below="@+id/followers"
             android:layout_centerHorizontal="true"/>
         <ImageView
@@ -73,7 +95,7 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/line"
             android:id="@+id/niceLine"
-            android:layout_below="@+id/tvCategory"/>
+            android:layout_below="@+id/posts"/>
 
         <LinearLayout
             android:layout_width="match_parent"

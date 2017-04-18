@@ -16,7 +16,16 @@ public class Foundation {
     private String address;
     private int followersCount;
     private String headquarter;
+    private boolean isFeatured;
+    private boolean isSubscribed;
 
+    public boolean isFeatured() {
+        return isFeatured;
+    }
+
+    public boolean isSubscribed() {
+        return isSubscribed;
+    }
 
     //    ???
     private String logoUrl;
@@ -28,6 +37,7 @@ public class Foundation {
     public int[] defaultPicsId = new int[5];
     public String[] defaultPicsUrl = new String[5];
 
+
     public Foundation(
             int id,
             String title,
@@ -37,6 +47,8 @@ public class Foundation {
             String address,
             int followersCount,
             String headquarter,
+            boolean isFeatured,
+            boolean isSubscribed,
             String logoUrl,
             int donatorCount,
             FoundCategory category) {
@@ -48,6 +60,8 @@ public class Foundation {
         this.address = address;
         this.followersCount = followersCount;
         this.headquarter = headquarter;
+        this.isFeatured = isFeatured;
+        this.isSubscribed = isSubscribed;
         this.logoUrl = logoUrl;
         this.donatorCount = donatorCount;
         this.category = category;
@@ -131,6 +145,14 @@ public class Foundation {
 
     public void setLogo(Bitmap logo) {
         this.logo = logo;
+    }
+
+    public void setIsFeatured(boolean isFeatured) {
+        this.isFeatured = isFeatured;
+    }
+
+    public void setIsSubscribed(boolean isSubscribed) {
+        this.isSubscribed = isSubscribed;
     }
 
     @Override

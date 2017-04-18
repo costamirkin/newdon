@@ -89,6 +89,47 @@ public class DataLoader {
     }
 
 //    get posts of foundation by Foundation ID
+    public static void getFoundationDonationPosts(final Context context, int foundationId) {
+
+        CommonData.getInstance().getFoundationDonationPosts().clear();
+        AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+                    JSONObject object = new JSONObject(new String(responseBody));
+                    JSONArray array = object.getJSONArray("items");
+                    for (int i = 0; i < array.length(); i++) {
+                        Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
+                        System.out.println(post);
+//                        if(!post.getImageUrl().equals("null")){
+//                            new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
+//                                    ImageLoaderToBitmap.DownloadOption.POST).execute();
+//                        }
+                        CommonData.getInstance().getFoundationDonationPosts().add(post);
+                        if (CommonData.getInstance().imageLoadedIf != null) {
+                            CommonData.getInstance().imageLoadedIf.dataLoaded();
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
+            }
+        };
+
+        RequestParams params = new RequestParams();
+        params.put("foundationId", foundationId);
+
+        RestClient.get("foundations/donation-posts", params, handler);
+    }
+
+//    get posts of foundation by Foundation ID
     public static void getFoundationPosts(final Context context, int foundationId) {
 
         CommonData.getInstance().getFoundationPosts().clear();
@@ -101,10 +142,10 @@ public class DataLoader {
                     for (int i = 0; i < array.length(); i++) {
                         Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
                         System.out.println(post);
-                        if(!post.getImageUrl().equals("null")){
-                            new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
-                                    ImageLoaderToBitmap.DownloadOption.POST).execute();
-                        }
+//                        if(!post.getImageUrl().equals("null")){
+//                            new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
+//                                    ImageLoaderToBitmap.DownloadOption.POST).execute();
+//                        }
                         CommonData.getInstance().getFoundationPosts().add(post);
                         if (CommonData.getInstance().imageLoadedIf != null) {
                             CommonData.getInstance().imageLoadedIf.dataLoaded();

@@ -30,6 +30,7 @@ public class CommonData {
         userPosts = new ArrayList<>();
         userPostsWithDonations = new ArrayList<>();
         foundationPosts = new ArrayList<>();
+        foundationDonationPosts = new ArrayList<>();
         featuredLotteries = new ArrayList<>();
         lotteryList = new ArrayList<>();
         notifications = new ArrayList<>();
@@ -75,6 +76,12 @@ public class CommonData {
 
     public List<Post> getFoundationPosts() {
         return foundationPosts;
+    }
+
+    private List<Post> foundationDonationPosts;
+
+    public List<Post> getFoundationDonationPosts() {
+        return foundationDonationPosts;
     }
 
     public void copyFoundationPosts() {

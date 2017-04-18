@@ -21,6 +21,14 @@ import cm.com.newdon.classes.User;
 public class JsonHandler {
 
     public static Foundation parseFoundationFromJson(JSONObject item) throws JSONException {
+        boolean isFeatured = false;
+        if (item.has("isFeatured")) {
+            isFeatured = item.getInt("isFeatured") == 1 ? true : false;
+        }
+        boolean isSubscribed= false;
+        if (item.has("isSubscribed")) {
+            isSubscribed = item.getInt("isSubscribed") == 1 ? true : false;
+        }
         int id = item.getInt("id");
         String title = item.getString("title");
         String description = item.getString("description");
@@ -32,7 +40,7 @@ public class JsonHandler {
         String logoUrl = item.getString("logo");
         int  yearFounded = 0; // item.getInt("yearFounded");
         int donatorCount = 0;
-        try {
+         try {
             donatorCount = item.getInt("donatorCount");
         }
         catch (Exception e){
@@ -52,6 +60,8 @@ public class JsonHandler {
                 address,
                 followersCount,
                 headquarter,
+                isFeatured,
+                isSubscribed,
                 logoUrl,
                 donatorCount,
                 new FoundCategory(categoryName,color));
