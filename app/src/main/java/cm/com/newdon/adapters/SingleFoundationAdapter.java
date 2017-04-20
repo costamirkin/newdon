@@ -66,6 +66,7 @@ public class SingleFoundationAdapter extends BaseAdapter {
         TextView country    = (TextView) rl.findViewById(R.id.country);
         TextView headquater = (TextView) rl.findViewById(R.id.headquater);
         TextView number     = (TextView) rl.findViewById(R.id.number);
+        TextView guideStar  = (TextView) rl.findViewById(R.id.guideStar);
         TextView desciption = (TextView) rl.findViewById(R.id.desciption);
 
 
@@ -80,6 +81,7 @@ public class SingleFoundationAdapter extends BaseAdapter {
                 country.setText(f.getAddress());
                 number.setText("" + f.getNumber());
                 headquater.setText(f.getHeadquarter());
+                guideStar.setText(f.getGuideStar());
 
                 desciption.setText(f.getDescription());
             }

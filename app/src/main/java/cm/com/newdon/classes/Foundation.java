@@ -18,6 +18,7 @@ public class Foundation {
     private String headquarter;
     private boolean isFeatured;
     private boolean isSubscribed;
+    private String  guideStar;
 
     public boolean isFeatured() {
         return isFeatured;
@@ -51,7 +52,8 @@ public class Foundation {
             boolean isSubscribed,
             String logoUrl,
             int donatorCount,
-            FoundCategory category) {
+            FoundCategory category,
+            String guideStar) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -65,6 +67,7 @@ public class Foundation {
         this.logoUrl = logoUrl;
         this.donatorCount = donatorCount;
         this.category = category;
+        this.guideStar = guideStar;
     }
 
     public int getId() {
@@ -164,6 +167,14 @@ public class Foundation {
                 ", logoUrl='" + logoUrl + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    public String getGuideStar() {
+        return guideStar;
+    }
+
+    public void setGuideStar(String guideStar) {
+        this.guideStar = guideStar;
     }
 
     public int getFollowersCount() {

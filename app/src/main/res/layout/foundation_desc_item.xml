@@ -93,13 +93,35 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"/>
 
+   <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blueLottery"
+        android:text="GuideStar:"
+        android:id="@+id/guideStarBlue"
+        android:layout_below="@+id/numberBlue"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blueLottery"
+        android:text=""
+        android:id="@+id/guideStar"
+        android:layout_below="@+id/numberBlue"
+        android:layout_toRightOf="@+id/guideStarBlue"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/greyLottery"
         android:text=""
         android:id="@+id/desciption"
-        android:layout_below="@+id/numberBlue"
+        android:layout_below="@+id/guideStarBlue"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="15dp"/>

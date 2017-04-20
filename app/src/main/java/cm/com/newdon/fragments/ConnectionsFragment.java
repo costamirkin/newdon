@@ -2,6 +2,7 @@ package cm.com.newdon.fragments;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
+import cm.com.newdon.BottomBarActivity;
+import cm.com.newdon.ConnectionActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.ContactsAdapter;
 import cm.com.newdon.adapters.NotificationsAdapter;
@@ -59,7 +62,13 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
         finishbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommonData.bottomBarActivity.goHome();
+                if (getActivity().getClass().equals(ConnectionActivity.class)) {
+                    startActivity(new Intent(getActivity(), BottomBarActivity.class));
+                    getActivity().finish();
+                }
+                else {
+                    CommonData.bottomBarActivity.goHome();
+                }
             }
         });
 
@@ -75,6 +84,7 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
             public void onClick(View v) {
                 changeTextViewColors(tvFacebook, tvSuggested, tvContacts);
                 findFacebookConnections();
+                listView.setAdapter(null);
             }
         });
         tvContacts.setOnClickListener(new View.OnClickListener() {

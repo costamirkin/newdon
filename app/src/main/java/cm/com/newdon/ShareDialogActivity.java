@@ -34,6 +34,9 @@ public class ShareDialogActivity extends Activity {
         postId = intent.getIntExtra("postId", 0);
         post = CommonData.getInstance().findPostById(postId);
 
+        if (post == null) {
+            return;
+        }
         // Create the URI from the media
         if(post.getImageUrl()!=null && !post.getImageUrl().equals("")) {
             Picasso.with(getApplicationContext())

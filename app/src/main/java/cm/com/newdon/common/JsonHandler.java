@@ -50,6 +50,10 @@ public class JsonHandler {
         JSONObject categotyObj = item.getJSONObject("category");
         String categoryName = categotyObj.getString("name");
         String color = categotyObj.getString("color");
+        String guideStar = "";
+        if (categotyObj.has("guideStar")) {
+            guideStar = categotyObj.getString("guideStar");
+        }
 
         Foundation foundation = new Foundation(
                 id,
@@ -64,7 +68,8 @@ public class JsonHandler {
                 isSubscribed,
                 logoUrl,
                 donatorCount,
-                new FoundCategory(categoryName,color));
+                new FoundCategory(categoryName,color),
+                guideStar);
 
 //        System.out.println("**************************************");
 //        System.out.println(foundation.getCategory().getName());
