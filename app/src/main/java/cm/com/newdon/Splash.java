@@ -58,7 +58,7 @@ public class Splash extends AppCompatActivity {
                         JSONObject object = new JSONObject(new String(responseBody));
                         CommonData.getInstance().setToken(object.getString("token"));
 
-                        new Handler().postDelayed(new MyRunnable(ConnectionActivity.class),
+                        new Handler().postDelayed(new MyRunnable(BottomBarActivity.class),
                                 SPLASH_TIME_OUT);
 
                     } catch (Exception e) {

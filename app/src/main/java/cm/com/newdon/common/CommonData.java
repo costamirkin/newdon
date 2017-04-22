@@ -49,6 +49,8 @@ public class CommonData {
         return posts;
     }
 
+    public List<Integer> hiddenPosts = new ArrayList<>();
+
     private List<Post> userPosts;
 
     public List<Post> getUserPosts() {

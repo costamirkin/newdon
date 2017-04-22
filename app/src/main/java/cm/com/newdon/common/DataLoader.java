@@ -100,14 +100,17 @@ public class DataLoader {
                     JSONArray array = object.getJSONArray("items");
                     for (int i = 0; i < array.length(); i++) {
                         Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
-                        System.out.println(post);
+                        //System.out.println(post);
 //                        if(!post.getImageUrl().equals("null")){
 //                            new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
 //                                    ImageLoaderToBitmap.DownloadOption.POST).execute();
 //                        }
-                        CommonData.getInstance().getFoundationDonationPosts().add(post);
-                        if (CommonData.getInstance().imageLoadedIf != null) {
-                            CommonData.getInstance().imageLoadedIf.dataLoaded();
+                        if (!CommonData.getInstance().hiddenPosts.contains(post.getId())) {
+
+                            CommonData.getInstance().getFoundationDonationPosts().add(post);
+                            if (CommonData.getInstance().imageLoadedIf != null) {
+                                CommonData.getInstance().imageLoadedIf.dataLoaded();
+                            }
                         }
                     }
                 } catch (JSONException e) {
@@ -141,14 +144,17 @@ public class DataLoader {
                     JSONArray array = object.getJSONArray("items");
                     for (int i = 0; i < array.length(); i++) {
                         Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
-                        System.out.println(post);
+                        //System.out.println(post);
 //                        if(!post.getImageUrl().equals("null")){
 //                            new ImageLoaderToStorage(post.getImageUrl(),context,post.getId(),
 //                                    ImageLoaderToBitmap.DownloadOption.POST).execute();
 //                        }
-                        CommonData.getInstance().getFoundationPosts().add(post);
-                        if (CommonData.getInstance().imageLoadedIf != null) {
-                            CommonData.getInstance().imageLoadedIf.dataLoaded();
+                        if (!CommonData.getInstance().hiddenPosts.contains(post.getId())) {
+
+                            CommonData.getInstance().getFoundationPosts().add(post);
+                            if (CommonData.getInstance().imageLoadedIf != null) {
+                                CommonData.getInstance().imageLoadedIf.dataLoaded();
+                            }
                         }
                     }
                 } catch (JSONException e) {
@@ -182,10 +188,12 @@ public class DataLoader {
                     JSONArray array = object.getJSONArray("items");
                     for (int i = 0; i < array.length(); i++) {
                         Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
-                        System.out.println(post);
-                        CommonData.getInstance().getUserPosts().add(post);
-                        if (CommonData.getInstance().imageLoadedIf != null) {
-                            CommonData.getInstance().imageLoadedIf.dataLoaded();
+                        //System.out.println(post);
+                        if (!CommonData.getInstance().hiddenPosts.contains(post.getId())) {
+                            CommonData.getInstance().getUserPosts().add(post);
+                            if (CommonData.getInstance().imageLoadedIf != null) {
+                                CommonData.getInstance().imageLoadedIf.dataLoaded();
+                            }
                         }
                     }
                 } catch (JSONException e) {
@@ -218,10 +226,13 @@ public class DataLoader {
                     JSONArray array = object.getJSONArray("items");
                     for (int i = 0; i < array.length(); i++) {
                         Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
-                        System.out.println(post);
-                        CommonData.getInstance().getUserPostsWithDonations().add(post);
-                        if (CommonData.getInstance().imageLoadedIf != null) {
-                            CommonData.getInstance().imageLoadedIf.dataLoaded();
+                        //System.out.println(post);
+                        if (!CommonData.getInstance().hiddenPosts.contains(post.getId())) {
+
+                            CommonData.getInstance().getUserPostsWithDonations().add(post);
+                            if (CommonData.getInstance().imageLoadedIf != null) {
+                                CommonData.getInstance().imageLoadedIf.dataLoaded();
+                            }
                         }
                     }
                 } catch (JSONException e) {
@@ -522,7 +533,7 @@ public class DataLoader {
                     JSONArray array = object.getJSONArray("items");
                     for (int i = 0; i < array.length(); i++) {
                         Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
-                        System.out.println(post);
+                        //System.out.println(post);
 
                         //the old code if we don't use picasso
 //                        if(!post.getImageUrl().equals("null")){

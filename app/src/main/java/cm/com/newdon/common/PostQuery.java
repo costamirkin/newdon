@@ -32,6 +32,9 @@ public class PostQuery {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (action.equals(PostQuery.PostAction.HIDE)) {
+                    CommonData.getInstance().hiddenPosts.add(postId);
+                }
                 CommonData.getInstance().getPosts().remove(CommonData.getInstance().findPostById(postId));
                 if (CommonData.getInstance().imageLoadedIf != null) {
                     CommonData.getInstance().imageLoadedIf.dataLoaded();

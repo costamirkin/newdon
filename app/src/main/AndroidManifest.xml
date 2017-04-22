@@ -150,7 +150,7 @@
             android:name=".ForgotPswdActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Dialog"/>
+            android:theme="@style/NoTitleDialog"/>
     </application>
 
 </manifest>

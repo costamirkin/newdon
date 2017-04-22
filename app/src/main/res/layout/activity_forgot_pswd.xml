@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="cm.com.newdon.ForgotPswdActivity">
@@ -49,6 +50,7 @@
             android:layout_alignParentTop="true"
             android:paddingLeft="48dp"
             android:paddingBottom="5dp"
+            android:textColor="#000"
             android:background="@drawable/rectangle_5_3"
             android:inputType="textEmailAddress"
             android:ems="10"
@@ -103,9 +105,11 @@
         android:layout_height="wrap_content"
         android:textColor="#898989"
         android:layout_below="@+id/header2Line"
+        android:textStyle="italic"
         android:text="Tip: in case if you can’t find email we sent you, try to check “spam” folder in your mailbox. Thank you for staying with us :)"
         android:textSize="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/header3Tv"/>
 
 </RelativeLayout>
