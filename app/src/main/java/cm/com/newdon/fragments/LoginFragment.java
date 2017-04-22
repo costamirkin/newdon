@@ -20,6 +20,7 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
 
 import cm.com.newdon.BottomBarActivity;
+import cm.com.newdon.ForgotPswdActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.RestClient;
@@ -45,24 +46,24 @@ public class LoginFragment extends Fragment {
         forgotPswTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RequestParams params = new RequestParams();
-                params.put("email", emailEt.getText().toString());
-                System.out.println("asdfgasdfa");
-
-                RestClient.loginSignup("forgot", params, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        Toast.makeText(getActivity().getApplicationContext(),
-                                "New password was send to your mail", Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        Toast.makeText(getActivity().getApplicationContext(),
-                                "Wrong email, enter email again", Toast.LENGTH_LONG).show();
-
-                    }
-                });
+                startActivity(new Intent(getActivity(), ForgotPswdActivity.class));
+//                RequestParams params = new RequestParams();
+//                params.put("email", emailEt.getText().toString());
+//
+//                RestClient.loginSignup("forgot", params, new AsyncHttpResponseHandler() {
+//                    @Override
+//                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                        Toast.makeText(getActivity().getApplicationContext(),
+//                                "New password was send to your mail", Toast.LENGTH_LONG).show();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                        Toast.makeText(getActivity().getApplicationContext(),
+//                                "Wrong email, enter email again", Toast.LENGTH_LONG).show();
+//
+//                    }
+//                });
 
 
             }

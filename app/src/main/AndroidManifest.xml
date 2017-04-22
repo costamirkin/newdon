@@ -142,10 +142,15 @@
             android:name=".TestActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".ConnectionActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:name=".ConnectionActivity"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".ForgotPswdActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
     </application>
 
 </manifest>

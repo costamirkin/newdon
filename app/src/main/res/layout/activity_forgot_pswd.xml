@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context="cm.com.newdon.ForgotPswdActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="#555d7e"
+        android:text="Forgot password?"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/headerTv"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="#d6d6d6"
+        android:layout_below="@+id/headerTv"
+        android:layout_marginTop="27dp"
+        android:layout_height="1dp"
+        android:id="@+id/headerLine"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000"
+        android:layout_below="@+id/headerLine"
+        android:gravity="center"
+        android:text="Type your email, we will send you recovery instructions."
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/header2Tv"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/header2Tv"
+        android:layout_marginTop="30dp"
+        android:id="@+id/emailRl"
+        android:layout_height="72dp">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="48dp"
+            android:paddingBottom="5dp"
+            android:background="@drawable/rectangle_5_3"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:hint="Email"
+            android:id="@+id/email"/>
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="12dp"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/mail_icn"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="30dp"/>
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:weightSum="100"
+        android:layout_marginTop="5dp"
+        android:id="@+id/buttonsRl"
+        android:orientation="horizontal"
+        android:layout_below="@+id/emailRl">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="45"
+            android:onClick="cancel"
+            android:background="@drawable/cancel_btn"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:background="#0000" />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="45"
+            android:onClick="send"
+            android:background="@drawable/send_btn"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="#d6d6d6"
+        android:layout_below="@+id/buttonsRl"
+        android:layout_marginTop="10dp"
+        android:layout_height="1dp"
+        android:id="@+id/header2Line"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#898989"
+        android:layout_below="@+id/header2Line"
+        android:text="Tip: in case if you can’t find email we sent you, try to check “spam” folder in your mailbox. Thank you for staying with us :)"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/header3Tv"/>
+
+</RelativeLayout>
