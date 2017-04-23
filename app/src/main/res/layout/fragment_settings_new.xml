@@ -104,7 +104,7 @@
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="80dp"
         android:background="@drawable/rectangle_46b"
         android:text="Logout" />
 

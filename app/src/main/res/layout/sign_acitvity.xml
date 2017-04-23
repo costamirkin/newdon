@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rootLayout"
     tools:context="cm.com.newdon.SignAcitvity">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:id="@+id/bgImage"
         android:layout_alignParentTop="true"
         android:background="@drawable/vector_smart_object"/>
 
