@@ -32,7 +32,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.fragment_settings,container,false);
+        View v =inflater.inflate(R.layout.fragment_settings_new,container,false);
 
 
         supportBg = (ImageView) v.findViewById(R.id.supportBg);
