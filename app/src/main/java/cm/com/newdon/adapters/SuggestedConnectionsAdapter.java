@@ -1,6 +1,7 @@
 package cm.com.newdon.adapters;
 
 import android.content.Context;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -90,7 +91,14 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
             Object blueSpan = new ForegroundColorSpan(0xff5d9bff);
             int indexOf = realName.indexOf(searchStr);
             if (indexOf != -1) {
-                spannableString.setSpan(blueSpan, indexOf, indexOf + searchStr.length(), 0);
+                spannableString.setSpan(new ForegroundColorSpan(0xff5d9bff), indexOf, indexOf + searchStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                while (indexOf >= 0) {
+                    indexOf = realName.indexOf(searchStr, indexOf + 1);
+                    if (indexOf != -1) {
+                        spannableString.setSpan(new ForegroundColorSpan(0xff5d9bff), indexOf, indexOf + searchStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                }
                 tvUserMail.setText(spannableString);
             }
         }
