@@ -123,7 +123,7 @@ public class FacebookFragment extends Fragment {
 //                            editor.putString("email", emailEt.getText().toString());
 //                            editor.putString("password", pswdEt.getText().toString());
                             editor.commit();
-                            //startActivity(new Intent(getActivity(), BottomBarActivity.class));
+                            startActivity(new Intent(getActivity(), BottomBarActivity.class));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

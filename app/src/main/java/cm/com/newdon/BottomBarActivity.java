@@ -46,10 +46,11 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
     ProfileDonatesFragment profileDonatesFragment = new ProfileDonatesFragment();
     NotificationFragment notificationFragment = new NotificationFragment();
     FoundationDonatesFragment foundationDonatesFragment = new FoundationDonatesFragment();
-    ConnectionsFragment connectionsFragment = new ConnectionsFragment();
     OnePostFragment onePostFragment = new OnePostFragment();
     PostDonationsFragment postDonationsFragment = new PostDonationsFragment();
     CircleImageView profileImage;
+    ConnectionsFragment connectionsFragment = new ConnectionsFragment();
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -221,6 +222,9 @@ public class BottomBarActivity extends AppCompatActivity implements OnPostSelect
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (CommonData.getInstance().imageLoadedIf.getClass().equals(ConnectionsFragment.class)) {
+            connectionsFragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override

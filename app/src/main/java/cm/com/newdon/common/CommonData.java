@@ -7,6 +7,7 @@ import java.util.List;
 
 import cm.com.newdon.BottomBarActivity;
 import cm.com.newdon.classes.Comment;
+import cm.com.newdon.classes.FbUser;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Lottery;
 import cm.com.newdon.classes.Notification;
@@ -285,4 +286,7 @@ public class CommonData {
     public static BottomBarActivity bottomBarActivity = null;
 
     public static String myName = "";
+
+
+    public ArrayList<FbUser> fbUsers = new ArrayList<>();
 }

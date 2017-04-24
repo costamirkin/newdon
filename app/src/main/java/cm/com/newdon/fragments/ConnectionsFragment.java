@@ -3,6 +3,7 @@ package cm.com.newdon.fragments;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,14 +17,25 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -31,24 +43,34 @@ import cm.com.newdon.BottomBarActivity;
 import cm.com.newdon.ConnectionActivity;
 import cm.com.newdon.R;
 import cm.com.newdon.adapters.ContactsAdapter;
+import cm.com.newdon.adapters.FbConnectionsAdapter;
 import cm.com.newdon.adapters.NotificationsAdapter;
 import cm.com.newdon.adapters.SuggestedConnectionsAdapter;
+import cm.com.newdon.classes.FbUser;
 import cm.com.newdon.classes.PhoneContact;
 import cm.com.newdon.common.CommonData;
 import cm.com.newdon.common.DataLoadedIf;
 import cm.com.newdon.common.DataLoader;
+import cm.com.newdon.common.RestClient;
+import cz.msebera.android.httpclient.Header;
 
 public class ConnectionsFragment extends Fragment implements DataLoadedIf {
 
-    ListView listView;
-    private boolean isContactsFirst = true;
+    private ListView    listView;
+    private LoginButton loginButton;
+    private boolean     isContactsFirst = true;
+    private CallbackManager callbackManager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view =  inflater.inflate(R.layout.fragment_connections, container, false);
         listView = (ListView) view.findViewById(R.id.lvConnections);
+        loginButton = (LoginButton) view.findViewById(R.id.facebook);
         DataLoader.getSuggestedUsers();
+
+        fbConnectionsAdapter = new FbConnectionsAdapter(getActivity());
 
         showSuggestedConnections();
         listView.setAdapter(new SuggestedConnectionsAdapter(getActivity(), false,
@@ -77,14 +99,51 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
             public void onClick(View v) {
                 showSuggestedConnections();
                 changeTextViewColors(tvSuggested, tvFacebook, tvContacts);
+                listView.setVisibility(View.VISIBLE);
+                loginButton.setVisibility(View.INVISIBLE);
             }
         });
+        callbackManager = CallbackManager.Factory.create();
+
         tvFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changeTextViewColors(tvFacebook, tvSuggested, tvContacts);
-                findFacebookConnections();
-                listView.setAdapter(null);
+                //findFacebookConnections();
+                listView.setVisibility(View.INVISIBLE);
+                loginButton.setVisibility(View.VISIBLE);
+                loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        System.out.println("SUCCESS");
+                        ProfileTracker profileTracker = new ProfileTracker() {
+                            @Override
+                            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                                this.stopTracking();
+                                Profile.setCurrentProfile(currentProfile);
+
+
+                            }
+                        };
+                        profileTracker.startTracking();
+
+
+                        AccessToken token = AccessToken.getCurrentAccessToken();
+                        findFacebookConnections();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        System.out.println("CANCEL");
+
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        System.out.println("Error " + error.getMessage());
+
+                    }
+                });
             }
         });
         tvContacts.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +153,8 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
                 progressDialog = ProgressDialog.show(getActivity(),
                         "Please wait ...", "Reading Contacts ...", true);
                 progressDialog.setCancelable(false);
+                listView.setVisibility(View.VISIBLE);
+                loginButton.setVisibility(View.INVISIBLE);
 
                 showContacts();
             }
@@ -121,10 +182,27 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
                     HttpMethod.GET,
                     new GraphRequest.Callback() {
                         public void onCompleted(GraphResponse response) {
-                            System.out.println(response.toString());
+                            //System.out.println(response.toString());
                             try {
+                                CommonData.getInstance().fbUsers.clear();
                                 JSONArray rawName = response.getJSONObject().getJSONArray("data");
+                                System.out.println("length     " + rawName.length());
+                                for (int i = 0; i < rawName.length(); i++) {
+                                    JSONObject fbUserObject = rawName.getJSONObject(i);
+                                    String id   = fbUserObject.getString("id");
+                                    String name = fbUserObject.getString("name");
+                                    JSONObject picture = fbUserObject.getJSONObject("picture");
+                                    JSONObject data    = picture.getJSONObject("data");
+                                    String url = data.getString("url");
+                                    CommonData.getInstance().fbUsers.add(new FbUser(id, name, url));
+
+                                }
                                 System.out.println(rawName.length());
+
+
+                                listView.setAdapter(fbConnectionsAdapter);
+                                listView.setVisibility(View.VISIBLE);
+                                loginButton.setVisibility(View.INVISIBLE);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -151,6 +229,7 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
     }
 
     private SuggestedConnectionsAdapter suggestedConnectionsAdapter = null;
+    private FbConnectionsAdapter        fbConnectionsAdapter = null;
     private ContactsAdapter             contactsAdapter             = null;
 
     private void showSuggestedConnections() {
@@ -264,6 +343,12 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
     @Override
     public void imageLoaded(int postId) {
 
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
