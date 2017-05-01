@@ -171,6 +171,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
+                        android:onClick="shareAppLinkViaFacebook"
                         android:src="@drawable/facebook_logo" />
                 </RelativeLayout>
 
@@ -191,6 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:onClick="tweet"
                         android:layout_centerVertical="true"
                         android:src="@drawable/twitter_logo" />
                 </RelativeLayout>

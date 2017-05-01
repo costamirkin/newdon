@@ -86,10 +86,29 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
         TextView        tvUserMail     = (TextView) layout.findViewById(R.id.tvUserMail);
         String realName = user.getRealName();
         tvUserMail.setText(realName);
+        TextView  tvAction     = (TextView) layout.findViewById(R.id.tvFollowers);
+        String    name = user.getUserName();
+        tvAction.setText(name);
         if (searchMode) {
+            tvAction.setTextColor(context.getResources().getColor(R.color.grey));
+            tvAction.setVisibility(View.VISIBLE);
+            SpannableString spannableString1 = new SpannableString(name);
+            int indexOf = name.indexOf(searchStr);
+            if (indexOf != -1) {
+                spannableString1.setSpan(new ForegroundColorSpan(0xff5d9bff), indexOf, indexOf + searchStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                while (indexOf >= 0) {
+                    indexOf = name.indexOf(searchStr, indexOf + 1);
+                    if (indexOf != -1) {
+                        spannableString1.setSpan(new ForegroundColorSpan(0xff5d9bff), indexOf, indexOf + searchStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                }
+                tvAction.setText(spannableString1);
+            }
+
+
             SpannableString spannableString = new SpannableString(realName);
-            Object blueSpan = new ForegroundColorSpan(0xff5d9bff);
-            int indexOf = realName.indexOf(searchStr);
+            indexOf = realName.indexOf(searchStr);
             if (indexOf != -1) {
                 spannableString.setSpan(new ForegroundColorSpan(0xff5d9bff), indexOf, indexOf + searchStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -102,8 +121,10 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
                 tvUserMail.setText(spannableString);
             }
         }
-        TextView        tvFollowers    = (TextView) layout.findViewById(R.id.tvFollowers);
-        tvFollowers.setText("" + user.getFollowersCount());
+        else {
+            TextView tvFollowers = (TextView) layout.findViewById(R.id.tvFollowers);
+            tvFollowers.setText("" + user.getFollowersCount());
+        }
         final ImageView       ivNotification = (ImageView) layout.findViewById(R.id.imFollow);
         if (user.isFollowed()) {
             ivNotification.setImageResource(R.drawable.following_btn);

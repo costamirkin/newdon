@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import cm.com.newdon.classes.Foundation;
 import cm.com.newdon.classes.Post;
 import cm.com.newdon.common.CommonData;
+import cm.com.newdon.common.DataLoader;
 import cm.com.newdon.common.RestClient;
 import cz.msebera.android.httpclient.Header;
 
@@ -78,6 +79,7 @@ public class MakeDonActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Toast.makeText(getApplicationContext(),"YOU made a DON!", Toast.LENGTH_LONG).show();
+                DataLoader.getFeaturedLotteries();
                 CommonData.getInstance().getCurrentUser().setDonCount(CommonData.getInstance().getCurrentUser().getDonCount()+1);
                 Intent intent = new Intent(getApplicationContext(),BottomBarActivity.class);
                 intent.putExtra("success", 1);
