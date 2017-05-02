@@ -134,6 +134,10 @@ public class SuggestedConnectionsAdapter extends BaseAdapter {
             ivNotification.setImageResource(R.drawable.follow_btn);
         }
 
+        if (user.getUserName().equals(CommonData.getInstance().getCurrentUser().getUserName())) {
+            ivNotification.setVisibility(View.INVISIBLE);
+        }
+
         ivNotification.setOnClickListener(new FollowListener(ivNotification, user, context));
 
         return layout;

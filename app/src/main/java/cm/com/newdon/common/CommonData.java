@@ -289,4 +289,6 @@ public class CommonData {
 
 
     public ArrayList<FbUser> fbUsers = new ArrayList<>();
+
+    public int feedPage = 0;
 }

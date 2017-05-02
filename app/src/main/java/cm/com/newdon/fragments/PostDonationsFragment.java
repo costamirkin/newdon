@@ -52,7 +52,7 @@ public class PostDonationsFragment extends Fragment implements DataLoadedIf {
             Picasso.with(getActivity()).load(post.getUser().getPictureUrl()).into(profileImage);
         }
         listView = (ListView) v.findViewById(R.id.listView);
-        adapter =  new SuggestedConnectionsAdapter(getActivity(), true, CommonData.getInstance().getPostDonateUsers());
+        adapter =  new SuggestedConnectionsAdapter(getActivity(), false, CommonData.getInstance().getPostDonateUsers());
         listView.setAdapter(adapter);
 
         return v;

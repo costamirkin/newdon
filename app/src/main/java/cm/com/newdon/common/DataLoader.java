@@ -564,7 +564,45 @@ public class DataLoader {
 
         RequestParams params = new RequestParams();
 
-        RestClient.get("feed/wall?page=0&limit=30", params, handler);
+        RestClient.get("feed/wall?page=" + CommonData.getInstance().feedPage +
+                "&limit=30", params, handler);
+    }
+    public static void updateHomeScreenPosts(final Context context) {
+
+        AsyncHttpResponseHandler handler =  new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                //System.out.println(responseBody);
+                try {
+                    JSONObject object = new JSONObject(new String(responseBody));
+                    JSONArray array = object.getJSONArray("items");
+                    for (int i = 0; i < array.length(); i++) {
+                        Post post = JsonHandler.parsePostFromJson(array.getJSONObject(i));
+                        if(!post.getAction().equals("share")) {
+                            CommonData.getInstance().getPosts().add(post);
+                        }
+
+                    }
+                    if (CommonData.getInstance().imageLoadedIf != null) {
+                        CommonData.getInstance().imageLoadedIf.dataLoaded();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("!!!!!!!!!ERROR!!!!!!!!!!!!");
+                if (responseBody != null) {
+                    System.out.println(new String(responseBody));
+                }
+            }
+        };
+
+        RequestParams params = new RequestParams();
+
+        RestClient.get("feed/wall?page=" + CommonData.getInstance().feedPage +
+                "&limit=30", params, handler);
     }
 
     //    get notification|activity list

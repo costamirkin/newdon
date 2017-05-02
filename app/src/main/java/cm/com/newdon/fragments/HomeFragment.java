@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -28,6 +29,7 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
 
     private OnPostSelectedListener mCallBack;
     private ImageView altruImage;
+    private PostsAdapter postsAdapter;
 
     @Override
     public void onAttach(Activity activity) {
@@ -42,14 +44,41 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
         }
     }
 
+
+    boolean flag_loading = false;
+
+    private void additems() {
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
         lv = (ListView) view.findViewById(R.id.lvPosts);
-        lv.setAdapter(new PostsAdapter(getActivity().getApplicationContext(), mCallBack, CommonData.getInstance().getPosts()));
+        postsAdapter = new PostsAdapter(getActivity().getApplicationContext(), mCallBack, CommonData.getInstance().getPosts());
+        lv.setAdapter(postsAdapter);
         lv.invalidateViews();
+
+        lv.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+
+            }
+
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+
+                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0) {
+                    if (flag_loading == false) {
+                        flag_loading = true;
+                        CommonData.getInstance().feedPage++;
+                        DataLoader.updateHomeScreenPosts(getActivity());
+                    }
+                }
+            }
+        });
 
         altruImage = (ImageView) view.findViewById(R.id.altruImage);
         altruImage.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +132,14 @@ public class HomeFragment extends Fragment implements DataLoadedIf {
 
     @Override
     public void dataLoaded() {
-        lv.invalidateViews();
-        ((BottomBarActivity)getActivity()).changeNotificationBadge();
+        if (flag_loading) {
+            flag_loading = false;
+            postsAdapter.notifyDataSetChanged();
+
+        }
+        else {
+            lv.invalidateViews();
+            ((BottomBarActivity) getActivity()).changeNotificationBadge();
+        }
     }
 }

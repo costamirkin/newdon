@@ -77,6 +77,10 @@ public class DonateActivity extends AppCompatActivity implements DataLoadedIf {
         int foundationId = intent.getIntExtra("foundationId", 0);
         foundation = CommonData.getInstance().findFoundById(foundationId);
 
+        if (foundation == null) {
+            return;
+        }
+
         DataLoader.getFoundationData(foundation.getId());
 
         TextView tvTitle = (TextView) findViewById(R.id.tvFoundTitle);

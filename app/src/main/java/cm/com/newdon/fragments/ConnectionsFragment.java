@@ -246,7 +246,6 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
 
     private void showContacts() {
         new TimerThread().start();
-        listView.setAdapter(contactsAdapter);
 
     }
 
@@ -261,6 +260,8 @@ public class ConnectionsFragment extends Fragment implements DataLoadedIf {
                 @Override
                 public void run() {
                     progressDialog.cancel();
+                    listView.setAdapter(contactsAdapter);
+
                 }
             });
 

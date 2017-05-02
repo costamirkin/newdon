@@ -27,6 +27,10 @@ public class SignAcitvity extends ActionBarActivity {
     CharSequence Titles[]={"LOGIN", "SIGNUP","FACEBOOK"};
     int Numboftabs = 3;
 
+
+    private boolean first = true;
+    private int savedHeight1 ;
+    private int savedHeight2 ;
     private ViewTreeObserver.OnGlobalLayoutListener keyboardLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
         @Override
         public void onGlobalLayout() {
@@ -38,20 +42,26 @@ public class SignAcitvity extends ActionBarActivity {
             ImageView logo = (ImageView) findViewById(R.id.logo);
             ViewGroup.LayoutParams params2 = logo.getLayoutParams();
 
+            if (first) {
+                savedHeight1 = params1.height;
+                savedHeight2 = params2.height;
+                first = false;
+            }
+
             if(heightDiff <= 100){
                 onHideKeyboard();
-                params1.height=300;
+                params1.height=savedHeight1;
                 bgImage.setLayoutParams(params1);
-                params2.height=200;
+                params2.height=savedHeight2;
                 logo.setLayoutParams(params2);
 
             } else {
                 int keyboardHeight = heightDiff - contentViewTop;
                 rootLayout.invalidate();
                 onShowKeyboard(keyboardHeight);
-                params1.height=200;
+                params1.height = savedHeight1 / 3 * 2;
                 bgImage.setLayoutParams(params1);
-                params2.height=100;
+                params2.height = savedHeight2 / 2;
                 logo.setLayoutParams(params2);
 
             }
